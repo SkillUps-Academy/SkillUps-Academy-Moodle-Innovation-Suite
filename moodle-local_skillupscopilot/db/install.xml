@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<XMLDB PATH="local/skillupscopilot/db" VERSION="20261121" COMMENT="SkillUps AI Copilot schema"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="../../../lib/xmldb/xmldb.xsd">
+  <TABLES>
+    <TABLE NAME="local_skillupscopilot_thread" COMMENT="Private conversation headers">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+        <FIELD NAME="userid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="courseid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="timecreated" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="timemodified" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+      </KEYS>
+      <INDEXES>
+        <INDEX NAME="userid_courseid_timemodified" UNIQUE="false" FIELDS="userid,courseid,timemodified"/>
+      </INDEXES>
+    </TABLE>
+    <TABLE NAME="local_skillupscopilot_turn" COMMENT="Conversation turns">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+        <FIELD NAME="threadid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="requestkey" TYPE="char" LENGTH="32" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="mode" TYPE="char" LENGTH="16" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="lang" TYPE="char" LENGTH="30" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="provider" TYPE="char" LENGTH="16" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="providerrev" TYPE="char" LENGTH="64" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="prompt" TYPE="text" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="answer" TYPE="text" NOTNULL="false" SEQUENCE="false"/>
+        <FIELD NAME="manifest" TYPE="text" NOTNULL="false" SEQUENCE="false"/>
+        <FIELD NAME="status" TYPE="char" LENGTH="16" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="rating" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+        <FIELD NAME="timecreated" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="timemodified" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+        <KEY NAME="threadid" TYPE="foreign" FIELDS="threadid" REFTABLE="local_skillupscopilot_thread" REFFIELDS="id"/>
+      </KEYS>
+      <INDEXES>
+        <INDEX NAME="threadid_id" UNIQUE="false" FIELDS="threadid,id"/>
+        <INDEX NAME="status_timemodified" UNIQUE="false" FIELDS="status,timemodified"/>
+        <INDEX NAME="threadid_requestkey" UNIQUE="true" FIELDS="threadid,requestkey"/>
+      </INDEXES>
+    </TABLE>
+    <TABLE NAME="local_skillupscopilot_meter" COMMENT="Request reservations and measured usage">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+        <FIELD NAME="turnid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="userid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="courseid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="provider" TYPE="char" LENGTH="16" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="status" TYPE="char" LENGTH="16" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="inputtokens" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+        <FIELD NAME="outputtokens" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+        <FIELD NAME="timecreated" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="timemodified" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+      </KEYS>
+      <INDEXES>
+        <INDEX NAME="timecreated" UNIQUE="false" FIELDS="timecreated"/>
+        <INDEX NAME="userid_timecreated" UNIQUE="false" FIELDS="userid,timecreated"/>
+        <INDEX NAME="courseid_timecreated" UNIQUE="false" FIELDS="courseid,timecreated"/>
+        <INDEX NAME="provider_timemodified" UNIQUE="false" FIELDS="provider,timemodified"/>
+        <INDEX NAME="turnid" UNIQUE="true" FIELDS="turnid"/>
+      </INDEXES>
+    </TABLE>
+    <TABLE NAME="local_skillupscopilot_source" COMMENT="Curated File API documents">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+        <FIELD NAME="courseid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="cmid" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+        <FIELD NAME="groupid" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+        <FIELD NAME="title" TYPE="char" LENGTH="200" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="revision" TYPE="char" LENGTH="32" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="timecreated" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+      </KEYS>
+      <INDEXES>
+        <INDEX NAME="courseid_id" UNIQUE="false" FIELDS="courseid,id"/>
+      </INDEXES>
+    </TABLE>
+    <TABLE NAME="local_skillupscopilot_course" COMMENT="Per-course request limit overrides">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+        <FIELD NAME="courseid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="requestlimit" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+      </KEYS>
+      <INDEXES>
+        <INDEX NAME="courseid" UNIQUE="true" FIELDS="courseid"/>
+      </INDEXES>
+    </TABLE>
+  </TABLES>
+</XMLDB>

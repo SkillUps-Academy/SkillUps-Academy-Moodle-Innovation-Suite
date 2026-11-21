@@ -1,0 +1,33 @@
+
+{{!
+    @template local_skillupscopilot/sources
+    Lists curated course sources and access restrictions.
+}}
+<main class="local-skillupscopilot">
+    <div class="local-skillupscopilot-banner">
+        <h2>{{#str}} sources, local_skillupscopilot {{/str}}</h2>
+        <p>{{#str}} sourceintro, local_skillupscopilot {{/str}}</p>
+        <a class="btn btn-outline-primary" href="{{chaturl}}">{{#str}} pluginname, local_skillupscopilot {{/str}}</a>
+    </div>
+    <div class="local-skillupscopilot-panel">
+        {{#sources.0}}
+        <div class="table-responsive">
+            <table class="table">
+                <caption>{{#str}} sources, local_skillupscopilot {{/str}}</caption>
+                <thead><tr>
+                    <th scope="col">{{#str}} sourcetitle, local_skillupscopilot {{/str}}</th>
+                    <th scope="col">{{#str}} activityscope, local_skillupscopilot {{/str}}</th>
+                    <th scope="col">{{#str}} groupscope, local_skillupscopilot {{/str}}</th>
+                    <th scope="col">{{#str}} action, local_skillupscopilot {{/str}}</th>
+                </tr></thead>
+                <tbody>{{#sources}}
+                    <tr><th scope="row">{{title}}</th><td>{{module}}</td><td>{{group}}</td>
+                        <td><a href="{{url}}">{{#str}} remove, local_skillupscopilot {{/str}}</a></td></tr>
+                {{/sources}}</tbody>
+            </table>
+        </div>
+        {{/sources.0}}
+        {{^sources.0}}<p>{{#str}} nosources, local_skillupscopilot {{/str}}</p>{{/sources.0}}
+        {{{form}}}
+    </div>
+</main>

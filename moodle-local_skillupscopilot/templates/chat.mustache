@@ -1,0 +1,75 @@
+
+{{!
+    @template local_skillupscopilot/chat
+    Displays the course or site chat and private history.
+}}
+<div class="local-skillupscopilot">
+    <div class="local-skillupscopilot-banner">
+        <h2>{{#str}} pluginname, local_skillupscopilot {{/str}}</h2>
+        <p>{{#sitechat}}{{#str}} siteintro, local_skillupscopilot {{/str}}{{/sitechat}}
+            {{^sitechat}}{{#str}} courseintro, local_skillupscopilot {{/str}}{{/sitechat}}</p>
+        <div class="local-skillupscopilot-actions">
+            <a class="btn btn-outline-primary" href="{{base}}">{{#str}} newconversation, local_skillupscopilot {{/str}}</a>
+            {{#sourceurl}}<a class="btn btn-outline-secondary" href="{{sourceurl}}">{{#str}} sources, local_skillupscopilot {{/str}}</a>{{/sourceurl}}
+            {{#adminurl}}<a class="btn btn-outline-secondary" href="{{adminurl}}">{{#str}} dashboard, local_skillupscopilot {{/str}}</a>{{/adminurl}}
+        </div>
+    </div>
+    <div class="local-skillupscopilot-grid">
+        <nav class="local-skillupscopilot-panel" aria-label="{{#str}} history, local_skillupscopilot {{/str}}">
+            <h3>{{#str}} history, local_skillupscopilot {{/str}}</h3>
+            <ul class="list-unstyled">
+            {{#threads}}
+                <li class="mb-2">
+                    <a class="d-block p-2 {{#active}}bg-light fw-bold{{/active}}" href="{{url}}" {{#active}}aria-current="page"{{/active}}>{{label}}</a>
+                </li>
+            {{/threads}}
+            </ul>
+            {{^threads}}<p>{{#str}} nohistory, local_skillupscopilot {{/str}}</p>{{/threads}}
+            {{{threadpaging}}}
+        </nav>
+        <section class="local-skillupscopilot-panel" aria-label="{{#str}} conversation, local_skillupscopilot {{/str}}">
+            <div class="local-skillupscopilot-actions mb-3">
+                <h3 class="mb-0">{{#str}} conversation, local_skillupscopilot {{/str}}</h3>
+                {{#deleteurl}}<a class="btn btn-outline-danger btn-sm" href="{{deleteurl}}">{{#str}} removeconversation, local_skillupscopilot {{/str}}</a>{{/deleteurl}}
+            </div>
+            {{^turns}}<p>{{#str}} noturns, local_skillupscopilot {{/str}}</p>{{/turns}}
+            {{{turnpaging}}}
+            {{#turns}}
+                <article class="local-skillupscopilot-turn">
+                    <div class="local-skillupscopilot-prompt">
+                        <h4 class="h6">{{#str}} yourprompt, local_skillupscopilot {{/str}}</h4>
+                        <p class="local-skillupscopilot-text">{{prompt}}</p>
+                        <small>{{date}}</small>
+                    </div>
+                    <div class="local-skillupscopilot-answer">
+                        <h4 class="h6">{{#str}} aigenerated, local_skillupscopilot {{/str}}</h4>
+                        {{#status}}<p role="status">{{status}}</p>{{/status}}
+                        {{#answer}}<p class="local-skillupscopilot-text">{{answer}}</p>{{/answer}}
+                        {{#sources.0}}
+                            <h5 class="h6">{{#str}} retrievedsources, local_skillupscopilot {{/str}}</h5>
+                            <ul>{{#sources}}<li>{{title}}</li>{{/sources}}</ul>
+                        {{/sources.0}}
+                        {{#answer}}
+                        <form method="post" action="{{url}}" class="local-skillupscopilot-actions"
+                            aria-label="{{#str}} rate, local_skillupscopilot {{/str}}">
+                            <input type="hidden" name="sesskey" value="{{sesskey}}">
+                            <input type="hidden" name="action" value="rate">
+                            <input type="hidden" name="turnid" value="{{id}}">
+                            <input type="hidden" name="turnpage" value="{{turnpage}}">
+                            <button class="btn btn-outline-secondary btn-sm" name="rating" value="1"
+                                aria-pressed="{{#positive}}true{{/positive}}{{^positive}}false{{/positive}}">{{#str}} helpful, local_skillupscopilot {{/str}}</button>
+                            <button class="btn btn-outline-secondary btn-sm" name="rating" value="-1"
+                                aria-pressed="{{#negative}}true{{/negative}}{{^negative}}false{{/negative}}">{{#str}} unhelpful, local_skillupscopilot {{/str}}</button>
+                        </form>
+                        {{/answer}}
+                    </div>
+                </article>
+            {{/turns}}
+            {{#pending}}
+                <a class="btn btn-outline-primary" href="{{url}}">{{#str}} refresh, local_skillupscopilot {{/str}}</a>
+            {{/pending}}
+            {{#unavailable}}<p class="alert alert-info" role="status">{{#str}} providerunavailable, local_skillupscopilot {{/str}}</p>{{/unavailable}}
+            {{{form}}}
+        </section>
+    </div>
+</div>

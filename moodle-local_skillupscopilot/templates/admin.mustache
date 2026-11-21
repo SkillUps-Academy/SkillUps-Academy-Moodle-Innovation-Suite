@@ -1,0 +1,62 @@
+
+{{!
+    @template local_skillupscopilot/admin
+    Shows provider availability, metering and institutional quota controls.
+}}
+<div class="local-skillupscopilot">
+    <div class="local-skillupscopilot-banner">
+        <h2>{{#str}} dashboard, local_skillupscopilot {{/str}}</h2>
+        <div class="local-skillupscopilot-actions">
+            <a class="btn btn-outline-primary" href="{{settingsurl}}">{{#str}} settings, local_skillupscopilot {{/str}}</a>
+            {{#chaturl}}<a class="btn btn-outline-secondary" href="{{chaturl}}">{{#str}} sitechat, local_skillupscopilot {{/str}}</a>{{/chaturl}}
+        </div>
+    </div>
+    <section class="local-skillupscopilot-panel mb-3">
+        <h3>{{#str}} usage, local_skillupscopilot {{/str}}</h3>
+        <p>{{#str}} usagedesc, local_skillupscopilot {{/str}}</p>
+        <form method="get" action="{{filterurl}}" class="local-skillupscopilot-actions align-items-end mb-3">
+            <div><label for="local-skillupscopilot-course">{{#str}} courseid, local_skillupscopilot {{/str}}</label>
+                <input id="local-skillupscopilot-course" name="courseid" class="form-control" type="number" min="0" value="{{courseid}}"></div>
+            <div><label for="local-skillupscopilot-user">{{#str}} userid, local_skillupscopilot {{/str}}</label>
+                <input id="local-skillupscopilot-user" name="userid" class="form-control" type="number" min="0" value="{{userid}}"></div>
+            <button class="btn btn-primary">{{#str}} filter, local_skillupscopilot {{/str}}</button>
+        </form>
+        <div class="table-responsive">
+            <table class="table">
+                <caption>{{#str}} providerstats, local_skillupscopilot {{/str}}</caption>
+                <thead><tr>
+                    <th scope="col">{{#str}} provider, local_skillupscopilot {{/str}}</th>
+                    <th scope="col">{{#str}} model, local_skillupscopilot {{/str}}</th>
+                    <th scope="col">{{#str}} availability, local_skillupscopilot {{/str}}</th>
+                    <th scope="col">{{#str}} lastresult, local_skillupscopilot {{/str}}</th>
+                    <th scope="col">{{#str}} requeststoday, local_skillupscopilot {{/str}}</th>
+                    <th scope="col">{{#str}} requests30, local_skillupscopilot {{/str}}</th>
+                    <th scope="col">{{#str}} inputtokens, local_skillupscopilot {{/str}}</th>
+                    <th scope="col">{{#str}} outputtokens, local_skillupscopilot {{/str}}</th>
+                    <th scope="col">{{#str}} failures, local_skillupscopilot {{/str}}</th>
+                </tr></thead>
+                <tbody>{{#rows}}
+                    <tr><th scope="row">{{name}}</th><td>{{model}}</td><td>{{availability}}</td><td>{{last}}</td>
+                        <td>{{today}}</td><td>{{requests}}</td><td>{{input}}</td><td>{{output}}</td><td>{{failures}}</td></tr>
+                {{/rows}}</tbody>
+            </table>
+        </div>
+        {{#exporturl}}
+        <form method="post" action="{{exporturl}}">
+            <input type="hidden" name="sesskey" value="{{sesskey}}">
+            <button class="btn btn-outline-primary" name="export" value="1">{{#str}} exportcsv, local_skillupscopilot {{/str}}</button>
+        </form>
+        {{/exporturl}}
+    </section>
+    <section class="local-skillupscopilot-panel mb-3">
+        <h3>{{#str}} override, local_skillupscopilot {{/str}}</h3>
+        {{#courseid}}{{#overrideactive}}<p>{{#str}} currentoverride, local_skillupscopilot {{/str}} <strong>{{overridelimit}}</strong></p>{{/overrideactive}}{{/courseid}}
+        {{{form}}}
+    </section>
+    <section class="local-skillupscopilot-panel">
+        <h3>{{#str}} subscription, local_skillupscopilot {{/str}}</h3>
+        <p>{{edition}} {{#expiry}} · {{expiry}}{{/expiry}}</p>
+        <p>{{#str}} renewal, local_skillupscopilot {{/str}}</p>
+        <p>{{#str}} siteidentity, local_skillupscopilot {{/str}} <code>{{siteidentity}}</code></p>
+    </section>
+</div>
