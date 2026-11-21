@@ -29,7 +29,7 @@ Las versiones 5.0–5.2 de la matriz demuestran compatibilidad funcional de los 
 - OpenAI y las APIs compatibles requieren credenciales y destinos institucionales para las pruebas en vivo. La verificación funcional de HTTP utilizó un proveedor simulado. Tampoco se evaluó la calidad de inferencia de un modelo Ollama real.
 - MySQL independiente, instalaciones con PHP 8.4, proveedores reales, cargas concurrentes a escala de producción y migraciones futuras requieren pruebas adicionales.
 - RAG usa coincidencia léxica sobre documentos TXT y Markdown curados. No indexa directamente PDFs, DOCX, entregas, foros, notas ni archivos de otros componentes. Los borradores de actividades y preguntas son textuales y pasan por revisión humana.
-- El repositorio de destino devolvió `Repository not found`. GitHub y Moodle Marketplace requieren las respectivas cuentas autorizadas para publicar. El borrador de la presentación y los materiales de revisión están incluidos.
+- La publicación en GitHub requiere acceso de escritura al repositorio de la suite. La publicación en Moodle Marketplace requiere una cuenta autorizada y la revisión de la ficha. El borrador de la presentación y los materiales de revisión están incluidos.
 
 ## Capturas de la instancia de prueba
 
