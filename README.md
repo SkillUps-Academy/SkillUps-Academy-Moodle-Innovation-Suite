@@ -4,6 +4,7 @@
 - [SkillUps Flow Automation](moodle-local_skillupsflow/README.md) — Visual workflows with Moodle triggers, native actions and human approvals.
 - [SkillUps Question Studio](moodle-local_skillupsquestionstudio/README.md) — Author and review course questions and publish approved assessments to the Moodle question bank.
 - [SkillUps AI Grading Assistant](moodle-local_skillupsaigrading/README.md) — Review assignment evidence and rubric-based suggestions before grading in Moodle.
+- [SkillUps Insight Analytics](moodle-report_skillupsinsight/README.md) — Compare academic periods, publish scoped analytics snapshots, and track institutional targets.
 
 ## SkillUps AI Copilot 0.9.0-beta.1
 
@@ -35,3 +36,12 @@
 - [Installation and provider configuration](moodle-local_skillupsaigrading/docs/administration.md)
 - [Compatibility report and screenshots](moodle-local_skillupsaigrading/docs/validation.md)
 - [Moodle Marketplace submission draft](moodle-local_skillupsaigrading/docs/marketplace.md)
+
+## SkillUps Insight Analytics 0.9.0-beta.1
+
+- [Moodle installation ZIP](releases/skillupsinsight/skillupsinsight-0.9.0-beta.1.zip)
+- [SHA-256 checksum](releases/skillupsinsight/SHA256SUMS)
+- [Installation and administration](moodle-report_skillupsinsight/docs/administration.md)
+- [Indicator definitions and limitations](moodle-report_skillupsinsight/docs/metrics.md)
+- [Compatibility report and screenshots](moodle-report_skillupsinsight/docs/validation.md)
+- [Moodle Marketplace submission draft](moodle-report_skillupsinsight/docs/marketplace.md)

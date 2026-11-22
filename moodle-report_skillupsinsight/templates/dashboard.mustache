@@ -1,0 +1,24 @@
+{{!
+    This file is part of Moodle.
+    SPDX-License-Identifier: GPL-3.0-or-later
+    @template report_skillupsinsight/dashboard
+    Example context (json):
+    {"cards":[{"label":"Enrolled","value":"124","hascomparison":true,"prior":"109","delta":"15"}],"scope":"4 of 4 courses","capture":"Updated"}
+}}
+<section class="skillupsinsight-summary mb-4" aria-labelledby="insight-summary-title">
+    <h3 id="insight-summary-title">{{#str}}overview, report_skillupsinsight{{/str}}</h3>
+    <p class="text-muted">{{scope}} {{#hasprior}}{{priorscope}}{{/hasprior}} {{capture}}</p>
+    <div class="row g-3">
+        {{#cards}}
+        <div class="col-6 col-lg-3">
+            <div class="card h-100 p-3">
+                <span>{{label}}</span>
+                <strong class="fs-3">{{value}}</strong>
+                {{#hascomparison}}
+                <small class="text-muted">{{comparisontext}}</small>
+                {{/hascomparison}}
+            </div>
+        </div>
+        {{/cards}}
+    </div>
+</section>
