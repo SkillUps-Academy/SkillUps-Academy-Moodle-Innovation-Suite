@@ -1,0 +1,76 @@
+{{! @template local_skillupsquestionstudio/project }}
+<div class="qs-studio">
+    <header class="qs-header">
+        <div><h2>{{name}}</h2><p>{{#str}} projectintro, local_skillupsquestionstudio {{/str}}</p></div>
+        <div class="qs-actions">
+            <a class="btn btn-outline-secondary" href="{{back}}">{{#str}} projects, local_skillupsquestionstudio {{/str}}</a>
+            <a class="btn btn-primary" href="{{edit}}">{{#str}} newquestion, local_skillupsquestionstudio {{/str}}</a>
+        </div>
+    </header>
+    <div class="qs-columns">
+        <section class="qs-panel">
+            <h3>{{#str}} sources, local_skillupsquestionstudio {{/str}}</h3><p>{{#str}} sourcesintro, local_skillupsquestionstudio {{/str}}</p>
+            {{^sources}}<p>{{#str}} nosources, local_skillupsquestionstudio {{/str}}</p>{{/sources}}
+            <ul class="qs-list">{{#sources}}<li>
+                <strong>{{name}}</strong> · {{state}}
+                {{#error}}<p class="text-danger mb-1">{{error}}</p>{{/error}}
+                <div class="qs-actions">
+                    {{#preview}}<a href="{{preview}}#qs-evidence">{{#str}} evidence, local_skillupsquestionstudio {{/str}}</a>{{/preview}}
+                    <details><summary>{{#str}} removesource, local_skillupsquestionstudio {{/str}}</summary><p>{{#str}} removesourceconfirm, local_skillupsquestionstudio {{/str}}</p>
+                        <form action="{{url}}" method="post"><input type="hidden" name="sesskey" value="{{sesskey}}"><input type="hidden" name="sourceid" value="{{id}}">
+                            <button class="btn btn-outline-danger btn-sm" name="action" value="remove">{{#str}} remove, local_skillupsquestionstudio {{/str}}</button>
+                        </form>
+                    </details>
+                </div>
+            </li>{{/sources}}</ul>
+            {{{upload}}}
+            {{#preview}}<section id="qs-evidence" class="qs-evidence"><h4>{{name}}</h4><p class="qs-text">{{content}}</p></section>{{/preview}}
+        </section>
+        <section class="qs-panel">
+            <h3>{{#str}} generator, local_skillupsquestionstudio {{/str}}</h3>
+            {{^generation}}<p>{{#str}} waitsource, local_skillupsquestionstudio {{/str}}</p>{{/generation}}
+            {{{generation}}}
+            {{#jobs.0}}<h4>{{#str}} jobs, local_skillupsquestionstudio {{/str}}</h4>
+            <div class="table-responsive"><table class="table">
+                <thead><tr><th scope="col">{{#str}} date, local_skillupsquestionstudio {{/str}}</th><th scope="col">{{#str}} status, local_skillupsquestionstudio {{/str}}</th><th scope="col">{{#str}} produced, local_skillupsquestionstudio {{/str}}</th></tr></thead>
+                <tbody>{{#jobs}}<tr><td>{{date}}</td><td>{{state}}</td><td>{{count}}</td></tr>{{/jobs}}</tbody>
+            </table></div><a href="{{url}}">{{#str}} refresh, local_skillupsquestionstudio {{/str}}</a>{{/jobs.0}}
+        </section>
+    </div>
+    <section class="qs-panel">
+        <h3>{{#str}} questions, local_skillupsquestionstudio {{/str}}</h3>
+        <form action="{{url}}" method="get" class="qs-actions align-items-end mb-3">
+            <input type="hidden" name="courseid" value="{{courseid}}"><input type="hidden" name="id" value="{{id}}">
+            <div><label for="qs-kind">{{#str}} kind, local_skillupsquestionstudio {{/str}}</label><select id="qs-kind" class="form-select" name="kind">
+            {{#kinds}}<option value="{{value}}" {{#selected}}selected{{/selected}}>{{label}}</option>{{/kinds}}</select></div>
+            <div><label for="qs-unit">{{#str}} unit, local_skillupsquestionstudio {{/str}}</label><input id="qs-unit" class="form-control" name="unit" value="{{unitfilter}}"></div>
+            <button class="btn btn-outline-primary">{{#str}} filter, local_skillupsquestionstudio {{/str}}</button>
+        </form>
+        {{^items}}<p>{{#str}} noquestions, local_skillupsquestionstudio {{/str}}</p>{{/items}}
+        <div class="table-responsive"><table class="table">
+            <thead><tr><th scope="col">{{#str}} name, local_skillupsquestionstudio {{/str}}</th><th scope="col">{{#str}} kind, local_skillupsquestionstudio {{/str}}</th><th scope="col">{{#str}} unit, local_skillupsquestionstudio {{/str}}</th><th scope="col">{{#str}} competency, local_skillupsquestionstudio {{/str}}</th><th scope="col">{{#str}} bloom, local_skillupsquestionstudio {{/str}}</th><th scope="col">{{#str}} level, local_skillupsquestionstudio {{/str}}</th><th scope="col">{{#str}} provider, local_skillupsquestionstudio {{/str}}</th><th scope="col">{{#str}} status, local_skillupsquestionstudio {{/str}}</th></tr></thead>
+            <tbody>{{#items}}<tr><th scope="row"><a href="{{href}}">{{name}}</a></th><td>{{type}}</td><td>{{unit}}</td>
+                <td>{{competency}}</td><td>{{bloom}}</td><td>{{level}}</td><td>{{origin}}</td>
+                <td>{{#approved}}{{#str}} approved, local_skillupsquestionstudio {{/str}}{{/approved}}{{^approved}}{{#str}} draft, local_skillupsquestionstudio {{/str}}{{/approved}}</td>
+            </tr>{{/items}}</tbody>
+        </table></div>
+        {{{paging}}}
+    </section>
+    <section class="qs-panel">
+        <h3>{{#str}} variants, local_skillupsquestionstudio {{/str}}</h3>
+        {{#canvariant}}<form action="{{url}}" method="post" class="qs-actions align-items-end">
+            <input type="hidden" name="sesskey" value="{{sesskey}}">
+            <div><label for="qs-vname">{{#str}} variantname, local_skillupsquestionstudio {{/str}}</label>
+                <input id="qs-vname" class="form-control" type="text" name="name" required maxlength="150"></div>
+            <div><label for="qs-size">{{#str}} count, local_skillupsquestionstudio {{/str}}</label>
+                <input id="qs-size" class="form-control" type="number" name="size" required min="1" max="30" value="1"></div>
+            <button class="btn btn-primary" name="action" value="variant">{{#str}} createvariant, local_skillupsquestionstudio {{/str}}</button>
+        </form>{{/canvariant}}
+        {{^canvariant}}<p>{{#str}} approvefirst, local_skillupsquestionstudio {{/str}}</p>{{/canvariant}}
+        <ul class="qs-list">{{#variants}}<li><a href="{{href}}">{{name}}</a> · {{date}}</li>{{/variants}}</ul>
+    </section>
+    {{#candelete}}<section class="qs-panel"><details><summary>{{#str}} deleteproject, local_skillupsquestionstudio {{/str}}</summary>
+        <p>{{#str}} deleteconfirm, local_skillupsquestionstudio {{/str}}</p><form method="post" action="{{url}}"><input type="hidden" name="sesskey" value="{{sesskey}}">
+        <button class="btn btn-outline-danger" name="action" value="delete">{{#str}} confirmdelete, local_skillupsquestionstudio {{/str}}</button></form>
+    </details></section>{{/candelete}}
+</div>

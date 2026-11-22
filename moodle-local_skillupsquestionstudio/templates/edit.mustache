@@ -1,0 +1,25 @@
+{{! @template local_skillupsquestionstudio/edit }}
+<div class="qs-studio">
+    <header class="qs-header"><div><h2>{{#str}} editor, local_skillupsquestionstudio {{/str}}</h2><p>{{name}}</p></div>
+        <a class="btn btn-outline-secondary" href="{{back}}">{{#str}} project, local_skillupsquestionstudio {{/str}}</a></header>
+    {{#old}}<p role="status" class="alert alert-info">{{#str}} historical, local_skillupsquestionstudio {{/str}}</p>{{/old}}
+    {{#duplicateurl}}<p class="alert alert-warning" role="status">
+        <a href="{{duplicateurl}}">{{#str}} nearduplicate, local_skillupsquestionstudio {{/str}}</a></p>{{/duplicateurl}}
+    {{#preview}}<section class="qs-panel">
+        <h3>{{#str}} preview, local_skillupsquestionstudio {{/str}}</h3>
+        {{> local_skillupsquestionstudio/question }}
+    </section>{{/preview}}
+    {{#canreview}}<section class="qs-panel">
+        <h3>{{#str}} review, local_skillupsquestionstudio {{/str}}</h3><p>{{#str}} reviewintro, local_skillupsquestionstudio {{/str}}</p>
+        {{#source}}<p><a href="{{source}}#qs-evidence">{{#str}} evidence, local_skillupsquestionstudio {{/str}}</a></p>{{/source}}
+        <form method="post" action="{{url}}" class="qs-actions">
+            <input type="hidden" name="sesskey" value="{{sesskey}}"><input type="hidden" name="reviewid" value="{{revision}}">
+            {{#approved}}<button class="btn btn-outline-secondary" name="decision" value="reopen">{{#str}} reopen, local_skillupsquestionstudio {{/str}}</button>{{/approved}}
+            {{^approved}}<button class="btn btn-primary" name="decision" value="approve">{{#str}} approve, local_skillupsquestionstudio {{/str}}</button>{{/approved}}
+        </form>
+    </section>{{/canreview}}
+    {{#form}}<section class="qs-panel"><h3>{{#str}} editor, local_skillupsquestionstudio {{/str}}</h3>{{{form}}}</section>{{/form}}
+    {{#versions.0}}<section class="qs-panel"><h3>{{#str}} history, local_skillupsquestionstudio {{/str}}</h3>
+        <ul class="qs-list">{{#versions}}<li><a href="{{url}}">{{#str}} revision, local_skillupsquestionstudio {{/str}} {{number}}</a> · {{date}}</li>{{/versions}}</ul>
+    </section>{{/versions.0}}
+</div>

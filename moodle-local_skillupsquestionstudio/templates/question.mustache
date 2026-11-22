@@ -1,0 +1,13 @@
+{{! @template local_skillupsquestionstudio/question }}
+<article class="qs-question">
+    <h4>{{name}}</h4>
+    <p class="qs-meta">{{kind}} · {{bloom}} · {{level}}{{#unit}} · {{unit}}{{/unit}}</p>
+    <p class="qs-text">{{prompt}}</p>
+    <ol>{{#answers}}<li>{{text}} {{#correct}}<strong class="qs-correct">· {{#str}} correctkey, local_skillupsquestionstudio {{/str}}</strong>{{/correct}}</li>{{/answers}}</ol>
+    {{#pool.0}}<p><strong>{{#str}} answerpool, local_skillupsquestionstudio {{/str}}</strong></p>
+        <ul>{{#pool}}<li>{{.}}</li>{{/pool}}</ul>{{/pool.0}}
+    {{#blank}}<p class="qs-blank border-bottom pb-4">
+        {{#str}} answerarea, local_skillupsquestionstudio {{/str}}</p>{{/blank}}
+    {{#feedback}}<p class="qs-text"><strong>{{#str}} feedback, local_skillupsquestionstudio {{/str}}</strong><br>{{feedback}}</p>{{/feedback}}
+    {{#rubric}}<p class="qs-text"><strong>{{#str}} rubric, local_skillupsquestionstudio {{/str}}</strong><br>{{rubric}}</p>{{/rubric}}
+</article>

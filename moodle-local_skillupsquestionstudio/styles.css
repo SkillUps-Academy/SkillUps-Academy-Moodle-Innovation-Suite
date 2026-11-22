@@ -1,0 +1,29 @@
+.qs-studio { --qs-line: var(--bs-border-color, #d9e2e6); --qs-surface: var(--bs-body-bg, #fff);
+    --qs-soft: var(--bs-tertiary-bg, #eef5f3); --qs-accent: #14645c; display: grid; gap: 1rem; margin-block: 1rem 2rem; }
+.qs-studio .qs-header, .qs-studio .qs-panel, .qs-studio .qs-metrics section {
+    border: 1px solid var(--qs-line); border-radius: .75rem; min-width: 0; padding: clamp(.85rem, 2vw, 1.35rem);
+    background: var(--qs-surface); }
+.qs-studio .qs-header { background: var(--qs-soft); border-inline-start: .35rem solid var(--qs-accent);
+    display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; }
+.qs-studio .qs-header h2, .qs-studio .qs-panel h3 { margin: 0 0 .4rem; }
+.qs-studio .qs-header p, .qs-studio .qs-meta { margin: 0; }
+.qs-studio .qs-metrics, .qs-studio .qs-columns { display: grid; gap: 1rem; }
+.qs-studio .qs-metrics { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.qs-studio .qs-columns { grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: start; }
+.qs-studio .qs-metrics h3 { font-size: 1rem; }
+.qs-studio .qs-metrics strong { font-size: 1.7rem; }
+.qs-studio .qs-actions { display: flex; flex-wrap: wrap; align-items: center; gap: .5rem .85rem; }
+.qs-studio .qs-list { list-style: none; padding-inline-start: 0; }
+.qs-studio .qs-list li { border-bottom: 1px solid var(--qs-line); padding-block: .58rem; }
+.qs-studio .qs-evidence { max-height: 28rem; overflow: auto; padding: .85rem; background: var(--qs-soft); }
+.qs-studio .qs-text { white-space: pre-wrap; overflow-wrap: anywhere; }
+.qs-studio .qs-meta { font-size: .92rem; margin-bottom: .55rem; }
+.qs-studio .qs-question { margin-bottom: 1rem; }
+.qs-studio .qs-assessment > li { padding: 1rem; border-top: 1px solid var(--qs-line); }
+.qs-studio .qs-correct { color: var(--bs-success-text-emphasis, #14645c); }
+@media (max-width: 850px) {
+    .qs-studio .qs-columns { grid-template-columns: minmax(0, 1fr); }
+}
+@media (max-width: 510px) {
+    .qs-studio .qs-metrics { grid-template-columns: minmax(0, 1fr); }
+}

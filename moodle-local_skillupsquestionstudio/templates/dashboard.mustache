@@ -1,0 +1,37 @@
+{{! @template local_skillupsquestionstudio/dashboard }}
+<div class="qs-studio">
+    <header class="qs-header"><div><h2>{{#str}} pluginname, local_skillupsquestionstudio {{/str}}</h2><p>{{#str}} dashboardintro, local_skillupsquestionstudio {{/str}}</p></div></header>
+    <div class="qs-metrics">
+        <section><h3>{{#str}} provider_manual, local_skillupsquestionstudio {{/str}}</h3><strong>{{manual}}</strong></section>
+        <section><h3>{{#str}} provider_local, local_skillupsquestionstudio {{/str}}</h3><strong>{{local}}</strong></section>
+        <section><h3>{{#str}} provider_ai, local_skillupsquestionstudio {{/str}}</h3><strong>{{ai}}</strong></section>
+    </div>
+    <section class="qs-panel">
+        <h3>{{#str}} projects, local_skillupsquestionstudio {{/str}}</h3>
+        <form action="{{url}}" method="post" class="qs-actions align-items-end">
+            <input type="hidden" name="sesskey" value="{{sesskey}}">
+            <div><label for="qs-project">{{#str}} projectname, local_skillupsquestionstudio {{/str}}</label>
+                <input class="form-control" type="text" name="name" id="qs-project" required maxlength="150"></div>
+            <button class="btn btn-primary" type="submit">{{#str}} newproject, local_skillupsquestionstudio {{/str}}</button>
+        </form>
+        {{^projects}}<p class="mt-3">{{#str}} noprojects, local_skillupsquestionstudio {{/str}}</p>{{/projects}}
+        {{#projects.0}}<div class="table-responsive mt-3"><table class="table">
+            <thead><tr><th scope="col">{{#str}} projectname, local_skillupsquestionstudio {{/str}}</th><th scope="col">{{#str}} date, local_skillupsquestionstudio {{/str}}</th></tr></thead>
+            <tbody>{{#projects}}<tr><th scope="row"><a href="{{href}}">{{name}}</a></th><td>{{date}}</td></tr>{{/projects}}</tbody>
+        </table></div>{{/projects.0}}
+        {{{paging}}}
+    </section>
+    <section class="qs-panel">
+        <h3>{{#str}} subscription, local_skillupsquestionstudio {{/str}}</h3>
+        <p>{{edition}} {{#expiry}}· {{expiry}}{{/expiry}}</p>
+        {{#siteid}}<details><summary>{{#str}} renewal, local_skillupsquestionstudio {{/str}}</summary>
+            <p><code>{{siteid}}</code></p>
+        </details>{{/siteid}}
+        {{#exportable}}<form method="post" action="{{url}}">
+            <input type="hidden" name="sesskey" value="{{sesskey}}">
+            <button class="btn btn-outline-primary btn-sm" type="submit" name="exportstats" value="1">
+                {{#str}} exportstats, local_skillupsquestionstudio {{/str}}
+            </button>
+        </form>{{/exportable}}
+    </section>
+</div>
