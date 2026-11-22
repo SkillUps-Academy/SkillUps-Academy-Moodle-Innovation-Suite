@@ -1,0 +1,29 @@
+{{!
+    This file is part of Moodle.
+    SPDX-License-Identifier: GPL-3.0-or-later
+    @template local_skillupsaigrading/statistics
+    Example context (json):
+    {"total":3,"ai":2,"approved":1,"rejected":0,"failed":0,"compared":1,"mae":"5.00"}
+}}
+<div class="row g-3 mb-3">
+    <div class="col-6 col-lg-4"><div class="card h-100 p-3">
+        <span>{{#str}}metrictotal, local_skillupsaigrading{{/str}}</span><strong class="fs-4">{{total}}</strong>
+    </div></div>
+    <div class="col-6 col-lg-4"><div class="card h-100 p-3">
+        <span>{{#str}}metricai, local_skillupsaigrading{{/str}}</span><strong class="fs-4">{{ai}}</strong>
+    </div></div>
+    <div class="col-6 col-lg-4"><div class="card h-100 p-3">
+        <span>{{#str}}metricapproved, local_skillupsaigrading{{/str}}</span><strong class="fs-4">{{approved}}</strong>
+    </div></div>
+    <div class="col-6 col-lg-4"><div class="card h-100 p-3">
+        <span>{{#str}}metricrejected, local_skillupsaigrading{{/str}}</span><strong class="fs-4">{{rejected}}</strong>
+    </div></div>
+    <div class="col-6 col-lg-4"><div class="card h-100 p-3">
+        <span>{{#str}}metricfailed, local_skillupsaigrading{{/str}}</span><strong class="fs-4">{{failed}}</strong>
+    </div></div>
+    <div class="col-6 col-lg-4"><div class="card h-100 p-3">
+        <span>{{#str}}metricmae, local_skillupsaigrading{{/str}}</span><strong class="fs-4">{{mae}}</strong>
+        <span class="text-muted">{{#str}}metriccomparedvalue, local_skillupsaigrading, {{compared}}{{/str}}</span>
+    </div></div>
+</div>
+<p class="text-muted">{{#str}}statisticsscope, local_skillupsaigrading{{/str}}</p>
