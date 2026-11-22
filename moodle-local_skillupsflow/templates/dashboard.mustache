@@ -1,0 +1,44 @@
+{{! @template local_skillupsflow/dashboard }}
+<div class="sf-wrap">
+    <header class="sf-heading">
+        <div><h2>{{#str}} dashboard, local_skillupsflow {{/str}}</h2><p>{{#str}} dashboardintro, local_skillupsflow {{/str}}</p></div>
+        <a href="{{new}}" class="btn btn-primary">{{#str}} newflow, local_skillupsflow {{/str}}</a>
+    </header>
+    <div class="sf-metrics">
+        <section><h3>{{#str}} completed30, local_skillupsflow {{/str}}</h3><strong>{{completed}}</strong></section>
+        <section><h3>{{#str}} failed30, local_skillupsflow {{/str}}</h3><strong>{{failed}}</strong></section>
+        <section><h3>{{#str}} approvals30, local_skillupsflow {{/str}}</h3><strong>{{waiting}}</strong></section>
+    </div>
+    <section class="sf-panel">
+        <h3>{{#str}} workflows, local_skillupsflow {{/str}}</h3>
+        {{^rows}}<p>{{#str}} emptyflows, local_skillupsflow {{/str}}</p>{{/rows}}
+        <div class="table-responsive"><table class="table align-middle">
+            <thead><tr><th scope="col">{{#str}} name, local_skillupsflow {{/str}}</th><th scope="col">{{#str}} trigger, local_skillupsflow {{/str}}</th><th scope="col">{{#str}} published, local_skillupsflow {{/str}}</th><th scope="col">{{#str}} draft, local_skillupsflow {{/str}}</th><th scope="col">{{#str}} actions, local_skillupsflow {{/str}}</th></tr></thead>
+            <tbody>{{#rows}}<tr>
+                <th scope="row"><a href="{{edit}}">{{name}}</a></th><td>{{trigger}}</td>
+                <td>{{published}}</td><td>{{draft}}</td>
+                <td><form action="{{url}}" method="post" class="sf-actions">
+                    <input type="hidden" name="sesskey" value="{{sesskey}}"><input type="hidden" name="id" value="{{id}}"><input type="hidden" name="nonce" value="{{nonce}}"><input type="hidden" name="revisionid" value="{{revisionid}}">
+                    {{#newrevision}}<button class="btn btn-outline-primary btn-sm" type="submit" name="action" value="activate">{{#str}} activate, local_skillupsflow {{/str}}</button>{{/newrevision}}
+                    {{#active}}<button class="btn btn-outline-secondary btn-sm" type="submit" name="action" value="run">{{#str}} run, local_skillupsflow {{/str}}</button><button class="btn btn-outline-secondary btn-sm" type="submit" name="action" value="pause">{{#str}} pause, local_skillupsflow {{/str}}</button>{{/active}}
+                    <a href="{{history}}" class="btn btn-outline-secondary btn-sm">{{#str}} history, local_skillupsflow {{/str}}</a>
+                </form></td>
+            </tr>{{/rows}}</tbody>
+        </table></div>
+        {{{paging}}}
+    </section>
+    <section class="sf-panel">
+        <h3>{{#str}} subscription, local_skillupsflow {{/str}}</h3>
+        <p>{{edition}} {{#expiry}}· {{expiry}}{{/expiry}}</p>
+        <details><summary>{{#str}} subscriptiondetails, local_skillupsflow {{/str}}</summary>
+            <p>{{#str}} renew, local_skillupsflow {{/str}}</p>
+            <code>{{siteid}}</code>
+        </details>
+        {{#exportable}}<form action="{{url}}" method="post">
+            <input type="hidden" name="sesskey" value="{{sesskey}}">
+            <button class="btn btn-outline-primary btn-sm" type="submit" name="action" value="exportstats">
+                {{#str}} exportstats, local_skillupsflow {{/str}}
+            </button>
+        </form>{{/exportable}}
+    </section>
+</div>

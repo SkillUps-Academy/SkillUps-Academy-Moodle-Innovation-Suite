@@ -1,0 +1,40 @@
+{{! @template local_skillupsflow/editor }}
+<div class="sf-wrap" data-flow-editor data-flow-config="{{config}}">
+    <header class="sf-heading"><div><h2>{{#str}} editor, local_skillupsflow {{/str}}</h2><p>{{#str}} editorintro, local_skillupsflow {{/str}}</p></div></header>
+    {{#invalid}}<div class="alert alert-danger" role="alert">{{#str}} invaliddefinition, local_skillupsflow {{/str}}</div>{{/invalid}}
+    <noscript><p class="alert alert-warning">{{#str}} requiresjs, local_skillupsflow {{/str}}</p></noscript>
+    <section class="sf-panel" aria-label="{{#str}} trigger, local_skillupsflow {{/str}}">
+        <h3>{{#str}} trigger, local_skillupsflow {{/str}}</h3><div class="sf-fields" data-flow-trigger></div>
+    </section>
+    <div class="sf-editor">
+        <section class="sf-board" aria-label="{{#str}} canvas, local_skillupsflow {{/str}}">
+            <div class="sf-boardbar">
+                <h3>{{#str}} canvas, local_skillupsflow {{/str}}</h3>
+                <div class="sf-actions" data-flow-palette></div>
+            </div>
+            <div class="sf-scroll" tabindex="0" aria-label="{{#str}} canvas, local_skillupsflow {{/str}}">
+                <div class="sf-canvas" data-flow-canvas></div>
+            </div>
+            <p class="sf-canvasstatus" role="status" data-flow-status></p>
+        </section>
+        <section class="sf-panel" aria-label="{{#str}} inspector, local_skillupsflow {{/str}}">
+            <h3>{{#str}} inspector, local_skillupsflow {{/str}}</h3>
+            <div data-flow-inspector></div>
+        </section>
+    </div>
+    <section class="sf-panel">{{{form}}}</section>
+    {{#id}}
+    <section class="sf-panel">
+        <h3>{{#str}} revisions, local_skillupsflow {{/str}}</h3>
+        <ul class="sf-revisions list-unstyled">{{#versions}}<li>
+            <span>{{#str}} revision, local_skillupsflow {{/str}} {{revision}} · {{date}} {{#active}}· {{#str}} active, local_skillupsflow {{/str}}{{/active}}</span>
+            <form action="{{saveurl}}" method="post" class="sf-actions">
+                <input type="hidden" name="sesskey" value="{{sesskey}}"><input type="hidden" name="id" value="{{flowid}}"><input type="hidden" name="revisionid" value="{{id}}">
+                {{! Revision ID and workflow ID are separate scopes. }}
+                <a href="{{export}}" class="btn btn-outline-secondary btn-sm">{{#str}} export, local_skillupsflow {{/str}}</a>
+                {{^active}}<button class="btn btn-outline-primary btn-sm" type="submit" name="action" value="activate">{{#str}} activate, local_skillupsflow {{/str}}</button>{{/active}}
+            </form>
+        </li>{{/versions}}</ul>
+    </section>
+    {{/id}}
+</div>

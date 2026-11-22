@@ -1,0 +1,16 @@
+{{! @template local_skillupsflow/approvals }}
+<div class="sf-wrap">
+    <header class="sf-heading"><div><h2>{{#str}} approvals, local_skillupsflow {{/str}}</h2><p>{{#str}} approvalsintro, local_skillupsflow {{/str}}</p></div></header>
+    <section class="sf-panel">
+        {{^rows}}<p>{{#str}} emptyapprovals, local_skillupsflow {{/str}}</p>{{/rows}}
+        <div class="table-responsive"><table class="table align-middle">
+        <thead><tr><th scope="col">{{#str}} name, local_skillupsflow {{/str}}</th><th scope="col">{{#str}} node, local_skillupsflow {{/str}}</th><th scope="col">{{#str}} revision, local_skillupsflow {{/str}}</th><th scope="col">{{#str}} userid, local_skillupsflow {{/str}}</th><th scope="col">{{#str}} courseid, local_skillupsflow {{/str}}</th><th scope="col">{{#str}} due, local_skillupsflow {{/str}}</th><th scope="col">{{#str}} actions, local_skillupsflow {{/str}}</th></tr></thead>
+        <tbody>{{#rows}}<tr><th scope="row">{{name}} · #{{id}}</th><td>{{label}}</td>
+            <td>{{revision}}</td><td>{{userid}}</td><td>{{courseid}}</td><td>{{due}}</td>
+            <td><form action="{{url}}" method="post" class="sf-actions">
+                <input type="hidden" name="sesskey" value="{{sesskey}}"><input type="hidden" name="runid" value="{{id}}">
+                <button class="btn btn-outline-primary btn-sm" type="submit" name="decision" value="approve">{{#str}} approve, local_skillupsflow {{/str}}</button><button class="btn btn-outline-danger btn-sm" type="submit" name="decision" value="reject">{{#str}} reject, local_skillupsflow {{/str}}</button>
+            </form></td></tr>{{/rows}}</tbody></table></div>
+        {{{paging}}}
+    </section>
+</div>

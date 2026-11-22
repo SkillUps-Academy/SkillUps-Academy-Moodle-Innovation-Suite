@@ -1,0 +1,5 @@
+{{! @template local_skillupsflow/navigation }}
+<nav class="sf-navigation" aria-label="{{#str}} pluginname, local_skillupsflow {{/str}}">
+    <span class="sf-brand">SkillUps Academy</span>
+    {{#tabs}}<a class="sf-tab {{#active}}sf-current{{/active}}" href="{{href}}" {{#active}}aria-current="page"{{/active}}>{{label}}</a>{{/tabs}}
+</nav>

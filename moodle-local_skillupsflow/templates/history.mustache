@@ -1,0 +1,38 @@
+{{! @template local_skillupsflow/history }}
+<div class="sf-wrap">
+{{#detail}}
+    <header class="sf-heading"><div><h2>{{name}} · #{{id}}</h2><p>{{#str}} revision, local_skillupsflow {{/str}} {{revision}} · {{status}}</p></div>
+        <a href="{{back}}" class="btn btn-outline-secondary">{{#str}} history, local_skillupsflow {{/str}}</a></header>
+    <section class="sf-panel">
+        <dl class="sf-facts">
+            <div><dt>{{#str}} userid, local_skillupsflow {{/str}}</dt><dd>{{userid}}</dd></div>
+            <div><dt>{{#str}} courseid, local_skillupsflow {{/str}}</dt><dd>{{courseid}}</dd></div>
+            <div><dt>{{#str}} due, local_skillupsflow {{/str}}</dt><dd>{{due}}</dd></div>
+        </dl>
+        {{#canstop}}<details><summary>{{#str}} cancelrun, local_skillupsflow {{/str}}</summary><p>{{#str}} cancelconfirm, local_skillupsflow {{/str}}</p>
+        <form action="{{url}}" method="post"><input type="hidden" name="sesskey" value="{{sesskey}}"><button class="btn btn-outline-danger btn-sm" type="submit" name="cancelrun" value="1">{{#str}} confirmcancel, local_skillupsflow {{/str}}</button></form></details>{{/canstop}}
+    </section>
+    <section class="sf-panel"><h3>{{#str}} transitions, local_skillupsflow {{/str}}</h3>
+        <div class="table-responsive"><table class="table"><thead><tr><th scope="col">{{#str}} node, local_skillupsflow {{/str}}</th><th scope="col">{{#str}} result, local_skillupsflow {{/str}}</th><th scope="col">{{#str}} actor, local_skillupsflow {{/str}}</th><th scope="col">{{#str}} date, local_skillupsflow {{/str}}</th></tr></thead>
+        <tbody>{{#records}}<tr><th scope="row">{{node}}</th><td>{{outcome}}</td><td>{{actor}}</td><td>{{date}}</td></tr>{{/records}}</tbody></table></div>
+        {{{paging}}}
+    </section>
+{{/detail}}
+{{^detail}}
+    <header class="sf-heading"><div><h2>{{#str}} history, local_skillupsflow {{/str}}</h2><p>{{#str}} historyintro, local_skillupsflow {{/str}}</p></div></header>
+    <section class="sf-panel">
+        <form action="{{filterurl}}" method="get" class="sf-actions mb-3">
+            <input type="hidden" name="flowid" value="{{flowid}}">
+            <label for="sf-status">{{#str}} status, local_skillupsflow {{/str}}</label>
+            <select class="form-select w-auto" id="sf-status" name="status">
+            {{#filters}}<option value="{{value}}" {{#selected}}selected{{/selected}}>{{label}}</option>{{/filters}}</select>
+            <button class="btn btn-outline-primary" type="submit">{{#str}} filter, local_skillupsflow {{/str}}</button>
+        </form>
+        {{^runs}}<p>{{#str}} emptyruns, local_skillupsflow {{/str}}</p>{{/runs}}
+        <div class="table-responsive"><table class="table"><thead><tr><th scope="col">{{#str}} name, local_skillupsflow {{/str}}</th><th scope="col">{{#str}} revision, local_skillupsflow {{/str}}</th><th scope="col">{{#str}} status, local_skillupsflow {{/str}}</th><th scope="col">{{#str}} date, local_skillupsflow {{/str}}</th></tr></thead>
+        <tbody>{{#runs}}<tr><th scope="row"><a href="{{url}}">{{name}} · #{{id}}</a></th>
+        <td>{{revision}}</td><td>{{status}}</td><td>{{date}}</td></tr>{{/runs}}</tbody></table></div>
+        {{{paging}}}
+    </section>
+{{/detail}}
+</div>
