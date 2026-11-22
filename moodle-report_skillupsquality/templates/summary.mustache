@@ -1,0 +1,17 @@
+{{!
+    This file is part of Moodle.
+    SPDX-License-Identifier: GPL-3.0-or-later
+    @template report_skillupsquality/summary
+    Example context (json):
+    {"metrics":[{"label":"Quality score","value":"85 / 100"}]}
+}}
+<div class="row g-3 mb-3">
+    {{#metrics}}
+    <div class="col-12 col-sm-4">
+        <div class="card h-100 p-3">
+            <div>{{label}}</div>
+            <div class="fs-3">{{value}}</div>
+        </div>
+    </div>
+    {{/metrics}}
+</div>

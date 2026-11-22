@@ -1,0 +1,11 @@
+# Diseño de SkillUps Course Quality Inspector
+
+La instalación de referencia del equipo es Moodle 5.0.7 con PHP 8.2.12. Moodle 5.3 LTS es el destino primario. El informe se instala como `report_skillupsquality`, con entrada en los informes del curso y del sitio. El informe nativo de finalización, el libro de calificaciones y la configuración avanzada de actividades siguen siendo las herramientas de corrección. Se revisaron también los patrones de alcance de SkillUps Insight y de tareas y auditoría de SkillUps System Monitor.
+
+El motor usa Course Modinfo, File API, Completion API, Gradebook y Advanced Grading API. Los adaptadores de fechas y contenido leen solo registros publicados de módulos nativos conocidos. Los archivos de entregas, las calificaciones individuales y los registros del alumnado quedan fuera de la captura. Los enlaces se comprueban con datos locales y sintaxis. El auditor no realiza peticiones de red. No modifica la configuración ni el contenido del curso.
+
+Cada curso genera una revisión permanente con la política aplicada, el estado del trabajo y los hallazgos mínimos. Una cola por curso con bloqueo y publicación transaccional evita ejecuciones simultáneas. La selección por categoría y por lista produce una tarea Adhoc separada por curso. El ejecutor revalida el acceso y solo guarda resultados completos. El acceso se comprueba en el contexto del curso antes de leer cualquier revisión, evidencia, plan o exportación. Permisos para la auditoría integral del curso se conceden a personal que puede editar su configuración.
+
+La puntuación suma penalizaciones por reglas comprobables presentes en una revisión. Las recomendaciones se muestran por separado. Una revisión conserva la configuración aplicada para distinguir un cambio de criterio de un cambio pedagógico. Los planes se enlazan por regla y objeto del curso. El cumplimiento observado se calcula a partir de la revisión completa más reciente. Los planes contienen datos personales limitados al operador y sus notas y se incluyen en la API de privacidad. El historial tiene retención local.
+
+[Visibilidad de módulos](https://moodledev.io/docs/5.3/apis/plugintypes/mod/visibility) · [Calificación avanzada](https://moodledev.io/docs/5.3/apis/core/grading) · [Tareas Adhoc](https://moodledev.io/docs/5.2/apis/subsystems/task/adhoc)

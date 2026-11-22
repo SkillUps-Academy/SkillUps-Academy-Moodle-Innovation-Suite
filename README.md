@@ -7,6 +7,7 @@
 - [SkillUps Insight Analytics](moodle-report_skillupsinsight/README.md) — Compare academic periods, publish scoped analytics snapshots, and track institutional targets.
 - [SkillUps Student Success Predictor](moodle-local_skillupssuccess/README.md) — Review explainable risk signals, coordinate tutor support, and measure prospective outcomes.
 - [SkillUps System Monitor](moodle-report_skillupsmonitor/README.md) — Monitor Moodle observations, cron, task queues and incidents.
+- [SkillUps Course Quality Inspector](moodle-report_skillupsquality/README.md) — Audit course configuration and track corrective plans.
 
 ## SkillUps AI Copilot 0.9.0-beta.1
 
@@ -65,3 +66,12 @@
 - [Prometheus and Grafana](moodle-report_skillupsmonitor/docs/integrations.md)
 - [Validation and screenshots](moodle-report_skillupsmonitor/docs/validation.md)
 - [Moodle Plugins Directory submission draft](moodle-report_skillupsmonitor/docs/marketplace.md)
+
+## SkillUps Course Quality Inspector 0.9.0-beta.1
+
+- [Moodle installation ZIP](releases/skillupsquality/skillupsquality-0.9.0-beta.1.zip)
+- [SHA-256 checksum](releases/skillupsquality/SHA256SUMS)
+- [Installation and administration](moodle-report_skillupsquality/docs/administration.md)
+- [Rules and course audits](moodle-report_skillupsquality/docs/operations.md)
+- [Validation and screenshots](moodle-report_skillupsquality/docs/validation.md)
+- [Moodle Plugins Directory submission draft](moodle-report_skillupsquality/docs/marketplace.md)
