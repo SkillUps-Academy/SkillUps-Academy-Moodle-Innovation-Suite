@@ -1,0 +1,18 @@
+{{!
+    This file is part of Moodle.
+    SPDX-License-Identifier: GPL-3.0-or-later
+    @template report_skillupsmonitor/dashboard
+    Example context (json):
+    {"sample":"Captured Tuesday","cards":[{"label":"Internal readiness","value":"Available"}]}
+}}
+<section class="mb-4" aria-label="{{#str}}overview, report_skillupsmonitor{{/str}}">
+    {{#sample}}<p class="text-muted">{{sample}}</p>{{/sample}}
+    <dl class="row g-3">
+        {{#cards}}
+        <div class="col-6 col-lg-3"><div class="card h-100 p-3">
+            <dt class="fw-normal">{{label}}</dt>
+            <dd class="fs-4 mb-0">{{value}}</dd>
+        </div></div>
+        {{/cards}}
+    </dl>
+</section>

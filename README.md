@@ -6,6 +6,7 @@
 - [SkillUps AI Grading Assistant](moodle-local_skillupsaigrading/README.md) — Review assignment evidence and rubric-based suggestions before grading in Moodle.
 - [SkillUps Insight Analytics](moodle-report_skillupsinsight/README.md) — Compare academic periods, publish scoped analytics snapshots, and track institutional targets.
 - [SkillUps Student Success Predictor](moodle-local_skillupssuccess/README.md) — Review explainable risk signals, coordinate tutor support, and measure prospective outcomes.
+- [SkillUps System Monitor](moodle-report_skillupsmonitor/README.md) — Monitor Moodle observations, cron, task queues and incidents.
 
 ## SkillUps AI Copilot 0.9.0-beta.1
 
@@ -55,3 +56,12 @@
 - [Methodology and limitations](moodle-local_skillupssuccess/docs/methodology.md)
 - [Compatibility report and screenshots](moodle-local_skillupssuccess/docs/validation.md)
 - [Moodle Marketplace submission draft](moodle-local_skillupssuccess/docs/marketplace.md)
+
+## SkillUps System Monitor 0.9.0-beta.1
+
+- [Moodle installation ZIP](releases/skillupsmonitor/skillupsmonitor-0.9.0-beta.1.zip)
+- [SHA-256 checksum](releases/skillupsmonitor/SHA256SUMS)
+- [Installation and administration](moodle-report_skillupsmonitor/docs/administration.md)
+- [Prometheus and Grafana](moodle-report_skillupsmonitor/docs/integrations.md)
+- [Validation and screenshots](moodle-report_skillupsmonitor/docs/validation.md)
+- [Moodle Plugins Directory submission draft](moodle-report_skillupsmonitor/docs/marketplace.md)
