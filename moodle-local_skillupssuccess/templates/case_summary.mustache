@@ -1,0 +1,21 @@
+{{!
+    This file is part of Moodle.
+    SPDX-License-Identifier: GPL-3.0-or-later
+    @template local_skillupssuccess/case_summary
+    Example context (json):
+    {"state":"Open","risk":"Watch","tutor":"A reviewer","observed":"2026-11-22"}
+}}
+<dl class="row g-3 mb-4">
+    <div class="col-6 col-lg-3"><div class="card h-100 p-3">
+        <dt>{{#str}}state, local_skillupssuccess{{/str}}</dt><dd class="mb-0">{{state}}</dd>
+    </div></div>
+    <div class="col-6 col-lg-3"><div class="card h-100 p-3">
+        <dt>{{#str}}ruleclass, local_skillupssuccess{{/str}}</dt><dd class="mb-0">{{risk}}</dd>
+    </div></div>
+    <div class="col-6 col-lg-3"><div class="card h-100 p-3">
+        <dt>{{#str}}tutor, local_skillupssuccess{{/str}}</dt><dd class="mb-0">{{tutor}}</dd>
+    </div></div>
+    <div class="col-6 col-lg-3"><div class="card h-100 p-3">
+        <dt>{{#str}}observed, local_skillupssuccess{{/str}}</dt><dd class="mb-0">{{observed}}</dd>
+    </div></div>
+</dl>
