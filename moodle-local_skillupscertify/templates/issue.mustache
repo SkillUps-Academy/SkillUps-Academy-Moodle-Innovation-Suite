@@ -1,0 +1,45 @@
+{{!
+    @template local_skillupscertify/issue
+
+    Render issue information.
+
+    Example context (json):
+    {}
+}}
+<section class="skillups-certify">
+    <h2 class="h3">{{#str}}issueheading, local_skillupscertify{{/str}}</h2>
+    {{> local_skillupscertify/nav}}
+    {{#error}}<p class="alert alert-danger" role="alert">{{error}}</p>{{/error}}
+    {{#haschoices}}
+        <div class="row g-3">
+            <section class="col-lg-6">
+                <div class="border rounded h-100 p-3">
+                    <h3 class="h5">{{#str}}single, local_skillupscertify{{/str}}</h3>
+                    <form method="post" action="{{url}}"><input type="hidden" name="courseid" value="{{courseid}}"><input type="hidden" name="sesskey" value="{{sesskey}}"><input type="hidden" name="operation" value="single">
+                        <label class="form-label" for="certify-single-template">{{#str}}template, local_skillupscertify{{/str}}</label>
+                        <select id="certify-single-template" name="templateid" class="form-select mb-3" required>{{#choices}}<option value="{{id}}">{{label}}</option>{{/choices}}</select>
+                        <label for="certify-username" class="form-label">{{#str}}username, local_skillupscertify{{/str}}</label>
+                        <input id="certify-username" class="form-control" name="username" maxlength="100" required>
+                        <label class="form-check my-3"><input class="form-check-input" name="confirm" type="checkbox" value="1" required> {{#str}}confirmsingle, local_skillupscertify{{/str}}</label>
+                        <button class="btn btn-primary" type="submit">{{#str}}issuesingle, local_skillupscertify{{/str}}</button>
+                    </form>
+                </div>
+            </section>
+            {{#canbatch}}<section class="col-lg-6">
+                <div class="border rounded h-100 p-3">
+                    <h3 class="h5">{{#str}}bulk, local_skillupscertify{{/str}}</h3>
+                    <p class="small">{{#str}}bulkhelp, local_skillupscertify{{/str}}</p>
+                    <form method="post" action="{{url}}"><input type="hidden" name="courseid" value="{{courseid}}"><input type="hidden" name="sesskey" value="{{sesskey}}"><input type="hidden" name="operation" value="batch">
+                        <label class="form-label" for="certify-batch-template">{{#str}}template, local_skillupscertify{{/str}}</label>
+                        <select id="certify-batch-template" name="templateid" class="form-select mb-3" required>{{#choices}}<option value="{{id}}">{{label}}</option>{{/choices}}</select>
+                        <label for="certify-group" class="form-label">{{#str}}group, local_skillupscertify{{/str}}</label>
+                        <select id="certify-group" name="groupid" class="form-select">{{#groups}}<option value="{{id}}">{{name}}</option>{{/groups}}</select>
+                        <label class="form-check my-3"><input class="form-check-input" name="confirm" type="checkbox" value="1" required> {{#str}}confirmbatch, local_skillupscertify{{/str}}</label>
+                        <button class="btn btn-primary" type="submit">{{#str}}startbatch, local_skillupscertify{{/str}}</button>
+                    </form>
+                </div>
+            </section>{{/canbatch}}
+        </div>
+    {{/haschoices}}
+    {{^haschoices}}<p class="alert alert-info">{{#str}}noactive, local_skillupscertify{{/str}}</p>{{/haschoices}}
+</section>

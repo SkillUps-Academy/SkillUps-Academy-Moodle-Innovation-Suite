@@ -1,0 +1,22 @@
+{{!
+    @template local_skillupscertify/mine
+
+    Render mine information.
+
+    Example context (json):
+    {}
+}}
+<section class="skillups-certify">
+    <h2 class="h3">{{#str}}mine, local_skillupscertify{{/str}}</h2>
+    {{> local_skillupscertify/nav}}
+    <div class="table-responsive">
+    <table class="table align-middle">
+        <thead><tr><th scope="col">{{#str}}title, local_skillupscertify{{/str}}</th><th scope="col">{{#str}}reference, local_skillupscertify{{/str}}</th><th scope="col">{{#str}}issuedate, local_skillupscertify{{/str}}</th><th scope="col">{{#str}}status, local_skillupscertify{{/str}}</th><th scope="col">{{#str}}download, local_skillupscertify{{/str}}</th></tr></thead>
+        <tbody>
+            {{#rows}}<tr><td>{{title}}</td><td><code>{{reference}}</code></td><td>{{issuedate}}</td><td>{{status}}</td><td><a href="{{downloadurl}}">{{#str}}download, local_skillupscertify{{/str}}</a></td></tr>{{/rows}}
+            {{^rows}}<tr><td colspan="5">{{#str}}norecords, local_skillupscertify{{/str}}</td></tr>{{/rows}}
+        </tbody>
+    </table>
+</div>
+    {{{pager}}}
+</section>

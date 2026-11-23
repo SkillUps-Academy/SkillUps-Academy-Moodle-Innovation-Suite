@@ -1,0 +1,53 @@
+{{!
+    @template local_skillupscertify/record
+
+    Render record information.
+
+    Example context (json):
+    {}
+}}
+<section class="skillups-certify">
+    <h2 class="h3">{{#str}}record, local_skillupscertify{{/str}}</h2>
+    {{> local_skillupscertify/nav}}
+    {{#error}}<p class="alert alert-danger" role="alert">{{error}}</p>{{/error}}
+    <div class="border rounded p-3 mb-3">
+        <h3 class="h4">{{title}}</h3>
+        <p>{{recipient}}</p>
+        <dl>
+            <dt>{{#str}}reference, local_skillupscertify{{/str}}</dt><dd><code>{{reference}}</code></dd>
+            <dt>{{#str}}issuedate, local_skillupscertify{{/str}}</dt><dd>{{issuedate}}</dd>
+            <dt>{{#str}}status, local_skillupscertify{{/str}}</dt><dd>{{status}}</dd>
+            <dt>{{#str}}fingerprint, local_skillupscertify{{/str}}</dt><dd><code class="text-break">{{fingerprint}}</code></dd>
+            {{#revokedate}}<dt>{{#str}}revokedate, local_skillupscertify{{/str}}</dt><dd>{{revokedate}}</dd>{{/revokedate}}
+            {{#reason}}<dt>{{#str}}reason, local_skillupscertify{{/str}}</dt><dd>{{reason}}</dd>{{/reason}}
+        </dl>
+        <p><a class="btn btn-outline-primary" href="{{downloadurl}}">{{#str}}download, local_skillupscertify{{/str}}</a></p>
+    </div>
+    <div class="row g-3 mb-4">
+        {{#canrevoke}}{{#valid}}<section class="col-md-6">
+            <div class="border rounded p-3 h-100">
+                <h3 class="h5">{{#str}}revoke, local_skillupscertify{{/str}}</h3>
+                <form method="post" action="{{url}}"><input type="hidden" name="courseid" value="{{courseid}}"><input type="hidden" name="sesskey" value="{{sesskey}}"><input type="hidden" name="id" value="{{id}}"><input type="hidden" name="operation" value="revoke">
+                    <label class="form-label" for="certify-reason">{{#str}}reason, local_skillupscertify{{/str}}</label>
+                    <textarea id="certify-reason" class="form-control" name="reason" maxlength="240" required></textarea>
+                    <label class="form-check my-3"><input class="form-check-input" name="confirm" type="checkbox" value="1" required> {{#str}}confirmrevoke, local_skillupscertify{{/str}}</label>
+                    <button class="btn btn-danger" type="submit">{{#str}}revoke, local_skillupscertify{{/str}}</button>
+                </form>
+            </div>
+        </section>{{/valid}}{{/canrevoke}}
+        {{#canreissue}}<section class="col-md-6">
+            <div class="border rounded p-3 h-100">
+                <h3 class="h5">{{#str}}reissue, local_skillupscertify{{/str}}</h3>
+                <p class="small">{{#str}}reissuehelp, local_skillupscertify{{/str}}</p>
+                <form method="post" action="{{url}}"><input type="hidden" name="courseid" value="{{courseid}}"><input type="hidden" name="sesskey" value="{{sesskey}}"><input type="hidden" name="id" value="{{id}}"><input type="hidden" name="operation" value="reissue">
+                    <label class="form-check my-3"><input class="form-check-input" name="confirm" type="checkbox" value="1" required> {{#str}}confirmreissue, local_skillupscertify{{/str}}</label>
+                    <button class="btn btn-outline-primary" type="submit">{{#str}}reissue, local_skillupscertify{{/str}}</button>
+                </form>
+            </div>
+        </section>{{/canreissue}}
+    </div>
+    <h3 class="h5">{{#str}}history, local_skillupscertify{{/str}}</h3>
+    <ul class="list-group">
+        {{#history}}<li class="list-group-item"><a href="{{recordurl}}"><code>{{reference}}</code></a> · {{version}} · {{issuedate}} · {{status}}</li>{{/history}}
+    </ul>
+</section>

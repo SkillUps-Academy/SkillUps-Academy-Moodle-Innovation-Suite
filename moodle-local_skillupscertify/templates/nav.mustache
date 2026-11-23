@@ -1,0 +1,15 @@
+{{!
+    @template local_skillupscertify/nav
+
+    Course links.
+
+    Example context (json):
+    {}
+}}
+<nav class="d-flex gap-2 flex-wrap mb-4" aria-label="{{#str}}navigation, local_skillupscertify{{/str}}">
+    {{#registryurl}}<a class="btn btn-outline-secondary" href="{{registryurl}}">{{#str}}registry, local_skillupscertify{{/str}}</a>{{/registryurl}}
+    {{#templatesurl}}<a class="btn btn-outline-secondary" href="{{templatesurl}}">{{#str}}templates, local_skillupscertify{{/str}}</a>{{/templatesurl}}
+    {{#issueurl}}<a class="btn btn-outline-secondary" href="{{issueurl}}">{{#str}}issueheading, local_skillupscertify{{/str}}</a>{{/issueurl}}
+    {{#mineurl}}<a class="btn btn-outline-secondary" href="{{mineurl}}">{{#str}}mine, local_skillupscertify{{/str}}</a>{{/mineurl}}
+    {{#verifyurl}}<a class="btn btn-outline-secondary" href="{{verifyurl}}">{{#str}}verify, local_skillupscertify{{/str}}</a>{{/verifyurl}}
+</nav>

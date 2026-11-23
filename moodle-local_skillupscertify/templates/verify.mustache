@@ -1,0 +1,40 @@
+{{!
+    @template local_skillupscertify/verify
+
+    Public verification and local file fingerprint test.
+
+    Example context (json):
+    {}
+}}
+<main class="skillups-certify certify-verify mx-auto px-3 py-4">
+    <p class="text-muted mb-2">{{#str}}pluginname, local_skillupscertify{{/str}}</p>
+    <h1 class="h3 mb-3">{{#str}}verify, local_skillupscertify{{/str}}</h1>
+    {{#enabled}}
+        <form method="post" action="{{url}}" class="mb-4">
+            <label class="form-label" for="certify-code">{{#str}}code, local_skillupscertify{{/str}}</label>
+            <div class="input-group">
+                <input name="code" id="certify-code" class="form-control" required maxlength="48" autocapitalize="off" spellcheck="false">
+                <button class="btn btn-primary" type="submit">{{#str}}verifybutton, local_skillupscertify{{/str}}</button>
+            </div>
+        </form>
+        {{#unknown}}<p class="alert alert-warning" role="status">{{#str}}notverified, local_skillupscertify{{/str}}</p>{{/unknown}}
+        {{#credential}}<section class="border rounded p-3">
+            <h2 class="h5">{{label}}</h2>
+            <dl>
+            <dt>{{#str}}reference, local_skillupscertify{{/str}}</dt><dd><code>{{reference}}</code></dd>
+            {{#title}}<dt>{{#str}}title, local_skillupscertify{{/str}}</dt><dd>{{title}}</dd>{{/title}}
+            {{#issuer}}<dt>{{#str}}issuer, local_skillupscertify{{/str}}</dt><dd>{{issuer}}</dd>{{/issuer}}
+            {{#issuedate}}<dt>{{#str}}issuedate, local_skillupscertify{{/str}}</dt><dd>{{issuedate}}</dd>{{/issuedate}}
+            <dt>{{#str}}fingerprint, local_skillupscertify{{/str}}</dt><dd><code class="text-break">{{fingerprint}}</code></dd>
+        </dl>
+            <div id="skillups-certify-fingerprint" hidden data-sha="{{fingerprint}}"
+                data-match="{{#str}}match, local_skillupscertify{{/str}}" data-mismatch="{{#str}}mismatch, local_skillupscertify{{/str}}" data-size="{{#str}}filelimit, local_skillupscertify{{/str}}">
+                <p class="small">{{#str}}fingerprinthelp, local_skillupscertify{{/str}}</p>
+                <label for="certify-fingerprint-file" class="form-label">{{#str}}comparepdf, local_skillupscertify{{/str}}</label>
+                <input type="file" accept="application/pdf,.pdf" id="certify-fingerprint-file" class="form-control">
+                <p class="mt-2 mb-0" role="status" aria-live="polite"></p>
+            </div>
+        </section>{{/credential}}
+    {{/enabled}}
+    {{^enabled}}<p class="alert alert-info">{{#str}}verificationdisabled, local_skillupscertify{{/str}}</p>{{/enabled}}
+</main>

@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<XMLDB PATH="local/skillupscertify/db" VERSION="20261123" COMMENT="SkillUps Certify &amp; Verify"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../lib/xmldb/xmldb.xsd">
+  <TABLES>
+    <TABLE NAME="local_skillupscertify_template" COMMENT="Course-scoped certificate template">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+        <FIELD NAME="courseid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="label" TYPE="char" LENGTH="180" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="revision" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" DEFAULT="1"/>
+        <FIELD NAME="enabled" TYPE="int" LENGTH="1" NOTNULL="true" SEQUENCE="false" DEFAULT="1"/>
+        <FIELD NAME="timecreated" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+        <KEY NAME="course_fk" TYPE="foreign" FIELDS="courseid" REFTABLE="course" REFFIELDS="id"/>
+      </KEYS>
+      <INDEXES>
+        <INDEX NAME="catalog_ix" UNIQUE="false" FIELDS="courseid,enabled"/>
+      </INDEXES>
+    </TABLE>
+    <TABLE NAME="local_skillupscertify_revision" COMMENT="Immutable issue settings for a template">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+        <FIELD NAME="templateid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="revision" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="design" TYPE="text" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="source" TYPE="char" LENGTH="12" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="pathid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" DEFAULT="0"/>
+        <FIELD NAME="publicmeta" TYPE="int" LENGTH="1" NOTNULL="true" SEQUENCE="false" DEFAULT="0"/>
+        <FIELD NAME="timecreated" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+      </KEYS>
+      <INDEXES>
+        <INDEX NAME="edition_ix" UNIQUE="true" FIELDS="templateid,revision"/>
+      </INDEXES>
+    </TABLE>
+    <TABLE NAME="local_skillupscertify_issue" COMMENT="Historical issued credential and current verification status">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+        <FIELD NAME="courseid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="templateid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="revisionid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="userid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="tokenhash" TYPE="char" LENGTH="64" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="activekey" TYPE="char" LENGTH="64" NOTNULL="false" SEQUENCE="false"/>
+        <FIELD NAME="snapshot" TYPE="text" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="pdfhash" TYPE="char" LENGTH="64" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="status" TYPE="char" LENGTH="12" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="supersedes" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" DEFAULT="0"/>
+        <FIELD NAME="timeissued" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="timerevoked" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" DEFAULT="0"/>
+        <FIELD NAME="reason" TYPE="char" LENGTH="240" NOTNULL="false" SEQUENCE="false"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+        <KEY NAME="course_fk" TYPE="foreign" FIELDS="courseid" REFTABLE="course" REFFIELDS="id"/>
+      </KEYS>
+      <INDEXES>
+        <INDEX NAME="token_ix" UNIQUE="true" FIELDS="tokenhash"/>
+        <INDEX NAME="active_ix" UNIQUE="true" FIELDS="activekey"/>
+        <INDEX NAME="learner_ix" UNIQUE="false" FIELDS="courseid,templateid,userid,id"/>
+        <INDEX NAME="registry_ix" UNIQUE="false" FIELDS="courseid,status,id"/>
+        <INDEX NAME="userhistory_ix" UNIQUE="false" FIELDS="userid,courseid"/>
+      </INDEXES>
+    </TABLE>
+    <TABLE NAME="local_skillupscertify_batch" COMMENT="Asynchronous issuance request">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+        <FIELD NAME="courseid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="templateid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="revisionid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="userid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="groupid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" DEFAULT="0"/>
+        <FIELD NAME="state" TYPE="char" LENGTH="12" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="timecreated" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="timemodified" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+      </KEYS>
+      <INDEXES>
+        <INDEX NAME="course_ix" UNIQUE="false" FIELDS="courseid,id"/>
+        <INDEX NAME="operator_ix" UNIQUE="false" FIELDS="userid,courseid"/>
+      </INDEXES>
+    </TABLE>
+    <TABLE NAME="local_skillupscertify_item" COMMENT="Durable outcomes per batch and learner">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+        <FIELD NAME="courseid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="batchid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="userid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="state" TYPE="char" LENGTH="12" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="issueid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" DEFAULT="0"/>
+        <FIELD NAME="timeupdated" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+      </KEYS>
+      <INDEXES>
+        <INDEX NAME="recipient_ix" UNIQUE="true" FIELDS="batchid,userid"/>
+        <INDEX NAME="work_ix" UNIQUE="false" FIELDS="batchid,state,id"/>
+        <INDEX NAME="usercourse_ix" UNIQUE="false" FIELDS="userid,courseid"/>
+      </INDEXES>
+    </TABLE>
+    <TABLE NAME="local_skillupscertify_audit" COMMENT="Credential management events in course context">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+        <FIELD NAME="courseid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="userid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" DEFAULT="0"/>
+        <FIELD NAME="action" TYPE="char" LENGTH="20" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="objectid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="timecreated" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+      </KEYS>
+      <INDEXES>
+        <INDEX NAME="course_ix" UNIQUE="false" FIELDS="courseid,id"/>
+        <INDEX NAME="operator_ix" UNIQUE="false" FIELDS="userid,courseid"/>
+      </INDEXES>
+    </TABLE>
+  </TABLES>
+</XMLDB>

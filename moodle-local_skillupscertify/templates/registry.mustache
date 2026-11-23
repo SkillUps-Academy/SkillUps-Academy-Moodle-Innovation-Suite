@@ -1,0 +1,43 @@
+{{!
+    @template local_skillupscertify/registry
+
+    Render registry information.
+
+    Example context (json):
+    {}
+}}
+<section class="skillups-certify">
+    <h2 class="h3">{{#str}}registry, local_skillupscertify{{/str}}</h2>
+    {{> local_skillupscertify/nav}}
+    <dl class="row row-cols-3 g-3">{{#metrics}}<div class="col"><dt>{{name}}</dt><dd class="h4">{{count}}</dd></div>{{/metrics}}</dl>
+    <div class="d-flex flex-wrap gap-2 align-items-end mb-3">
+        <form method="get" action="{{url}}" class="d-flex flex-wrap align-items-end gap-2">
+            <input type="hidden" name="courseid" value="{{courseid}}">
+            <div><label class="form-label" for="certify-filter-group">{{#str}}group, local_skillupscertify{{/str}}</label>
+                <select class="form-select" id="certify-filter-group" name="groupid">{{#groups}}<option value="{{id}}" {{#selected}}selected{{/selected}}>{{name}}</option>{{/groups}}</select>
+            </div>
+            <div><label class="form-label" for="certify-filter-status">{{#str}}status, local_skillupscertify{{/str}}</label>
+                <select class="form-select" id="certify-filter-status" name="status">{{#statuses}}<option value="{{value}}" {{#selected}}selected{{/selected}}>{{name}}</option>{{/statuses}}</select>
+            </div>
+            <button class="btn btn-outline-primary" type="submit">{{#str}}filter, local_skillupscertify{{/str}}</button>
+        </form>
+        {{#canexport}}<form method="post" action="{{url}}"><input type="hidden" name="courseid" value="{{courseid}}"><input type="hidden" name="sesskey" value="{{sesskey}}"><input type="hidden" name="groupid" value="{{groupid}}"><input type="hidden" name="status" value="{{statusfilter}}"><input type="hidden" name="export" value="1">
+            <button class="btn btn-outline-secondary" type="submit">{{#str}}export, local_skillupscertify{{/str}}</button>
+        </form>{{/canexport}}
+    </div>
+    <div class="table-responsive">
+    <table class="table align-middle">
+        <thead><tr><th scope="col">{{#str}}reference, local_skillupscertify{{/str}}</th><th scope="col">{{#str}}title, local_skillupscertify{{/str}}</th><th scope="col">{{#str}}recipient, local_skillupscertify{{/str}}</th><th scope="col">{{#str}}issuedate, local_skillupscertify{{/str}}</th><th scope="col">{{#str}}status, local_skillupscertify{{/str}}</th><th scope="col">{{#str}}download, local_skillupscertify{{/str}}</th></tr></thead>
+        <tbody>
+            {{#rows}}<tr><td><a href="{{recordurl}}"><code>{{reference}}</code></a></td><td>{{title}}</td><td>{{recipient}}</td><td>{{issuedate}}</td><td>{{status}}</td><td><a href="{{downloadurl}}">{{#str}}download, local_skillupscertify{{/str}}</a></td></tr>{{/rows}}
+            {{^rows}}<tr><td colspan="6">{{#str}}norecords, local_skillupscertify{{/str}}</td></tr>{{/rows}}
+        </tbody>
+    </table>
+</div>
+    {{{pager}}}
+    <h3 class="h5 mt-4">{{#str}}recentbatches, local_skillupscertify{{/str}}</h3>
+    <ul class="list-group">
+        {{#batches}}<li class="list-group-item"><a href="{{url}}">#{{id}}</a> · {{date}} · {{state}}</li>{{/batches}}
+        {{^batches}}<li class="list-group-item">{{#str}}nobatches, local_skillupscertify{{/str}}</li>{{/batches}}
+    </ul>
+</section>

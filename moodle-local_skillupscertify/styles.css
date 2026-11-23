@@ -1,0 +1,58 @@
+.certify-verify {
+    max-width: 46rem;
+}
+
+.certify-preview {
+    max-width: 56rem;
+    padding: 1rem 0;
+}
+
+.certify-paper {
+    --certify-ink: #183054;
+    color: #222732;
+    background: #fff;
+    text-align: center;
+    border: 2px solid var(--certify-ink);
+    border-top-width: 10px;
+    padding: clamp(1.25rem, 5vw, 4rem);
+    overflow-wrap: anywhere;
+    min-height: 18rem;
+}
+
+.certify-paper[data-color="green"] {
+    --certify-ink: #165b48;
+}
+
+.certify-paper[data-color="wine"] {
+    --certify-ink: #6c2c47;
+}
+
+.certify-paper[data-orientation="P"] {
+    width: min(100%, 34rem);
+    min-height: 24rem;
+}
+
+.certify-paper-issuer,
+.certify-paper-title {
+    color: var(--certify-ink);
+    font-weight: 700;
+}
+
+.certify-paper-title {
+    font-size: clamp(1.25rem, 4vw, 2.35rem);
+}
+
+.certify-paper-name {
+    font-weight: 700;
+    margin-top: 1.5rem;
+    font-size: clamp(1rem, 3vw, 1.45rem);
+}
+
+.certify-paper-body {
+    white-space: pre-wrap;
+}
+
+.certify-paper-signer {
+    margin-top: 1.5rem;
+    font-weight: 600;
+}

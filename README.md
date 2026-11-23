@@ -14,6 +14,7 @@
 - [SkillUps Helpdesk](moodle-local_skillupshelpdesk/README.md) — Operate a scoped support desk with secure attachments, business-time SLAs and reports.
 - [SkillUps Gamification Pro](moodle-local_skillupsgamification/README.md) — Award verified learning progress, coordinate course challenges and protect reward inventory.
 - [SkillUps Learning Path Designer](moodle-local_skillupspathways/README.md) — Design versioned cross-course pathways and follow individual and group progress.
+- [SkillUps Certify & Verify](moodle-local_skillupscertify/README.md) — Design and issue archived PDF certificates, verify QR codes and manage revocation.
 
 ## SkillUps AI Copilot 0.9.0-beta.1
 
@@ -136,3 +137,12 @@
 - [Prerequisites, versions and progress](moodle-local_skillupspathways/docs/operations.md)
 - [Certification and Gamification Pro](moodle-local_skillupspathways/docs/integrations.md)
 - [Validation](moodle-local_skillupspathways/docs/validation.md)
+
+## SkillUps Certify & Verify 0.9.0-beta.1
+
+- [Moodle installation ZIP](releases/skillupscertify/skillupscertify-0.9.0-beta.1.zip)
+- [SHA-256 checksum](releases/skillupscertify/SHA256SUMS)
+- [Installation, permissions and retention](moodle-local_skillupscertify/docs/administration.md)
+- [Design, issuance and verification](moodle-local_skillupscertify/docs/operations.md)
+- [Optional Learning Path integration](moodle-local_skillupscertify/docs/integrations.md)
+- [Validation and screenshots](moodle-local_skillupscertify/docs/validation.md)
