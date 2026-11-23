@@ -1,0 +1,23 @@
+{{!
+    @template local_skillupspathways/designer
+
+    SkillUps Pathways designer.
+
+    Example context (json):
+    {"listurl":"#"}
+}}
+<div class="skillups-pathways">
+    <h2 class="h3">{{#str}}designer, local_skillupspathways{{/str}}</h2>
+    {{> local_skillupspathways/nav}}
+    {{#previewurl}}<p><a href="{{previewurl}}">{{#str}}learnerpage, local_skillupspathways{{/str}}</a></p>{{/previewurl}}
+    {{#error}}<p class="alert alert-danger" role="alert">{{error}}</p>{{/error}}
+    {{#hasversions}}
+        <details class="border rounded p-3 mb-4">
+            <summary>{{#str}}versionhistory, local_skillupspathways{{/str}}</summary>
+            <ul class="mt-2 mb-0">
+                {{#versions}}<li>{{name}} · {{date}} {{#current}}<span class="badge text-bg-primary">{{#str}}current, local_skillupspathways{{/str}}</span>{{/current}}</li>{{/versions}}
+            </ul>
+        </details>
+    {{/hasversions}}
+    <noscript><p class="alert alert-warning">{{#str}}javascriptneeded, local_skillupspathways{{/str}}</p></noscript>
+</div>

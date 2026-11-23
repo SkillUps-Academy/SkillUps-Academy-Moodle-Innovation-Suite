@@ -1,0 +1,13 @@
+{{!
+    @template local_skillupspathways/nav
+
+    SkillUps Pathways nav.
+
+    Example context (json):
+    {"listurl":"#"}
+}}
+<nav class="d-flex flex-wrap gap-2 mb-4" aria-label="{{#str}}navigation, local_skillupspathways{{/str}}">
+    <a class="btn btn-outline-secondary" href="{{listurl}}">{{#str}}pathways, local_skillupspathways{{/str}}</a>
+    {{#manageurl}}<a class="btn btn-outline-secondary" href="{{manageurl}}">{{#str}}designer, local_skillupspathways{{/str}}</a>{{/manageurl}}
+    {{#reportsurl}}<a class="btn btn-outline-secondary" href="{{reportsurl}}">{{#str}}reports, local_skillupspathways{{/str}}</a>{{/reportsurl}}
+</nav>

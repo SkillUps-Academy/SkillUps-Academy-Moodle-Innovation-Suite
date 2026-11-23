@@ -1,0 +1,54 @@
+{{!
+    @template local_skillupspathways/report
+
+    SkillUps Pathways report.
+
+    Example context (json):
+    {"listurl":"#","previewurl":"#","registered":4,"completed":2,"inprogress":2}
+}}
+<div class="skillups-pathways">
+    <h2 class="h3">{{#str}}reports, local_skillupspathways{{/str}}</h2>
+    {{> local_skillupspathways/nav}}
+    <h3 class="h4"><a href="{{previewurl}}">{{name}}</a></h3>
+    <form method="get" action="{{url}}" class="d-flex flex-wrap align-items-end gap-2 mb-3">
+        <input type="hidden" name="courseid" value="{{courseid}}"><input type="hidden" name="pathid" value="{{pathid}}">
+        <div>
+            <label for="pathway-group" class="form-label">{{#str}}group, local_skillupspathways{{/str}}</label>
+            <select class="form-select" name="groupid" id="pathway-group">
+                {{#groups}}<option value="{{id}}" {{#selected}}selected{{/selected}}>{{name}}</option>{{/groups}}
+            </select>
+        </div>
+        <button class="btn btn-outline-primary">{{#str}}applygroup, local_skillupspathways{{/str}}</button>
+        {{#exporturl}}<a class="btn btn-outline-secondary" href="{{exporturl}}">{{#str}}exportcsv, local_skillupspathways{{/str}}</a>{{/exporturl}}
+    </form>
+    <dl class="row g-3 mb-4">
+        <div class="col-4"><dt>{{#str}}registered, local_skillupspathways{{/str}}</dt><dd class="h4">{{registered}}</dd></div>
+        <div class="col-4"><dt>{{#str}}completed, local_skillupspathways{{/str}}</dt><dd class="h4">{{completed}}</dd></div>
+        <div class="col-4"><dt>{{#str}}inprogress, local_skillupspathways{{/str}}</dt><dd class="h4">{{inprogress}}</dd></div>
+    </dl>
+    <div class="table-responsive"><table class="table table-hover align-middle">
+        <caption class="visually-hidden">{{#str}}reports, local_skillupspathways{{/str}}</caption>
+        <thead><tr>
+            <th scope="col">{{#str}}student, local_skillupspathways{{/str}}</th>
+            <th scope="col">{{#str}}edition, local_skillupspathways{{/str}}</th>
+            <th scope="col">{{#str}}progress, local_skillupspathways{{/str}}</th>
+            <th scope="col">{{#str}}lastreview, local_skillupspathways{{/str}}</th>
+            <th scope="col">{{#str}}changeversion, local_skillupspathways{{/str}}</th>
+        </tr></thead>
+        <tbody>
+            {{#rows}}<tr><th scope="row">{{name}}</th><td>{{version}}</td><td>{{score}}{{#completed}}<br>{{completed}}{{/completed}}</td><td>{{checked}}</td>
+                <td>{{#canmove}}
+                    <form method="post" action="{{url}}" class="d-grid gap-1">
+                        <input type="hidden" name="courseid" value="{{courseid}}"><input type="hidden" name="pathid" value="{{pathid}}">
+                        <input type="hidden" name="userid" value="{{userid}}"><input type="hidden" name="versionid" value="{{versionid}}">
+                        <input type="hidden" name="sesskey" value="{{sesskey}}">
+                        <label class="form-check-label"><input type="checkbox" class="form-check-input" name="confirm" value="1" required>
+                            {{#str}}confirmmigration, local_skillupspathways{{/str}}</label>
+                        <button class="btn btn-outline-primary btn-sm" type="submit">{{#str}}changeversion, local_skillupspathways{{/str}}</button>
+                    </form>
+                {{/canmove}}</td></tr>{{/rows}}
+            {{^rows}}<tr><td colspan="5">{{#str}}noregistrations, local_skillupspathways{{/str}}</td></tr>{{/rows}}
+        </tbody>
+    </table></div>
+    {{{pager}}}
+</div>

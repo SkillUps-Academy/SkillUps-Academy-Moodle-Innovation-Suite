@@ -13,6 +13,7 @@
 - [SkillUps Gradebook Guardian](moodle-local_skillupsgradebookguardian/README.md) — Diagnose gradebook configuration and approve reversible visibility repairs.
 - [SkillUps Helpdesk](moodle-local_skillupshelpdesk/README.md) — Operate a scoped support desk with secure attachments, business-time SLAs and reports.
 - [SkillUps Gamification Pro](moodle-local_skillupsgamification/README.md) — Award verified learning progress, coordinate course challenges and protect reward inventory.
+- [SkillUps Learning Path Designer](moodle-local_skillupspathways/README.md) — Design versioned cross-course pathways and follow individual and group progress.
 
 ## SkillUps AI Copilot 0.9.0-beta.1
 
@@ -117,12 +118,21 @@
 - [Validation and screenshots](moodle-local_skillupshelpdesk/docs/validation.md)
 - [Moodle Marketplace submission draft](moodle-local_skillupshelpdesk/docs/marketplace.md)
 
-## SkillUps Gamification Pro 0.9.0-beta.1
+## SkillUps Gamification Pro 0.9.0-beta.2
 
-- [Moodle installation ZIP](releases/skillupsgamification/skillupsgamification-0.9.0-beta.1.zip)
+- [Moodle installation ZIP](releases/skillupsgamification/skillupsgamification-0.9.0-beta.2.zip)
 - [SHA-256 checksum](releases/skillupsgamification/SHA256SUMS)
 - [Installation, permissions and configuration](moodle-local_skillupsgamification/docs/administration.md)
 - [Award rules, challenges and rewards](moodle-local_skillupsgamification/docs/operations.md)
 - [Optional Learning Path contract](moodle-local_skillupsgamification/docs/learning-path.md)
 - [Validation and screenshots](moodle-local_skillupsgamification/docs/validation.md)
 - [Moodle Marketplace submission draft](moodle-local_skillupsgamification/docs/marketplace.md)
+
+## SkillUps Learning Path Designer 0.9.0-beta.1
+
+- [Moodle installation ZIP](releases/skillupspathways/skillupspathways-0.9.0-beta.1.zip)
+- [SHA-256 checksum](releases/skillupspathways/SHA256SUMS)
+- [Installation, roles and configuration](moodle-local_skillupspathways/docs/administration.md)
+- [Prerequisites, versions and progress](moodle-local_skillupspathways/docs/operations.md)
+- [Certification and Gamification Pro](moodle-local_skillupspathways/docs/integrations.md)
+- [Validation](moodle-local_skillupspathways/docs/validation.md)

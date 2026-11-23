@@ -30,12 +30,17 @@ final class learning_path {
      * @return milestone_provider|null
      */
     public static function provider(): ?milestone_provider {
-        $class = \local_skillupslearningpath\integration\gamification_provider::class;
-        if (
-            class_exists($class) && is_subclass_of($class, milestone_provider::class) &&
-            defined($class . '::CONTRACT_VERSION') && constant($class . '::CONTRACT_VERSION') === 1
-        ) {
-            return new $class();
+        $providers = [
+            \local_skillupspathways\integration\gamification_provider::class,
+            \local_skillupslearningpath\integration\gamification_provider::class,
+        ];
+        foreach ($providers as $class) {
+            if (
+                class_exists($class) && is_subclass_of($class, milestone_provider::class) &&
+                defined($class . '::CONTRACT_VERSION') && constant($class . '::CONTRACT_VERSION') === 1
+            ) {
+                return new $class();
+            }
         }
         return null;
     }

@@ -25,7 +25,7 @@
 defined('MOODLE_INTERNAL') || die();
 
 $plugin->component = 'local_skillupsgamification';
-$plugin->version = 2026112300;
+$plugin->version = 2026112301;
 $plugin->requires = 2025041400;
 $plugin->maturity = MATURITY_BETA;
-$plugin->release = '0.9.0-beta.1';
+$plugin->release = '0.9.0-beta.2';

@@ -1,0 +1,73 @@
+{{!
+    @template local_skillupspathways/portal
+
+    SkillUps Pathways portal.
+
+    Example context (json):
+    {"listing":true,"listurl":"#","paths":[{"name":"Certificate track","url":"#","version":"Version 2"}]}
+}}
+<div class="skillups-pathways">
+    <h2 class="h3 mb-3">{{#str}}pluginname, local_skillupspathways{{/str}}</h2>
+    {{> local_skillupspathways/nav}}
+    {{#listing}}
+        <div class="row g-3">
+            {{#paths}}
+                <div class="col-lg-6"><article class="card h-100"><div class="card-body">
+                    <span class="badge text-bg-secondary mb-2">{{version}}</span>
+                    <h3 class="h5"><a href="{{url}}">{{name}}</a></h3>
+                    {{#description}}<p class="pathways-text mb-0">{{description}}</p>{{/description}}
+                </div></article></div>
+            {{/paths}}
+            {{^paths}}<p class="text-muted">{{#str}}nopaths, local_skillupspathways{{/str}}</p>{{/paths}}
+        </div>
+    {{/listing}}
+    {{#detail}}
+        <section class="border rounded p-4 mb-4">
+            {{#version}}<span class="badge text-bg-secondary mb-2">{{version}}</span>{{/version}}
+            <h3 class="h4">{{name}}</h3>
+            {{#description}}<p class="pathways-text">{{description}}</p>{{/description}}
+            {{#draftonly}}<p class="text-muted">{{#str}}draftonly, local_skillupspathways{{/str}}</p>{{/draftonly}}
+            {{#disabled}}<p class="alert alert-warning">{{#str}}paused, local_skillupspathways{{/str}}</p>{{/disabled}}
+            {{#differentversion}}<p class="text-muted">{{#str}}versionpinned, local_skillupspathways{{/str}}</p>{{/differentversion}}
+            {{#score}}<div class="fw-semibold mb-1">{{score}}</div>{{/score}}
+            {{#complete}}<p class="text-success fw-semibold">{{#str}}pathcompleted, local_skillupspathways{{/str}}</p>{{/complete}}
+            {{#checked}}<p class="small text-muted">{{checked}}</p>{{/checked}}
+            {{#canrefresh}}
+                <form action="{{url}}" method="post">
+                    <input type="hidden" name="courseid" value="{{courseid}}"><input type="hidden" name="pathid" value="{{pathid}}">
+                    <input type="hidden" name="sesskey" value="{{sesskey}}">
+                    <button class="btn btn-primary" type="submit">{{syncbutton}}</button>
+                </form>
+            {{/canrefresh}}
+        </section>
+        {{#play}}
+            <h3 class="h4">{{#str}}nextsteps, local_skillupspathways{{/str}}</h3>
+            <ul class="list-group mb-4">
+                {{#next}}<li class="list-group-item"><a href="{{url}}">{{title}}</a><div class="small text-muted">{{condition}}</div></li>{{/next}}
+                {{^next}}<li class="list-group-item">{{#str}}nonext, local_skillupspathways{{/str}}</li>{{/next}}
+            </ul>
+            <h3 class="h4">{{#str}}map, local_skillupspathways{{/str}}</h3>
+            <div id="skillups-pathways-map" class="mb-4" data-graph="{{diagram}}" data-labels="{{diagramlabels}}"></div>
+            <h3 class="h4">{{#str}}steps, local_skillupspathways{{/str}}</h3>
+            <ol class="list-group mb-4">
+                {{#steps}}<li class="list-group-item">
+                    <div class="d-flex flex-wrap gap-2 align-items-center">
+                        <span class="badge text-bg-secondary">{{statelabel}}</span>
+                        {{#url}}<a class="fw-semibold" href="{{url}}">{{title}}</a>{{/url}}
+                        {{^url}}<strong>{{title}}</strong>{{/url}}
+                        <span class="small text-muted">{{requirement}}</span>
+                    </div>
+                    {{#condition}}<div class="small">{{condition}}</div>{{/condition}}
+                    {{#prerequisite}}<div class="small text-muted">{{prerequisite}}</div>{{/prerequisite}}
+                </li>{{/steps}}
+            </ol>
+        {{/play}}
+        {{#hashistory}}
+            <h3 class="h4">{{#str}}history, local_skillupspathways{{/str}}</h3>
+        {{/hashistory}}
+        <ul class="list-group mb-3">
+            {{#history}}<li class="list-group-item">{{version}} · {{node}} · {{before}} → {{after}} · {{date}}</li>{{/history}}
+        </ul>
+        {{{pager}}}
+    {{/detail}}
+</div>

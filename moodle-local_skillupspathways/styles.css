@@ -1,0 +1,65 @@
+.skillups-pathways .pathways-scroll,
+#skillups-pathways-designer .pathways-scroll {
+    max-width: 100%;
+    max-height: 33rem;
+    overflow: auto;
+    border: 1px solid var(--bs-border-color);
+    border-radius: .5rem;
+    background: var(--bs-tertiary-bg, #f5f7fa);
+}
+
+.pathways-stage {
+    position: relative;
+}
+
+.pathways-edges {
+    position: absolute;
+    pointer-events: none;
+    inset: 0;
+}
+
+.pathways-node {
+    position: absolute;
+    width: 200px;
+    min-height: 58px;
+    max-height: 88px;
+    overflow: hidden;
+    padding: .5rem .65rem;
+    text-align: start;
+    overflow-wrap: anywhere;
+    border-radius: .4rem;
+    border: 1px solid var(--bs-border-color);
+    background: var(--bs-body-bg);
+    color: var(--bs-body-color);
+}
+
+.pathways-node small {
+    display: block;
+}
+
+.pathways-node[aria-pressed="true"] {
+    border: 2px solid var(--bs-primary);
+}
+
+.pathways-node[data-state="complete"] {
+    border-inline-start: .35rem solid var(--bs-success);
+}
+
+.pathways-node[data-state="ready"] {
+    border-inline-start: .35rem solid var(--bs-primary);
+}
+
+.pathways-node[data-state="blocked"],
+.pathways-node[data-state="unavailable"] {
+    color: var(--bs-secondary-color);
+}
+
+.pathways-fields {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(14rem, 100%), 1fr));
+    gap: .75rem 1rem;
+}
+
+.pathways-text {
+    white-space: pre-wrap;
+}

@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.9.0-beta.2
+
+- Detecta SkillUps Learning Path Designer como proveedor de hitos verificados, con compatibilidad para el proveedor legado del contrato v1.
+
 ## 0.9.0-beta.1
 
 - Added verification of native Moodle completion events and idempotent point and XP awards.

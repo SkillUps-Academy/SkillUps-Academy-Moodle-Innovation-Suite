@@ -10,7 +10,7 @@ Gamificación por curso con puntos y XP de finalizaciones verificadas, niveles, 
 - [Arquitectura](docs/architecture.md)
 - [Pruebas y capturas](docs/validation.md)
 - [Ficha para Moodle Marketplace](docs/marketplace.md)
-- [ZIP instalable](../releases/skillupsgamification/skillupsgamification-0.9.0-beta.1.zip)
+- [ZIP instalable](../releases/skillupsgamification/skillupsgamification-0.9.0-beta.2.zip)
 
 ## English
 
