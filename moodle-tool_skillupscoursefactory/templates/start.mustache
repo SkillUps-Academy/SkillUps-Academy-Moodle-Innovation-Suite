@@ -1,0 +1,21 @@
+{{!
+    This file is part of Moodle.
+    SPDX-License-Identifier: GPL-3.0-or-later
+    @template tool_skillupscoursefactory/start
+    Example context (json):
+    {"single":"/create.php","import":"/import.php"}
+}}
+<div class="row g-3 mb-4">
+    <div class="col-12 col-md-6">
+        <div class="card h-100 p-3">
+            <a href="{{single}}" class="fs-5">{{#str}}single, tool_skillupscoursefactory{{/str}}</a>
+            <div>{{#str}}singledesc, tool_skillupscoursefactory{{/str}}</div>
+        </div>
+    </div>
+    <div class="col-12 col-md-6">
+        <div class="card h-100 p-3">
+            <a href="{{import}}" class="fs-5">{{#str}}import, tool_skillupscoursefactory{{/str}}</a>
+            <div>{{#str}}importdesc, tool_skillupscoursefactory{{/str}}</div>
+        </div>
+    </div>
+</div>
