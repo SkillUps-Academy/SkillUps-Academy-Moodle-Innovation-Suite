@@ -1,0 +1,221 @@
+{{!
+    @template local_skillupsgradebookguardian/dashboard
+
+    Course diagnosis history, findings, and approval.
+
+    Example context (json):
+    {"courseid": 4, "url": "#", "history": true, "candiagnose": true, "sesskey": "session"}
+}}
+<div class="local-skillupsgradebookguardian">
+    <div class="d-flex justify-content-between align-items-start flex-wrap gap-3 border rounded p-4 mb-4">
+        <div>
+            <h2 class="h3 mb-2">{{#str}}pluginname, local_skillupsgradebookguardian{{/str}}</h2>
+            <p class="mb-0 text-muted">{{#str}}intro, local_skillupsgradebookguardian{{/str}}</p>
+        </div>
+        <div class="d-flex gap-2 flex-wrap">
+            {{#gradebook}}<a class="btn btn-outline-secondary" href="{{gradebook}}">{{#str}}nativegradebook, local_skillupsgradebookguardian{{/str}}</a>{{/gradebook}}
+            {{#candiagnose}}
+                <form method="post" action="{{url}}">
+                    <input type="hidden" name="courseid" value="{{courseid}}">
+                    <input type="hidden" name="sesskey" value="{{sesskey}}">
+                    <button class="btn btn-primary" name="action" value="diagnose">{{#str}}diagnose, local_skillupsgradebookguardian{{/str}}</button>
+                </form>
+            {{/candiagnose}}
+        </div>
+    </div>
+
+    {{#history}}
+        <h3>{{#str}}history, local_skillupsgradebookguardian{{/str}}</h3>
+        <form method="get" action="{{url}}" class="d-flex flex-wrap align-items-end gap-2 mb-3">
+            <input type="hidden" name="courseid" value="{{courseid}}">
+            <div>
+                <label class="form-label" for="guardian-kind">{{#str}}operation, local_skillupsgradebookguardian{{/str}}</label>
+                <select id="guardian-kind" name="kind" class="form-select">
+                    <option value="">{{#str}}all, local_skillupsgradebookguardian{{/str}}</option>
+                    {{#kinds}}<option value="{{key}}" {{#selected}}selected{{/selected}}>{{label}}</option>{{/kinds}}
+                </select>
+            </div>
+            <button class="btn btn-outline-secondary">{{#str}}filter, local_skillupsgradebookguardian{{/str}}</button>
+        </form>
+        <div class="table-responsive">
+            <table class="table table-hover align-middle">
+                <caption class="visually-hidden">{{#str}}history, local_skillupsgradebookguardian{{/str}}</caption>
+                <thead><tr>
+                    <th scope="col">{{#str}}operation, local_skillupsgradebookguardian{{/str}}</th>
+                    <th scope="col">{{#str}}date, local_skillupsgradebookguardian{{/str}}</th>
+                    <th scope="col">{{#str}}actor, local_skillupsgradebookguardian{{/str}}</th>
+                </tr></thead>
+                <tbody>
+                    {{#entries}}
+                        <tr><td><a href="{{url}}">{{label}} #{{id}}</a></td><td>{{date}}</td><td>{{actor}}</td></tr>
+                    {{/entries}}
+                    {{^entries}}
+                        <tr><td colspan="3">{{#str}}emptyhistory, local_skillupsgradebookguardian{{/str}}</td></tr>
+                    {{/entries}}
+                </tbody>
+            </table>
+        </div>
+    {{/history}}
+
+    {{#entry}}
+        <a href="{{homeurl}}" class="d-inline-block mb-3">{{#str}}backhistory, local_skillupsgradebookguardian{{/str}}</a>
+        <h3>{{label}} #{{id}}</h3>
+        <p class="text-muted">{{date}} · {{actor}}</p>
+    {{/entry}}
+
+    {{#diagnosis}}
+        {{#counts}}
+            <dl class="row g-3 mb-4">
+                <div class="col-6 col-lg-3"><dt>{{#str}}categories, local_skillupsgradebookguardian{{/str}}</dt><dd class="h4">{{categories}}</dd></div>
+                <div class="col-6 col-lg-3"><dt>{{#str}}items, local_skillupsgradebookguardian{{/str}}</dt><dd class="h4">{{items}}</dd></div>
+                <div class="col-6 col-lg-3"><dt>{{#str}}activities, local_skillupsgradebookguardian{{/str}}</dt><dd class="h4">{{activities}}</dd></div>
+                <div class="col-6 col-lg-3"><dt>{{#str}}findings, local_skillupsgradebookguardian{{/str}}</dt><dd class="h4">{{findings}}</dd></div>
+            </dl>
+        {{/counts}}
+        <div class="d-flex flex-wrap gap-2 mb-4">
+            {{#csv}}<a class="btn btn-outline-secondary" href="{{csv}}">{{#str}}csv, local_skillupsgradebookguardian{{/str}}</a>{{/csv}}
+            {{#json}}<a class="btn btn-outline-secondary" href="{{json}}">{{#str}}json, local_skillupsgradebookguardian{{/str}}</a>{{/json}}
+        </div>
+        <nav class="d-flex flex-wrap gap-2 mb-3" aria-label="{{#str}}reportviews, local_skillupsgradebookguardian{{/str}}">
+            <a class="btn btn-outline-secondary {{#onfindings}}active{{/onfindings}}" {{#onfindings}}aria-current="page"{{/onfindings}} href="{{findingsurl}}">{{#str}}findings, local_skillupsgradebookguardian{{/str}}</a>
+            <a class="btn btn-outline-secondary {{#onrelationships}}active{{/onrelationships}}" {{#onrelationships}}aria-current="page"{{/onrelationships}} href="{{relationshipsurl}}">{{#str}}relationships, local_skillupsgradebookguardian{{/str}}</a>
+        </nav>
+        {{#onrelationships}}
+            <form method="get" action="{{url}}" class="d-flex flex-wrap align-items-end gap-2 mb-3">
+                <input type="hidden" name="courseid" value="{{courseid}}">
+                <input type="hidden" name="id" value="{{entryid}}">
+                <input type="hidden" name="tab" value="relations">
+                <div>
+                    <label class="form-label" for="guardian-gradeitem">{{#str}}field_item, local_skillupsgradebookguardian{{/str}}</label>
+                    <input id="guardian-gradeitem" class="form-control" type="number" name="gradeitem" min="1" value="{{gradeitem}}">
+                </div>
+                <button class="btn btn-outline-secondary">{{#str}}filter, local_skillupsgradebookguardian{{/str}}</button>
+            </form>
+            <div class="table-responsive">
+                <table class="table table-hover align-middle">
+                    <caption class="visually-hidden">{{#str}}relationships, local_skillupsgradebookguardian{{/str}}</caption>
+                    <thead><tr>
+                        <th scope="col">{{#str}}field_item, local_skillupsgradebookguardian{{/str}}</th>
+                        <th scope="col">{{#str}}field_category, local_skillupsgradebookguardian{{/str}}</th>
+                        <th scope="col">{{#str}}field_activity, local_skillupsgradebookguardian{{/str}}</th>
+                        <th scope="col">{{#str}}dependencies, local_skillupsgradebookguardian{{/str}}</th>
+                    </tr></thead>
+                    <tbody>
+                        {{#relationships}}
+                            <tr><th scope="row">{{item}}</th><td>{{#category}}{{category}}{{/category}}{{^category}}&ndash;{{/category}}</td><td>{{#activity}}{{activity}}{{/activity}}{{^activity}}&ndash;{{/activity}}</td><td class="text-break">{{dependencies}}</td></tr>
+                        {{/relationships}}
+                        {{^relationships}}
+                            <tr><td colspan="4">{{#str}}emptyrelationships, local_skillupsgradebookguardian{{/str}}</td></tr>
+                        {{/relationships}}
+                    </tbody>
+                </table>
+            </div>
+        {{/onrelationships}}
+        {{#onfindings}}
+        <form method="get" action="{{url}}" class="d-flex align-items-end flex-wrap gap-3 mb-3">
+            <input type="hidden" name="courseid" value="{{courseid}}">
+            <input type="hidden" name="id" value="{{entryid}}">
+            <div>
+                <label class="form-label" for="guardian-severity">{{#str}}severity, local_skillupsgradebookguardian{{/str}}</label>
+                <select id="guardian-severity" class="form-select" name="severity">
+                    <option value="">{{#str}}all, local_skillupsgradebookguardian{{/str}}</option>
+                    {{#severities}}<option value="{{key}}" {{#selected}}selected{{/selected}}>{{label}}</option>{{/severities}}
+                </select>
+            </div>
+            <div>
+                <label class="form-label" for="guardian-rule">{{#str}}rule, local_skillupsgradebookguardian{{/str}}</label>
+                <select id="guardian-rule" class="form-select" name="rule">
+                    <option value="">{{#str}}all, local_skillupsgradebookguardian{{/str}}</option>
+                    {{#rules}}<option value="{{key}}" {{#selected}}selected{{/selected}}>{{label}}</option>{{/rules}}
+                </select>
+            </div>
+            <div>
+                <label class="form-label" for="guardian-baseline">{{#str}}baseline, local_skillupsgradebookguardian{{/str}}</label>
+                <input id="guardian-baseline" class="form-control" type="number" name="baseline" min="1" value="{{baseline}}">
+            </div>
+            <button class="btn btn-outline-secondary">{{#str}}filter, local_skillupsgradebookguardian{{/str}}</button>
+        </form>
+        <div class="table-responsive">
+            <table class="table table-hover align-middle">
+                <caption class="visually-hidden">{{#str}}findings, local_skillupsgradebookguardian{{/str}}</caption>
+                <thead><tr>
+                    <th scope="col">{{#str}}finding, local_skillupsgradebookguardian{{/str}}</th>
+                    <th scope="col">{{#str}}evidence, local_skillupsgradebookguardian{{/str}}</th>
+                    <th scope="col">{{#str}}recommendation, local_skillupsgradebookguardian{{/str}}</th>
+                    {{#comparing}}<th scope="col">{{#str}}comparison, local_skillupsgradebookguardian{{/str}}</th>{{/comparing}}
+                </tr></thead>
+                <tbody>
+                    {{#findings}}
+                        <tr>
+                            <th scope="row">
+                                <div>{{title}}</div><div class="small fw-normal text-muted">{{reference}} · {{severity}}</div>
+                            </th>
+                            <td>{{evidence}}</td>
+                            <td>
+                                <div class="fw-semibold">{{treatment}}</div>
+                                <div>{{recommendation}}</div>
+                                {{#canpreview}}
+                                    <form method="post" action="{{url}}" class="mt-2">
+                                        <input type="hidden" name="courseid" value="{{courseid}}">
+                                        <input type="hidden" name="id" value="{{entryid}}">
+                                        <input type="hidden" name="sesskey" value="{{sesskey}}">
+                                        <input type="hidden" name="itemid" value="{{itemid}}">
+                                        <button class="btn btn-sm btn-outline-primary" name="action" value="preview">
+                                            {{#str}}preview, local_skillupsgradebookguardian{{/str}}
+                                        </button>
+                                    </form>
+                                {{/canpreview}}
+                            </td>
+                            {{#comparing}}
+                                <td>{{change}}{{#previous}}<div class="small text-muted">{{previous}}</div>{{/previous}}</td>
+                            {{/comparing}}
+                        </tr>
+                    {{/findings}}
+                    {{^findings}}
+                        <tr><td colspan="{{#comparing}}4{{/comparing}}{{^comparing}}3{{/comparing}}">{{#str}}emptyfindings, local_skillupsgradebookguardian{{/str}}</td></tr>
+                    {{/findings}}
+                </tbody>
+            </table>
+        </div>
+        {{/onfindings}}
+    {{/diagnosis}}
+
+    {{#decision}}
+        <p>{{item}} · {{activity}} · {{category}}</p>
+        <div class="row g-3 mb-4">
+            <div class="col-md-6"><div class="border rounded p-3 h-100">
+                <h4 class="h6">{{#str}}before, local_skillupsgradebookguardian{{/str}}</h4><p class="mb-0">{{before}}</p>
+            </div></div>
+            <div class="col-md-6"><div class="border rounded p-3 h-100">
+                <h4 class="h6">{{#str}}after, local_skillupsgradebookguardian{{/str}}</h4><p class="mb-0">{{after}}</p>
+            </div></div>
+        </div>
+        <h4 class="h6">{{#str}}impact, local_skillupsgradebookguardian{{/str}}</h4>
+        <p>{{#str}}impactdetail, local_skillupsgradebookguardian{{/str}}</p>
+        <h4 class="h6">{{#str}}recovery, local_skillupsgradebookguardian{{/str}}</h4>
+        <p>{{#str}}recoverydetail, local_skillupsgradebookguardian{{/str}}</p>
+        <div class="d-flex align-items-center flex-wrap gap-3 mb-3">
+            <a href="{{relatedurl}}">{{#str}}related, local_skillupsgradebookguardian{{/str}}</a>
+            {{#approvalurl}}<a href="{{approvalurl}}">{{#str}}kind_apply, local_skillupsgradebookguardian{{/str}}</a>{{/approvalurl}}
+            {{#recoveryurl}}<a href="{{recoveryurl}}">{{#str}}kind_revert, local_skillupsgradebookguardian{{/str}}</a>{{/recoveryurl}}
+        </div>
+        {{#expired}}<div class="alert alert-warning">{{#str}}expired, local_skillupsgradebookguardian{{/str}}</div>{{/expired}}
+        {{#canapply}}
+            <form method="post" action="{{url}}">
+                <input type="hidden" name="courseid" value="{{courseid}}">
+                <input type="hidden" name="id" value="{{entryid}}">
+                <input type="hidden" name="sesskey" value="{{sesskey}}">
+                <button class="btn btn-primary" name="action" value="apply">{{#str}}approve, local_skillupsgradebookguardian{{/str}}</button>
+            </form>
+        {{/canapply}}
+        {{#canundo}}
+            <form method="post" action="{{url}}">
+                <input type="hidden" name="courseid" value="{{courseid}}">
+                <input type="hidden" name="id" value="{{entryid}}">
+                <input type="hidden" name="sesskey" value="{{sesskey}}">
+                <button class="btn btn-outline-primary" name="action" value="revert">{{#str}}approveundo, local_skillupsgradebookguardian{{/str}}</button>
+            </form>
+        {{/canundo}}
+    {{/decision}}
+    {{{pager}}}
+</div>

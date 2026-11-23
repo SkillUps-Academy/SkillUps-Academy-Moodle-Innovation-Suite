@@ -10,6 +10,7 @@
 - [SkillUps Course Quality Inspector](moodle-report_skillupsquality/README.md) — Audit course configuration and track corrective plans.
 - [SkillUps Course Factory](moodle-tool_skillupscoursefactory/README.md) — Preview, schedule and provision individual or batch course operations.
 - [SkillUps Smart Enrollment Manager](moodle-tool_skillupsenrollment/README.md) — Simulate and process enrollment, role, group and status changes in batches.
+- [SkillUps Gradebook Guardian](moodle-local_skillupsgradebookguardian/README.md) — Diagnose gradebook configuration and approve reversible visibility repairs.
 
 ## SkillUps AI Copilot 0.9.0-beta.1
 
@@ -95,3 +96,12 @@
 - [Import templates and optional Course Factory integration](moodle-tool_skillupsenrollment/docs/operations.md)
 - [Validation and screenshots](moodle-tool_skillupsenrollment/docs/validation.md)
 - [Moodle Marketplace submission draft](moodle-tool_skillupsenrollment/docs/marketplace.md)
+
+## SkillUps Gradebook Guardian 0.9.0-beta.1
+
+- [Moodle installation ZIP](releases/skillupsgradebookguardian/skillupsgradebookguardian-0.9.0-beta.1.zip)
+- [SHA-256 checksum](releases/skillupsgradebookguardian/SHA256SUMS)
+- [Installation and permissions](moodle-local_skillupsgradebookguardian/docs/administration.md)
+- [Rule catalogue and repair workflow](moodle-local_skillupsgradebookguardian/docs/operations.md)
+- [Validation and screenshots](moodle-local_skillupsgradebookguardian/docs/validation.md)
+- [Moodle Marketplace submission draft](moodle-local_skillupsgradebookguardian/docs/marketplace.md)
