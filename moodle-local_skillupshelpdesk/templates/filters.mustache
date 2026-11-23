@@ -1,0 +1,48 @@
+{{!
+    @template local_skillupshelpdesk/filters
+
+    SkillUps Helpdesk filters.
+
+    Example context (json):
+    {"filterurl":"#"}
+}}
+<form method="get" action="{{filterurl}}" class="d-flex flex-wrap gap-3 align-items-end p-3 border rounded mb-4">
+    {{#queueview}}
+        <div>
+            <label for="helpdesk-view" class="form-label">{{#str}}view, local_skillupshelpdesk{{/str}}</label>
+            <select id="helpdesk-view" name="view" class="form-select">
+                <option value="">{{#str}}all, local_skillupshelpdesk{{/str}}</option>
+                {{#views}}<option value="{{id}}" {{#selected}}selected{{/selected}}>{{label}}</option>{{/views}}
+            </select>
+        </div>
+    {{/queueview}}
+    {{#reportsmode}}
+        <div>
+            <label for="helpdesk-dimension" class="form-label">{{#str}}groupby, local_skillupshelpdesk{{/str}}</label>
+            <select id="helpdesk-dimension" name="dimension" class="form-select">
+                {{#dimensions}}<option value="{{id}}" {{#selected}}selected{{/selected}}>{{label}}</option>{{/dimensions}}
+            </select>
+        </div>
+    {{/reportsmode}}
+    <div>
+        <label for="helpdesk-search" class="form-label">{{#str}}searchtitle, local_skillupshelpdesk{{/str}}</label>
+        <input id="helpdesk-search" class="form-control" type="search" maxlength="80" name="q" value="{{q}}">
+    </div>
+    {{#filters}}
+        <div>
+            <label for="helpdesk-filter-{{field}}" class="form-label">{{label}}</label>
+            <select id="helpdesk-filter-{{field}}" name="{{field}}" class="form-select">
+                <option value="0">{{#str}}all, local_skillupshelpdesk{{/str}}</option>
+                {{#options}}<option value="{{id}}" {{#selected}}selected{{/selected}}>{{label}}</option>{{/options}}
+            </select>
+        </div>
+    {{/filters}}
+    <div>
+        <label for="helpdesk-period" class="form-label">{{#str}}period, local_skillupshelpdesk{{/str}}</label>
+        <select id="helpdesk-period" name="days" class="form-select">
+            <option value="0">{{#str}}all, local_skillupshelpdesk{{/str}}</option>
+            {{#periods}}<option value="{{id}}" {{#selected}}selected{{/selected}}>{{label}}</option>{{/periods}}
+        </select>
+    </div>
+    <button class="btn btn-outline-primary">{{#str}}applyfilters, local_skillupshelpdesk{{/str}}</button>
+</form>

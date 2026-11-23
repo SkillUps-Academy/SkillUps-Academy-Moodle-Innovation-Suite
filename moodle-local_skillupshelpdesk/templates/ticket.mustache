@@ -1,0 +1,91 @@
+{{!
+    @template local_skillupshelpdesk/ticket
+
+    SkillUps Helpdesk ticket.
+
+    Example context (json):
+    {"portalurl":"#","knowledgeurl":"#","id":10,"subject":"Example","status":"Open"}
+}}
+<div class="skillups-helpdesk">
+    {{> local_skillupshelpdesk/nav}}
+    <section aria-labelledby="ticket-subject" class="helpdesk-panel border rounded p-4 mb-4">
+        <div class="d-flex flex-wrap align-items-center gap-2 mb-2">
+            <div class="text-muted">#{{id}}</div>
+            <span class="badge text-bg-secondary">{{status}}</span>
+        </div>
+        <h2 class="h3 text-break" id="ticket-subject">{{subject}}</h2>
+        <dl class="row g-3 mb-0 mt-3">
+            {{#metadata}}<div class="col-6 col-md-4 col-xl-3"><dt>{{label}}</dt><dd class="mb-0">{{value}}</dd></div>{{/metadata}}
+        </dl>
+    </section>
+    {{#canescalate}}
+        <form method="post" action="{{detailurl}}" class="mb-3">
+            <input type="hidden" name="id" value="{{id}}">
+            <input type="hidden" name="sesskey" value="{{sesskey}}">
+            <button class="btn btn-outline-primary" name="escalate" value="1">{{#str}}escalate, local_skillupshelpdesk{{/str}}</button>
+        </form>
+    {{/canescalate}}
+    {{#rated}}<p class="alert alert-info">{{rated}}</p>{{/rated}}
+    {{#canrate}}
+        <form method="post" action="{{detailurl}}" class="border rounded p-3 mb-4 d-flex flex-wrap gap-3 align-items-end">
+            <input type="hidden" name="id" value="{{id}}">
+            <input type="hidden" name="sesskey" value="{{sesskey}}">
+            <div>
+                <label for="helpdesk-rating" class="form-label">{{#str}}satisfaction, local_skillupshelpdesk{{/str}}</label>
+                <select id="helpdesk-rating" name="rating" class="form-select" required>
+                    <option value="">{{#str}}selectrating, local_skillupshelpdesk{{/str}}</option>
+                    <option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option>
+                </select>
+            </div>
+            <button class="btn btn-primary" name="rate" value="1">{{#str}}sendsurvey, local_skillupshelpdesk{{/str}}</button>
+        </form>
+    {{/canrate}}
+    <nav class="d-flex gap-2 mb-3" aria-label="{{#str}}ticketviews, local_skillupshelpdesk{{/str}}">
+        <a class="btn btn-outline-secondary {{#is_messages}}active{{/is_messages}}" {{#is_messages}}aria-current="page"{{/is_messages}}
+            href="{{detailurl}}">{{#str}}conversation, local_skillupshelpdesk{{/str}}</a>
+        <a class="btn btn-outline-secondary {{#is_history}}active{{/is_history}}" {{#is_history}}aria-current="page"{{/is_history}}
+            href="{{historyurl}}">{{#str}}history, local_skillupshelpdesk{{/str}}</a>
+    </nav>
+    {{#is_messages}}
+        <div class="d-grid gap-3 mb-3">
+            {{#posts}}
+                <article class="border rounded p-3 {{#internal}}helpdesk-internal{{/internal}}">
+                    <div class="d-flex flex-wrap align-items-center gap-2 mb-2">
+                        <strong>{{actor}}</strong><time class="text-muted small">{{time}}</time>
+                        {{#internal}}<span class="badge text-bg-warning">{{#str}}internalnote, local_skillupshelpdesk{{/str}}</span>{{/internal}}
+                    </div>
+                    <div class="helpdesk-plaintext text-break">{{body}}</div>
+                    {{#attachments}}
+                        <div class="mt-2"><a href="{{url}}">{{name}}</a></div>
+                    {{/attachments}}
+                </article>
+            {{/posts}}
+            {{^posts}}<p class="text-muted">{{#str}}nomessages, local_skillupshelpdesk{{/str}}</p>{{/posts}}
+        </div>
+    {{/is_messages}}
+    {{#is_history}}
+        <ol class="list-group list-group-numbered mb-3">
+            {{#events}}
+                <li class="list-group-item">
+                    <strong>{{action}}</strong> · {{actor}} · {{time}}
+                    {{#changes}}<div>{{field}} · {{from}} → {{to}}</div>{{/changes}}
+                </li>
+            {{/events}}
+            {{^events}}<li class="list-group-item">{{#str}}nohistory, local_skillupshelpdesk{{/str}}</li>{{/events}}
+        </ol>
+    {{/is_history}}
+    {{{pager}}}
+    {{#canloadtemplates}}
+        <form method="get" action="{{detailurl}}" class="d-flex flex-wrap align-items-end gap-2 mb-4">
+            <input type="hidden" name="id" value="{{id}}">
+            <div>
+                <label class="form-label" for="helpdesk-template">{{#str}}kind_template, local_skillupshelpdesk{{/str}}</label>
+                <select class="form-select" id="helpdesk-template" name="template" required>
+                    <option value="">{{#str}}selecttemplate, local_skillupshelpdesk{{/str}}</option>
+                    {{#templates}}<option value="{{id}}" {{#selected}}selected{{/selected}}>{{label}}</option>{{/templates}}
+                </select>
+            </div>
+            <button class="btn btn-outline-secondary">{{#str}}loadtemplate, local_skillupshelpdesk{{/str}}</button>
+        </form>
+    {{/canloadtemplates}}
+</div>

@@ -1,0 +1,12 @@
+.skillups-helpdesk .helpdesk-panel {
+    background: var(--bs-tertiary-bg, #f4f6f9);
+    border-inline-start: 0.3rem solid var(--bs-primary) !important;
+}
+
+.skillups-helpdesk .helpdesk-plaintext {
+    white-space: pre-wrap;
+}
+
+.skillups-helpdesk .helpdesk-internal {
+    border-inline-start: 0.3rem solid var(--bs-warning) !important;
+}

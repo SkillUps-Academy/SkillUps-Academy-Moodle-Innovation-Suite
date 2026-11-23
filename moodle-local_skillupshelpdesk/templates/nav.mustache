@@ -1,0 +1,15 @@
+{{!
+    @template local_skillupshelpdesk/nav
+
+    SkillUps Helpdesk nav.
+
+    Example context (json):
+    {"portalurl":"#","knowledgeurl":"#"}
+}}
+<nav class="helpdesk-nav d-flex flex-wrap gap-2 mb-4" aria-label="{{#str}}portallinks, local_skillupshelpdesk{{/str}}">
+    <a class="btn btn-outline-secondary" href="{{portalurl}}">{{#str}}tickets, local_skillupshelpdesk{{/str}}</a>
+    {{#openurl}}<a class="btn btn-primary" href="{{openurl}}">{{#str}}openticket, local_skillupshelpdesk{{/str}}</a>{{/openurl}}
+    <a class="btn btn-outline-secondary" href="{{knowledgeurl}}">{{#str}}knowledge, local_skillupshelpdesk{{/str}}</a>
+    {{#reportsurl}}<a class="btn btn-outline-secondary" href="{{reportsurl}}">{{#str}}reports, local_skillupshelpdesk{{/str}}</a>{{/reportsurl}}
+    {{#adminurl}}<a class="btn btn-outline-secondary" href="{{adminurl}}">{{#str}}manage, local_skillupshelpdesk{{/str}}</a>{{/adminurl}}
+</nav>

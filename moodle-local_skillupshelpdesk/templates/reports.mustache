@@ -1,0 +1,29 @@
+{{!
+    @template local_skillupshelpdesk/reports
+
+    SkillUps Helpdesk reports.
+
+    Example context (json):
+    {"portalurl":"#","knowledgeurl":"#","filterurl":"#","csvurl":"#","headers":["Group","Open"]}
+}}
+<div class="skillups-helpdesk">
+    {{> local_skillupshelpdesk/nav}}
+    <h2 class="h3">{{#str}}reports, local_skillupshelpdesk{{/str}}</h2>
+    {{> local_skillupshelpdesk/filters}}
+    <div class="d-flex flex-wrap gap-2 mb-3">
+        <a class="btn btn-outline-secondary" href="{{csvurl}}">{{#str}}exportcsv, local_skillupshelpdesk{{/str}}</a>
+        {{#jsonurl}}<a class="btn btn-outline-secondary" href="{{jsonurl}}">{{#str}}exportjson, local_skillupshelpdesk{{/str}}</a>{{/jsonurl}}
+    </div>
+    <div class="table-responsive">
+        <table class="table table-hover align-middle">
+            <caption class="visually-hidden">{{#str}}reports, local_skillupshelpdesk{{/str}}</caption>
+            <thead><tr>{{#headers}}<th scope="col">{{.}}</th>{{/headers}}</tr></thead>
+            <tbody>
+                {{#rows}}<tr><th scope="row">{{bucket}}</th><td>{{totalcount}}</td><td>{{opencount}}</td><td>{{closedcount}}</td>
+                    <td>{{responsecount}}</td><td>{{resolvecount}}</td><td>{{ratedcount}}</td><td>{{ratingmean}}</td></tr>{{/rows}}
+                {{^rows}}<tr><td colspan="8">{{#str}}noreport, local_skillupshelpdesk{{/str}}</td></tr>{{/rows}}
+            </tbody>
+        </table>
+    </div>
+    {{{pager}}}
+</div>

@@ -1,0 +1,37 @@
+{{!
+    @template local_skillupshelpdesk/manage
+
+    SkillUps Helpdesk manage.
+
+    Example context (json):
+    {"portalurl":"#","knowledgeurl":"#","addurl":"#"}
+}}
+<div class="skillups-helpdesk">
+    {{> local_skillupshelpdesk/nav}}
+    <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
+        <h2 class="h3">{{#str}}manage, local_skillupshelpdesk{{/str}}</h2>
+        {{#settingsurl}}<a class="btn btn-outline-secondary" href="{{settingsurl}}">{{#str}}settings, local_skillupshelpdesk{{/str}}</a>{{/settingsurl}}
+    </div>
+    <nav class="d-flex flex-wrap gap-2 mb-4" aria-label="{{#str}}catalogues, local_skillupshelpdesk{{/str}}">
+        {{#tabs}}<a class="btn btn-outline-secondary {{#current}}active{{/current}}"
+            {{#current}}aria-current="page"{{/current}} href="{{url}}">{{label}}</a>{{/tabs}}
+    </nav>
+    {{^editing}}
+        <a class="btn btn-primary mb-3" href="{{addurl}}">{{#str}}newentry, local_skillupshelpdesk{{/str}}</a>
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <caption class="visually-hidden">{{#str}}catalogues, local_skillupshelpdesk{{/str}}</caption>
+                <thead><tr><th scope="col">{{#str}}name, local_skillupshelpdesk{{/str}}</th><th scope="col">{{#str}}active, local_skillupshelpdesk{{/str}}</th><th scope="col">{{#str}}details, local_skillupshelpdesk{{/str}}</th></tr></thead>
+                <tbody>
+                    {{#records}}<tr><th scope="row"><a href="{{url}}">{{name}}</a></th><td>{{active}}</td><td>{{info}}</td></tr>{{/records}}
+                    {{^records}}<tr><td colspan="3">{{#str}}noentries, local_skillupshelpdesk{{/str}}</td></tr>{{/records}}
+                </tbody>
+            </table>
+        </div>
+        <h3 class="h5 mt-4">{{#str}}adminhistory, local_skillupshelpdesk{{/str}}</h3>
+        <ul class="list-group">
+            {{#audit}}<li class="list-group-item">{{action}} · {{actor}} · {{date}}</li>{{/audit}}
+            {{^audit}}<li class="list-group-item">{{#str}}nohistory, local_skillupshelpdesk{{/str}}</li>{{/audit}}
+        </ul>
+    {{/editing}}
+</div>

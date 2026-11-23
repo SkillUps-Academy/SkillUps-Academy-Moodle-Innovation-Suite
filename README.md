@@ -11,6 +11,7 @@
 - [SkillUps Course Factory](moodle-tool_skillupscoursefactory/README.md) — Preview, schedule and provision individual or batch course operations.
 - [SkillUps Smart Enrollment Manager](moodle-tool_skillupsenrollment/README.md) — Simulate and process enrollment, role, group and status changes in batches.
 - [SkillUps Gradebook Guardian](moodle-local_skillupsgradebookguardian/README.md) — Diagnose gradebook configuration and approve reversible visibility repairs.
+- [SkillUps Helpdesk](moodle-local_skillupshelpdesk/README.md) — Operate a scoped support desk with secure attachments, business-time SLAs and reports.
 
 ## SkillUps AI Copilot 0.9.0-beta.1
 
@@ -105,3 +106,12 @@
 - [Rule catalogue and repair workflow](moodle-local_skillupsgradebookguardian/docs/operations.md)
 - [Validation and screenshots](moodle-local_skillupsgradebookguardian/docs/validation.md)
 - [Moodle Marketplace submission draft](moodle-local_skillupsgradebookguardian/docs/marketplace.md)
+
+## SkillUps Helpdesk 0.9.0-beta.1
+
+- [Moodle installation ZIP](releases/skillupshelpdesk/skillupshelpdesk-0.9.0-beta.1.zip)
+- [SHA-256 checksum](releases/skillupshelpdesk/SHA256SUMS)
+- [Installation, permissions and configuration](moodle-local_skillupshelpdesk/docs/administration.md)
+- [Portal, support workflow and reporting](moodle-local_skillupshelpdesk/docs/operations.md)
+- [Validation and screenshots](moodle-local_skillupshelpdesk/docs/validation.md)
+- [Moodle Marketplace submission draft](moodle-local_skillupshelpdesk/docs/marketplace.md)

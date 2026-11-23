@@ -1,0 +1,42 @@
+{{!
+    @template local_skillupshelpdesk/dashboard
+
+    SkillUps Helpdesk dashboard.
+
+    Example context (json):
+    {"portalurl":"#","knowledgeurl":"#","filterurl":"#","metrics":[{"label":"Open","value":2}]}
+}}
+<div class="skillups-helpdesk">
+    {{> local_skillupshelpdesk/nav}}
+    <div class="helpdesk-panel border rounded p-4 mb-4">
+        {{#staffqueue}}<h2 class="h3">{{#str}}staffqueue, local_skillupshelpdesk{{/str}}</h2>{{/staffqueue}}
+        {{^staffqueue}}<h2 class="h3">{{#str}}mytickets, local_skillupshelpdesk{{/str}}</h2>{{/staffqueue}}
+        <dl class="row g-3 mb-0 mt-2">
+            {{#metrics}}<div class="col-6 col-lg-3"><dt>{{label}}</dt><dd class="h3 mt-1 mb-0">{{value}}</dd></div>{{/metrics}}
+        </dl>
+    </div>
+    {{> local_skillupshelpdesk/filters}}
+    <div class="table-responsive">
+        <table class="table table-hover align-middle">
+            <caption class="visually-hidden">{{#str}}tickets, local_skillupshelpdesk{{/str}}</caption>
+            <thead><tr>
+                <th scope="col">{{#str}}title, local_skillupshelpdesk{{/str}}</th>
+                <th scope="col">{{#str}}kind_status, local_skillupshelpdesk{{/str}}</th>
+                <th scope="col">{{#str}}kind_priority, local_skillupshelpdesk{{/str}}</th>
+                <th scope="col">{{#str}}kind_severity, local_skillupshelpdesk{{/str}}</th>
+                <th scope="col">{{#str}}modified, local_skillupshelpdesk{{/str}}</th>
+            </tr></thead>
+            <tbody>
+                {{#tickets}}
+                    <tr>
+                        <th scope="row"><a href="{{url}}">#{{id}} · {{title}}</a></th>
+                        <td>{{status}}{{#overdue}} <span class="badge text-bg-warning">{{#str}}overdue, local_skillupshelpdesk{{/str}}</span>{{/overdue}}</td>
+                        <td>{{priority}}</td><td>{{severity}}</td><td>{{modified}}</td>
+                    </tr>
+                {{/tickets}}
+                {{^tickets}}<tr><td colspan="5">{{#str}}notickets, local_skillupshelpdesk{{/str}}</td></tr>{{/tickets}}
+            </tbody>
+        </table>
+    </div>
+    {{{pager}}}
+</div>
