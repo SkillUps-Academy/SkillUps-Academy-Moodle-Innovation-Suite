@@ -1,5 +1,7 @@
 # Validación de SkillUps Course Factory
 
+La matriz siguiente describe la validación del motor en 0.9.0-beta.1. La versión 0.9.0-beta.2 mantiene el esquema y añade el contrato de consulta v1. Se verificó su actualización en Moodle 5.3.1 conservando un destino previo y se ejercitó la integración de extremo a extremo. [Prueba de integración](../../moodle-tool_skillupsenrollment/docs/validation.md)
+
 Las pruebas se ejecutaron con instalaciones y datos sintéticos. Moodle 5.3 LTS fue la referencia.
 
 | Moodle | PHP | Motor | Instalación | PHPUnit |

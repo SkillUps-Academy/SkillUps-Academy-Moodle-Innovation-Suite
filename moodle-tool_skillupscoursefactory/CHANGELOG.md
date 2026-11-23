@@ -1,5 +1,9 @@
 # Registro de cambios
 
+## 0.9.0-beta.2
+
+- Contrato local de solo lectura para resolver una fila completada y autorizada desde Smart Enrollment Manager.
+
 ## 0.9.0-beta.1
 
 - Solicitudes individuales y lotes CSV/XLSX con validación, programación y confirmación.

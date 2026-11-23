@@ -2,7 +2,7 @@
 
 - **Component** `tool_skillupscoursefactory`
 - **Type** Admin tool
-- **Release** 0.9.0-beta.1
+- **Release** 0.9.0-beta.2
 - **License** GPL-3.0-or-later
 - **Maintainer** SkillUps Academy
 - **Languages** English and Spanish

@@ -9,6 +9,7 @@
 - [SkillUps System Monitor](moodle-report_skillupsmonitor/README.md) — Monitor Moodle observations, cron, task queues and incidents.
 - [SkillUps Course Quality Inspector](moodle-report_skillupsquality/README.md) — Audit course configuration and track corrective plans.
 - [SkillUps Course Factory](moodle-tool_skillupscoursefactory/README.md) — Preview, schedule and provision individual or batch course operations.
+- [SkillUps Smart Enrollment Manager](moodle-tool_skillupsenrollment/README.md) — Simulate and process enrollment, role, group and status changes in batches.
 
 ## SkillUps AI Copilot 0.9.0-beta.1
 
@@ -77,11 +78,20 @@
 - [Validation and screenshots](moodle-report_skillupsquality/docs/validation.md)
 - [Moodle Plugins Directory submission draft](moodle-report_skillupsquality/docs/marketplace.md)
 
-## SkillUps Course Factory 0.9.0-beta.1
+## SkillUps Course Factory 0.9.0-beta.2
 
-- [Moodle installation ZIP](releases/skillupscoursefactory/skillupscoursefactory-0.9.0-beta.1.zip)
+- [Moodle installation ZIP](releases/skillupscoursefactory/skillupscoursefactory-0.9.0-beta.2.zip)
 - [SHA-256 checksum](releases/skillupscoursefactory/SHA256SUMS)
 - [Installation and administration](moodle-tool_skillupscoursefactory/docs/administration.md)
 - [Importing and processing courses](moodle-tool_skillupscoursefactory/docs/operations.md)
 - [Validation and screenshots](moodle-tool_skillupscoursefactory/docs/validation.md)
 - [Moodle Marketplace submission draft](moodle-tool_skillupscoursefactory/docs/marketplace.md)
+
+## SkillUps Smart Enrollment Manager 0.9.0-beta.1
+
+- [Moodle installation ZIP](releases/skillupsenrollment/skillupsenrollment-0.9.0-beta.1.zip)
+- [SHA-256 checksum](releases/skillupsenrollment/SHA256SUMS)
+- [Installation and permissions](moodle-tool_skillupsenrollment/docs/administration.md)
+- [Import templates and optional Course Factory integration](moodle-tool_skillupsenrollment/docs/operations.md)
+- [Validation and screenshots](moodle-tool_skillupsenrollment/docs/validation.md)
+- [Moodle Marketplace submission draft](moodle-tool_skillupsenrollment/docs/marketplace.md)

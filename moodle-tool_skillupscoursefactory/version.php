@@ -24,8 +24,8 @@
 
 defined('MOODLE_INTERNAL') || die();
 $plugin->component = 'tool_skillupscoursefactory';
-$plugin->version = 2026112300;
+$plugin->version = 2026112301;
 $plugin->requires = 2025041400;
-$plugin->release = '0.9.0-beta.1';
+$plugin->release = '0.9.0-beta.2';
 $plugin->maturity = MATURITY_BETA;
 $plugin->dependencies = ['enrol_manual' => ANY_VERSION, 'dataformat_csv' => ANY_VERSION, 'dataformat_excel' => ANY_VERSION];

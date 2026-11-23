@@ -9,8 +9,10 @@ Crea aulas y clona contenidos mediante las APIs nativas de Moodle. La interfaz b
 - [Arquitectura](docs/architecture.md)
 - [Pruebas y capturas](docs/validation.md)
 - [Borrador para Moodle Marketplace](docs/marketplace.md)
-- [ZIP instalable](../releases/skillupscoursefactory/skillupscoursefactory-0.9.0-beta.1.zip)
+- [ZIP instalable](../releases/skillupscoursefactory/skillupscoursefactory-0.9.0-beta.2.zip)
 
 ## English
 
 Install the ZIP from **Site administration → Plugins → Install plugins**. Open **Site administration → Courses → SkillUps Course Factory**. Choose a source course or institutional template to copy content, or leave the source empty to create a course. Review the preview before confirming. Moodle cron handles due work in bounded slices. [Operator guide](docs/operations.md)
+
+La versión 0.9.0-beta.2 incluye una consulta local opcional para entregar el ID de un destino completado y autorizado a Smart Enrollment Manager. [Contrato de integración](../moodle-tool_skillupsenrollment/docs/operations.md#course-factory)
