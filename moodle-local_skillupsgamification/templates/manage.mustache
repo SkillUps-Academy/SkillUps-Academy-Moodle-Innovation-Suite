@@ -1,0 +1,64 @@
+{{!
+    @template local_skillupsgamification/manage
+
+    SkillUps Gamification Pro manage.
+
+    Example context (json):
+    {"catalog":true,"addurl":"#","sections":[{"label":"Rules","url":"#"}]}
+}}
+<div class="skillups-gamification">
+    <h2 class="h3">{{#str}}manage, local_skillupsgamification{{/str}}</h2>
+    {{> local_skillupsgamification/nav}}
+    <nav class="nav nav-tabs flex-wrap mb-4" aria-label="{{#str}}sections, local_skillupsgamification{{/str}}">
+        {{#sections}}<a class="nav-link {{#active}}active{{/active}}" {{#active}}aria-current="page"{{/active}} href="{{url}}">{{label}}</a>{{/sections}}
+    </nav>
+    {{#pathnote}}<p class="text-muted">{{#str}}pathmissing, local_skillupsgamification{{/str}}</p>{{/pathnote}}
+    {{#groupsurl}}<p><a href="{{groupsurl}}">{{#str}}nativegroups, local_skillupsgamification{{/str}}</a></p>{{/groupsurl}}
+    {{#catalog}}
+        <p><a class="btn btn-primary" href="{{addurl}}">{{#str}}add, local_skillupsgamification{{/str}}</a></p>
+        <div class="table-responsive"><table class="table table-hover">
+            <caption class="visually-hidden">{{#str}}catalog, local_skillupsgamification{{/str}}</caption>
+            <thead><tr>
+                <th scope="col">{{#str}}name, local_skillupsgamification{{/str}}</th>
+                <th scope="col">{{#str}}kind, local_skillupsgamification{{/str}}</th>
+                <th scope="col">{{#str}}status, local_skillupsgamification{{/str}}</th>
+                <th scope="col">{{#str}}window, local_skillupsgamification{{/str}}</th>
+            </tr></thead>
+            <tbody>
+                {{#records}}<tr><th scope="row"><a href="{{url}}">{{title}}</a></th><td>{{kind}}</td><td>{{active}}</td><td>{{window}}</td></tr>{{/records}}
+                {{^records}}<tr><td colspan="4">{{#str}}nocatalog, local_skillupsgamification{{/str}}</td></tr>{{/records}}
+            </tbody>
+        </table></div>
+    {{/catalog}}
+    {{#delivery}}
+        {{#exporturl}}<p><a class="btn btn-outline-secondary" href="{{exporturl}}">{{#str}}exportcsv, local_skillupsgamification{{/str}}</a></p>{{/exporturl}}
+        <div class="table-responsive"><table class="table table-hover align-middle">
+            <caption class="visually-hidden">{{#str}}delivery, local_skillupsgamification{{/str}}</caption>
+            <thead><tr>
+                <th scope="col">{{#str}}goal_reward, local_skillupsgamification{{/str}}</th>
+                <th scope="col">{{#str}}participant, local_skillupsgamification{{/str}}</th>
+                <th scope="col">{{#str}}date, local_skillupsgamification{{/str}}</th>
+                <th scope="col">{{#str}}status, local_skillupsgamification{{/str}}</th>
+                <th scope="col">{{#str}}action, local_skillupsgamification{{/str}}</th>
+            </tr></thead>
+            <tbody>
+                {{#redemptions}}<tr><th scope="row">{{title}}</th><td>{{participant}}</td><td>{{date}}</td><td>{{state}}</td>
+                    <td>{{#pending}}<form method="post" action="{{url}}">
+                        <input type="hidden" name="courseid" value="{{courseid}}"><input type="hidden" name="sesskey" value="{{sesskey}}">
+                        <input type="hidden" name="grantid" value="{{id}}">
+                        <button class="btn btn-outline-primary btn-sm" name="deliver" value="1">{{#str}}markdelivered, local_skillupsgamification{{/str}}</button>
+                    </form>{{/pending}}</td>
+                </tr>{{/redemptions}}
+                {{^redemptions}}<tr><td colspan="5">{{#str}}noclaims, local_skillupsgamification{{/str}}</td></tr>{{/redemptions}}
+            </tbody>
+        </table></div>
+    {{/delivery}}
+    {{#excludedusers}}<div class="mb-2">{{label}}</div>{{/excludedusers}}
+    {{#audit}}
+        <ul class="list-group">
+            {{#events}}<li class="list-group-item"><strong>{{action}}</strong> · {{actor}} · {{time}}{{#target}} · #{{target}}{{/target}}</li>{{/events}}
+            {{^events}}<li class="list-group-item">{{#str}}noaudit, local_skillupsgamification{{/str}}</li>{{/events}}
+        </ul>
+    {{/audit}}
+    {{{pager}}}
+</div>

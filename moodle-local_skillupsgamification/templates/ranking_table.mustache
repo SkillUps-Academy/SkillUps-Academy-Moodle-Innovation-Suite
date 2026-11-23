@@ -1,0 +1,23 @@
+{{!
+    @template local_skillupsgamification/ranking_table
+
+    SkillUps Gamification Pro ranking_table.
+
+    Example context (json):
+    {"heading":"Ranking","rows":[{"position":1,"label":"Player A01","points":10,"xp":20}]}
+}}
+<div class="table-responsive">
+    <table class="table table-hover">
+        <caption class="visually-hidden">{{heading}}</caption>
+        <thead><tr>
+            <th scope="col">{{#str}}rank, local_skillupsgamification{{/str}}</th>
+            <th scope="col">{{#str}}name, local_skillupsgamification{{/str}}</th>
+            <th scope="col">{{#str}}points, local_skillupsgamification{{/str}}</th>
+            <th scope="col">{{#str}}xp, local_skillupsgamification{{/str}}</th>
+        </tr></thead>
+        <tbody>
+            {{#rows}}<tr><td>{{position}}</td><th scope="row">{{label}}</th><td>{{points}}</td><td>{{xp}}</td></tr>{{/rows}}
+            {{^rows}}<tr><td colspan="4">{{#str}}noranking, local_skillupsgamification{{/str}}</td></tr>{{/rows}}
+        </tbody>
+    </table>
+</div>

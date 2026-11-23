@@ -1,0 +1,26 @@
+.skillups-gamification .game-summary {
+    background: var(--bs-tertiary-bg, #f4f6f9);
+    border-inline-start: 0.3rem solid var(--bs-primary) !important;
+}
+
+.skillups-gamification .game-progress {
+    width: min(24rem, 75%);
+    accent-color: var(--bs-primary);
+}
+
+.skillups-gamification .game-emblem {
+    display: inline-grid;
+    place-items: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    flex: 0 0 auto;
+    padding: 0.2rem;
+    color: var(--bs-primary-text-emphasis);
+    background: var(--bs-primary-bg-subtle);
+    border-radius: 0.5rem;
+    font-size: 1.35rem;
+}
+
+.skillups-gamification .game-text {
+    white-space: pre-wrap;
+}

@@ -1,0 +1,11 @@
+{{!
+    @template local_skillupsgamification/nav
+
+    SkillUps Gamification Pro nav.
+
+    Example context (json):
+    {"tabs":[{"label":"Progress","url":"#"}]}
+}}
+<nav class="d-flex flex-wrap gap-2 mb-4" aria-label="{{#str}}navigation, local_skillupsgamification{{/str}}">
+    {{#tabs}}<a class="btn btn-outline-secondary" href="{{url}}">{{label}}</a>{{/tabs}}
+</nav>

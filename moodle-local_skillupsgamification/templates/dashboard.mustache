@@ -1,0 +1,110 @@
+{{!
+    @template local_skillupsgamification/dashboard
+
+    SkillUps Gamification Pro dashboard.
+
+    Example context (json):
+    {"overview":true,"points":10,"xp":30,"balance":10,"level":1,"levelvalue":30,"levelsize":100}
+}}
+<div class="skillups-gamification">
+    <h2 class="h3 mb-3">{{#str}}pluginname, local_skillupsgamification{{/str}}</h2>
+    {{> local_skillupsgamification/nav}}
+    {{#disabled}}<p class="alert alert-info">{{#str}}disabled, local_skillupsgamification{{/str}}</p>{{/disabled}}
+    {{#excluded}}<p class="alert alert-warning">{{#str}}participationexcluded, local_skillupsgamification{{/str}}</p>{{/excluded}}
+
+    {{#overview}}
+        <div class="game-summary border rounded p-4 mb-4">
+            <dl class="row g-3 mb-3">
+                <div class="col-6 col-lg-3"><dt>{{#str}}points, local_skillupsgamification{{/str}}</dt><dd class="h3 mb-0">{{points}}</dd></div>
+                <div class="col-6 col-lg-3"><dt>{{#str}}balance, local_skillupsgamification{{/str}}</dt><dd class="h3 mb-0">{{balance}}</dd></div>
+                <div class="col-6 col-lg-3"><dt>{{#str}}xp, local_skillupsgamification{{/str}}</dt><dd class="h3 mb-0">{{xp}}</dd></div>
+                <div class="col-6 col-lg-3"><dt>{{#str}}level, local_skillupsgamification{{/str}}</dt><dd class="h3 mb-0">{{level}}</dd></div>
+            </dl>
+            <label for="game-next-level" class="form-label">{{#str}}nextlevel, local_skillupsgamification{{/str}}</label>
+            <div class="d-flex align-items-center gap-2">
+                <progress id="game-next-level" class="game-progress" max="{{levelsize}}" value="{{levelvalue}}"></progress>
+                <span>{{levelvalue}} / {{levelsize}}</span>
+            </div>
+        </div>
+        {{#cansync}}
+            <form action="{{url}}" method="post" class="mb-3">
+                <input type="hidden" name="courseid" value="{{courseid}}"><input type="hidden" name="sesskey" value="{{sesskey}}">
+                <button class="btn btn-outline-secondary" name="action" value="sync">{{#str}}synclink, local_skillupsgamification{{/str}}</button>
+            </form>
+        {{/cansync}}
+        {{#teamname}}<p class="text-muted">{{teamname}}</p>{{/teamname}}
+        <h3 class="h4">{{#str}}goals, local_skillupsgamification{{/str}}</h3>
+        <div class="row g-3 mb-3">
+            {{#goals}}
+                <div class="col-md-6">
+                    <article class="card h-100"><div class="card-body d-flex flex-column">
+                        <div class="d-flex gap-3 align-items-start">
+                            <span class="game-emblem" aria-hidden="true">{{symbol}}</span>
+                            <div>
+                                <p class="text-muted mb-1">{{kind}}{{#teamscope}} · {{#str}}scope_team, local_skillupsgamification{{/str}}{{/teamscope}}</p>
+                                <h4 class="h5 text-break">{{name}}</h4>
+                            </div>
+                        </div>
+                        {{#description}}<p class="game-text text-break">{{description}}</p>{{/description}}
+                        {{#window}}<p class="small text-muted">{{window}}</p>{{/window}}
+                        <p class="fw-semibold mt-auto">{{detail}}</p>
+                        {{#claimed}}<p class="text-info-emphasis mb-0">{{claimed}}</p>{{/claimed}}
+                        {{#ready}}
+                            <form action="{{url}}" method="post">
+                                <input type="hidden" name="courseid" value="{{courseid}}"><input type="hidden" name="sesskey" value="{{sesskey}}">
+                                <input type="hidden" name="goalid" value="{{id}}">
+                                <button class="btn btn-primary btn-sm" name="action" value="claim">{{button}}</button>
+                            </form>
+                        {{/ready}}
+                    </div></article>
+                </div>
+            {{/goals}}
+            {{^goals}}<p class="text-muted">{{#str}}nogoals, local_skillupsgamification{{/str}}</p>{{/goals}}
+        </div>
+    {{/overview}}
+
+    {{#history}}
+        <h3 class="h4">{{#str}}movements, local_skillupsgamification{{/str}}</h3>
+        <div class="table-responsive mb-4"><table class="table table-hover">
+            <caption class="visually-hidden">{{#str}}movements, local_skillupsgamification{{/str}}</caption>
+            <thead><tr>
+                <th scope="col">{{#str}}rules, local_skillupsgamification{{/str}}</th>
+                <th scope="col">{{#str}}date, local_skillupsgamification{{/str}}</th>
+                <th scope="col">{{#str}}points, local_skillupsgamification{{/str}}</th>
+                <th scope="col">{{#str}}xp, local_skillupsgamification{{/str}}</th>
+            </tr></thead>
+            <tbody>
+                {{#movements}}<tr><th scope="row">{{label}} <small class="text-muted">{{source}}</small></th><td>{{date}}</td><td>{{points}}</td><td>{{xp}}</td></tr>{{/movements}}
+                {{^movements}}<tr><td colspan="4">{{#str}}nomovements, local_skillupsgamification{{/str}}</td></tr>{{/movements}}
+            </tbody>
+        </table></div>
+        <h3 class="h4">{{#str}}claims, local_skillupsgamification{{/str}}</h3>
+        <ul class="list-group mb-4">
+            {{#claims}}<li class="list-group-item d-flex flex-wrap justify-content-between gap-2">
+                <strong>{{label}}</strong><span>{{state}} · {{date}}{{#cost}} · {{cost}}{{/cost}}</span>
+            </li>{{/claims}}
+            {{^claims}}<li class="list-group-item">{{#str}}noclaims, local_skillupsgamification{{/str}}</li>{{/claims}}
+        </ul>
+    {{/history}}
+
+    {{#rankings}}
+        <p class="text-muted">{{#str}}rankprivacy, local_skillupsgamification{{/str}}</p>
+        {{#mayjoin}}
+            <form action="{{url}}" method="post" class="mb-3">
+                <input type="hidden" name="courseid" value="{{courseid}}"><input type="hidden" name="sesskey" value="{{sesskey}}">
+                <button class="btn btn-primary" name="action" value="join">{{#str}}rankjoin, local_skillupsgamification{{/str}}</button>
+            </form>
+        {{/mayjoin}}
+        {{#mayleave}}
+            <form action="{{url}}" method="post" class="mb-3">
+                <input type="hidden" name="courseid" value="{{courseid}}"><input type="hidden" name="sesskey" value="{{sesskey}}">
+                <button class="btn btn-outline-secondary" name="action" value="leave">{{#str}}rankleave, local_skillupsgamification{{/str}}</button>
+            </form>
+        {{/mayleave}}
+        {{#rankingvisible}}
+            {{#boards}}<h3 class="h4">{{heading}}</h3>{{> local_skillupsgamification/ranking_table}}{{/boards}}
+        {{/rankingvisible}}
+        {{^rankingvisible}}<p class="alert alert-info">{{#str}}rankingprivate, local_skillupsgamification{{/str}}</p>{{/rankingvisible}}
+    {{/rankings}}
+    {{{pager}}}
+</div>
