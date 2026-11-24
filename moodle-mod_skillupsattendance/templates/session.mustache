@@ -1,0 +1,100 @@
+{{!
+    @template mod_skillupsattendance/session
+    Session details and role-scoped controls.
+    Example context (json):
+    {"state":"Scheduled","method":"Manual","starts":"09:00","ends":"10:00","students":[]}
+}}
+<div class="mod-skillupsattendance">
+    <p><a href="{{back}}">{{#str}}sessions, mod_skillupsattendance{{/str}}</a>
+        {{#edit}} · <a href="{{edit}}">{{#str}}editsession, mod_skillupsattendance{{/str}}</a>{{/edit}}
+    </p>
+    <section class="card card-body mb-4">
+        <h2 class="h5">{{state}} · {{modality}}</h2>
+        <dl class="row mb-0">
+            <dt class="col-md-3">{{#str}}starts, mod_skillupsattendance{{/str}}</dt><dd class="col-md-9">{{starts}}</dd>
+            <dt class="col-md-3">{{#str}}ends, mod_skillupsattendance{{/str}}</dt><dd class="col-md-9">{{ends}}</dd>
+            <dt class="col-md-3">{{#str}}duration, mod_skillupsattendance{{/str}}</dt><dd class="col-md-9">{{duration}}</dd>
+            <dt class="col-md-3">{{#str}}method, mod_skillupsattendance{{/str}}</dt><dd class="col-md-9">{{method}}</dd>
+            {{#group}}<dt class="col-md-3">{{#str}}group, mod_skillupsattendance{{/str}}</dt><dd class="col-md-9">{{group}}</dd>{{/group}}
+        </dl>
+    </section>
+    {{#student}}
+    <section class="card card-body mb-4">
+        <h2 class="h5">{{#str}}myattendance, mod_skillupsattendance{{/str}}</h2>
+        <p><strong>{{studentstate}}</strong>
+        {{#entrytime}} · {{#str}}entry, mod_skillupsattendance{{/str}} {{entrytime}}{{/entrytime}}
+        {{#exittime}} · {{#str}}departure, mod_skillupsattendance{{/str}} {{exittime}}{{/exittime}}</p>
+        {{#scan}}<p>{{#str}}scanqr, mod_skillupsattendance{{/str}}</p>{{/scan}}
+        <div class="d-flex gap-2 flex-wrap">
+            {{#checkin}}<a class="btn btn-primary" href="{{checkin}}">{{#str}}checkin, mod_skillupsattendance{{/str}}</a>{{/checkin}}
+            {{#exit}}<form method="post" action="{{exiturl}}">
+                <input type="hidden" name="sesskey" value="{{sesskey}}">
+                <input type="hidden" name="leave" value="1">
+                <button class="btn btn-outline-secondary">{{#str}}checkout, mod_skillupsattendance{{/str}}</button>
+            </form>{{/exit}}
+            {{#justify}}<a class="btn btn-outline-secondary" href="{{justify}}">{{#str}}submitjust, mod_skillupsattendance{{/str}}</a>{{/justify}}
+        </div>
+    </section>
+    {{/student}}
+    {{#qr}}
+    <section class="card card-body mb-4">
+        <h2 class="h5">{{#str}}sessionqr, mod_skillupsattendance{{/str}}</h2>
+        <p>{{#str}}qrhelp, mod_skillupsattendance{{/str}}</p>
+        <div><img class="img-fluid bg-white p-3" src="{{qr}}" alt="{{#str}}sessionqr, mod_skillupsattendance{{/str}}"></div>
+        <div><a class="btn btn-outline-secondary mt-2" href="{{actionurl}}">{{#str}}refreshqr, mod_skillupsattendance{{/str}}</a></div>
+    </section>
+    {{/qr}}
+    {{#canmark}}
+    <section class="mb-4">
+        <h2 class="h4">{{#str}}roster, mod_skillupsattendance{{/str}}</h2>
+        <form method="post" action="{{actionurl}}">
+            <input type="hidden" name="sesskey" value="{{sesskey}}">
+            <input type="hidden" name="action" value="mark">
+            <input type="hidden" name="page" value="{{page}}">
+            <div class="table-responsive"><table class="table table-hover">
+                <caption class="visually-hidden">{{#str}}roster, mod_skillupsattendance{{/str}}</caption>
+                <thead><tr><th scope="col">{{#str}}student, mod_skillupsattendance{{/str}}</th>
+                    <th scope="col">{{#str}}status, mod_skillupsattendance{{/str}}</th>
+                    <th scope="col">{{#str}}entry, mod_skillupsattendance{{/str}}</th>
+                    <th scope="col">{{#str}}departure, mod_skillupsattendance{{/str}}</th></tr></thead>
+                <tbody>
+                {{#students}}<tr><th scope="row">{{name}}</th><td>
+                    {{#roweditable}}<select class="form-select w-auto" aria-label="{{name}}" name="states[{{userid}}]">
+                        {{#options}}<option value="{{value}}" {{#selected}}selected{{/selected}}>{{label}}</option>{{/options}}
+                    </select>{{/roweditable}}
+                    {{^roweditable}}{{state}}{{/roweditable}}
+                </td><td>{{timein}}</td><td>{{timeexit}}</td></tr>{{/students}}
+                {{^students}}<tr><td colspan="4">{{#str}}empty, mod_skillupsattendance{{/str}}</td></tr>{{/students}}
+                </tbody>
+            </table></div>
+            {{#saveable}}<button class="btn btn-primary">{{#str}}savemarks, mod_skillupsattendance{{/str}}</button>{{/saveable}}
+        </form>
+        <nav class="d-flex gap-3 mt-2" aria-label="{{#str}}roster, mod_skillupsattendance{{/str}}">
+            {{#previous}}<a href="{{previous}}">{{#str}}previous{{/str}}</a>{{/previous}}
+            {{#next}}<a href="{{next}}">{{#str}}next{{/str}}</a>{{/next}}
+        </nav>
+    </section>
+    {{/canmark}}
+    {{#showrequests}}
+    <section class="mb-4">
+        <h2 class="h4">{{#str}}justifications, mod_skillupsattendance{{/str}}</h2>
+        <ul class="list-group">
+            {{#requests}}<li class="list-group-item"><a href="{{url}}">#{{id}} {{reason}}</a> · {{state}} · {{date}}</li>{{/requests}}
+            {{^requests}}<li class="list-group-item">{{#str}}empty, mod_skillupsattendance{{/str}}</li>{{/requests}}
+        </ul>
+        {{{requestpaging}}}
+    </section>
+    {{/showrequests}}
+    {{#finalize}}<form class="mb-4" method="post" action="{{actionurl}}">
+        <input type="hidden" name="sesskey" value="{{sesskey}}"><input type="hidden" name="action" value="finalize">
+        <button class="btn btn-secondary">{{#str}}finalize, mod_skillupsattendance{{/str}}</button>
+    </form>{{/finalize}}
+    {{#cancel}}<details class="card mb-4">
+        <summary class="card-header">{{#str}}cancelsession, mod_skillupsattendance{{/str}}</summary>
+        <div class="card-body"><form method="post" action="{{actionurl}}">
+            <input type="hidden" name="sesskey" value="{{sesskey}}"><input type="hidden" name="action" value="cancel">
+            <label class="d-block mb-3"><input type="checkbox" name="confirmed" value="1" required> {{#str}}confirmcancel, mod_skillupsattendance{{/str}}</label>
+            <button class="btn btn-danger">{{#str}}cancelsession, mod_skillupsattendance{{/str}}</button>
+        </form></div>
+    </details>{{/cancel}}
+</div>

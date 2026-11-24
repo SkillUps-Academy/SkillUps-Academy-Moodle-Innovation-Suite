@@ -1,0 +1,29 @@
+{{!
+    @template mod_skillupsattendance/audit
+    Paginated activity history in the operator's scope.
+    Example context (json):
+    {"back":"/mod/skillupsattendance/view.php?id=4","rows":[]}
+}}
+<p><a href="{{back}}">{{#str}}sessions, mod_skillupsattendance{{/str}}</a></p>
+<div class="table-responsive"><table class="table table-hover">
+    <caption class="visually-hidden">{{#str}}audit, mod_skillupsattendance{{/str}}</caption>
+    <thead><tr><th scope="col">{{#str}}when, mod_skillupsattendance{{/str}}</th>
+        <th scope="col">{{#str}}operation, mod_skillupsattendance{{/str}}</th>
+        <th scope="col">{{#str}}operator, mod_skillupsattendance{{/str}}</th>
+        <th scope="col">{{#str}}sessionid, mod_skillupsattendance{{/str}}</th>
+        <th scope="col">{{#str}}userid, mod_skillupsattendance{{/str}}</th>
+        <th scope="col">{{#str}}previousstate, mod_skillupsattendance{{/str}}</th>
+        <th scope="col">{{#str}}result, mod_skillupsattendance{{/str}}</th>
+    </tr></thead>
+    <tbody>
+    {{#rows}}<tr><td>{{when}}</td><td>{{operation}}</td><td>{{actor}}</td><td>{{session}}</td>
+        <td>{{student}}</td><td>{{before}}</td><td>{{after}}</td></tr>{{/rows}}
+    {{^rows}}<tr><td colspan="7">{{#str}}empty, mod_skillupsattendance{{/str}}</td></tr>{{/rows}}
+    </tbody>
+</table></div>
+{{{paging}}}
+{{#download}}<form method="post" action="{{url}}">
+    <input type="hidden" name="sesskey" value="{{sesskey}}"><input type="hidden" name="action" value="export">
+    <button class="btn btn-outline-secondary">{{#str}}auditevidence, mod_skillupsattendance{{/str}}</button>
+</form>{{/download}}
+<p class="text-muted mt-3">{{#str}}edition, mod_skillupsattendance{{/str}} {{edition}}</p>

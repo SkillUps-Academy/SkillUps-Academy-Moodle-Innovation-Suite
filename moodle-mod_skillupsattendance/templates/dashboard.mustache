@@ -1,0 +1,55 @@
+{{!
+    @template mod_skillupsattendance/dashboard
+    Monthly attendance schedule and learner summary.
+    Example context (json):
+    {"id":4,"month":"2026-11","base":"/mod/skillupsattendance/view.php","rows":[]}
+}}
+<div class="mod-skillupsattendance">
+    <nav class="d-flex flex-wrap gap-2 mb-4" aria-label="{{#str}}pluginname, mod_skillupsattendance{{/str}}">
+        {{#add}}<a class="btn btn-primary" href="{{add}}">{{#str}}addsession, mod_skillupsattendance{{/str}}</a>{{/add}}
+        {{#report}}<a class="btn btn-outline-secondary" href="{{report}}">{{#str}}report, mod_skillupsattendance{{/str}}</a>{{/report}}
+        {{#audit}}<a class="btn btn-outline-secondary" href="{{audit}}">{{#str}}audit, mod_skillupsattendance{{/str}}</a>{{/audit}}
+        <a class="btn btn-outline-secondary" href="{{calendar}}">{{#str}}calendar, mod_skillupsattendance{{/str}}</a>
+    </nav>
+    {{#own}}
+        <section class="card card-body mb-4">
+            <h2 class="h5">{{#str}}myattendance, mod_skillupsattendance{{/str}}</h2>
+            <dl class="row mb-0">
+                <div class="col-6 col-md-3"><dt>{{#str}}percent, mod_skillupsattendance{{/str}}</dt><dd class="fs-4">{{percent}}</dd></div>
+                <div class="col-6 col-md-3"><dt>{{#str}}state_absent, mod_skillupsattendance{{/str}}</dt><dd class="fs-4">{{absent}}</dd></div>
+                <div class="col-6 col-md-3"><dt>{{#str}}state_late, mod_skillupsattendance{{/str}}</dt><dd class="fs-4">{{late}}</dd></div>
+                <div class="col-6 col-md-3"><dt>{{#str}}state_excused, mod_skillupsattendance{{/str}}</dt><dd class="fs-4">{{excused}}</dd></div>
+            </dl>
+        </section>
+    {{/own}}
+    <div class="d-flex justify-content-between flex-wrap gap-2 mb-3 align-items-end">
+        <h2 class="h4 mb-0">{{#str}}sessions, mod_skillupsattendance{{/str}}</h2>
+        <form action="{{base}}" method="get" class="d-flex gap-2 align-items-end">
+            <input type="hidden" name="id" value="{{id}}">
+            <div><label class="form-label" for="sa-month">{{#str}}month, mod_skillupsattendance{{/str}}</label>
+                <input id="sa-month" class="form-control" type="month" name="month" value="{{month}}" required>
+            </div>
+            <button class="btn btn-secondary">{{#str}}filter, mod_skillupsattendance{{/str}}</button>
+        </form>
+    </div>
+    <div class="table-responsive"><table class="table table-hover">
+        <caption class="visually-hidden">{{#str}}sessions, mod_skillupsattendance{{/str}}</caption>
+        <thead><tr>
+            <th scope="col">{{#str}}sessionname, mod_skillupsattendance{{/str}}</th>
+            <th scope="col">{{#str}}starts, mod_skillupsattendance{{/str}}</th>
+            <th scope="col">{{#str}}ends, mod_skillupsattendance{{/str}}</th>
+            <th scope="col">{{#str}}modality, mod_skillupsattendance{{/str}}</th>
+            <th scope="col">{{#str}}status, mod_skillupsattendance{{/str}}</th>
+        </tr></thead>
+        <tbody>
+        {{#rows}}
+            <tr><th scope="row"><a href="{{url}}">{{name}}</a>{{#extra}} <span class="badge bg-secondary text-white">{{#str}}extra, mod_skillupsattendance{{/str}}</span>{{/extra}}
+                {{#group}}<div class="small text-muted">{{group}}</div>{{/group}}</th>
+                <td>{{when}}</td><td>{{end}}</td><td>{{modality}}</td><td>{{status}}</td>
+            </tr>
+        {{/rows}}
+        {{^rows}}<tr><td colspan="5">{{#str}}emptysessions, mod_skillupsattendance{{/str}}</td></tr>{{/rows}}
+        </tbody>
+    </table></div>
+    {{{paging}}}
+</div>

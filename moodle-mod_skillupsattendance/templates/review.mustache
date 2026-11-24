@@ -1,0 +1,34 @@
+{{!
+    @template mod_skillupsattendance/review
+    Evidence and justification decision.
+    Example context (json):
+    {"name":"Workshop","userid":3,"reason":"Other","state":"Pending"}
+}}
+<p><a href="{{back}}">{{#str}}backtosession, mod_skillupsattendance{{/str}}</a></p>
+<section class="card card-body mb-4">
+    <h2 class="h5">{{name}} · {{state}}</h2>
+    <dl class="row mb-2">
+        <dt class="col-md-3">{{#str}}userid, mod_skillupsattendance{{/str}}</dt><dd class="col-md-9">#{{userid}}</dd>
+        <dt class="col-md-3">{{#str}}when, mod_skillupsattendance{{/str}}</dt><dd class="col-md-9">{{when}}</dd>
+        <dt class="col-md-3">{{#str}}reason, mod_skillupsattendance{{/str}}</dt><dd class="col-md-9">{{reason}}</dd>
+        {{#statement}}<dt class="col-md-3">{{#str}}statement, mod_skillupsattendance{{/str}}</dt><dd class="col-md-9">{{statement}}</dd>{{/statement}}
+        {{#date}}<dt class="col-md-3">{{#str}}decisiondate, mod_skillupsattendance{{/str}}</dt><dd class="col-md-9">{{date}}</dd>{{/date}}
+        {{#reviewer}}<dt class="col-md-3">{{#str}}reviewer, mod_skillupsattendance{{/str}}</dt><dd class="col-md-9">#{{reviewer}}</dd>{{/reviewer}}
+        {{#response}}<dt class="col-md-3">{{#str}}response, mod_skillupsattendance{{/str}}</dt><dd class="col-md-9">{{response}}</dd>{{/response}}
+    </dl>
+    <h3 class="h6">{{#str}}evidence, mod_skillupsattendance{{/str}}</h3>
+    <ul class="mb-0">{{#files}}<li><a href="{{url}}">{{name}}</a></li>{{/files}}{{^files}}<li>{{#str}}empty, mod_skillupsattendance{{/str}}</li>{{/files}}</ul>
+</section>
+{{#review}}
+<section class="card card-body">
+    <h2 class="h5">{{#str}}decision, mod_skillupsattendance{{/str}}</h2>
+    <form method="post" action="{{url}}">
+        <input type="hidden" name="sesskey" value="{{sesskey}}">
+        <div class="mb-3"><label class="form-label" for="sa-response">{{#str}}response, mod_skillupsattendance{{/str}}</label>
+            <textarea class="form-control" id="sa-response" name="response" maxlength="1000" rows="3" required></textarea>
+        </div>
+        <button class="btn btn-primary" name="decision" value="approved">{{#str}}approve, mod_skillupsattendance{{/str}}</button>
+        <button class="btn btn-secondary" name="decision" value="rejected">{{#str}}reject, mod_skillupsattendance{{/str}}</button>
+    </form>
+</section>
+{{/review}}

@@ -1,0 +1,22 @@
+{{!
+    @template mod_skillupsattendance/checkin
+    Confirm an authorized check-in.
+    Example context (json):
+    {"name":"Workshop","valid":true,"code":true}
+}}
+<section class="card card-body mb-3">
+    <h2 class="h5">{{name}}</h2>
+    {{#valid}}
+    <form method="post" action="{{url}}">
+        <input type="hidden" name="sesskey" value="{{sesskey}}">
+        {{#qr}}<input type="hidden" name="qr" value="{{token}}">{{/qr}}
+        {{#code}}<div class="mb-3">
+            <label for="sa-pin" class="form-label">{{#str}}newpin, mod_skillupsattendance{{/str}}</label>
+            <input id="sa-pin" type="password" class="form-control w-auto" name="pin" maxlength="32" required autocomplete="off">
+        </div>{{/code}}
+        <button class="btn btn-primary">{{#str}}confirmcheckin, mod_skillupsattendance{{/str}}</button>
+    </form>
+    {{/valid}}
+    {{^valid}}<p>{{#str}}scanqr, mod_skillupsattendance{{/str}}</p>{{/valid}}
+</section>
+<p><a href="{{back}}">{{#str}}backtosession, mod_skillupsattendance{{/str}}</a></p>

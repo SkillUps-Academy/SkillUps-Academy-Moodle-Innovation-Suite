@@ -1,0 +1,75 @@
+{{!
+    @template mod_skillupsattendance/report
+    Scoped attendance indicators, filters and exports.
+    Example context (json):
+    {"id":4,"base":"/mod/skillupsattendance/report.php","staff":true,"rows":[]}
+}}
+<p><a href="{{back}}">{{#str}}sessions, mod_skillupsattendance{{/str}}</a></p>
+<p>{{#str}}reporthelp, mod_skillupsattendance{{/str}}</p>
+{{#staff}}<div class="row g-3 mb-4">
+    <div class="col-12 col-md-6"><div class="card card-body"><span>{{#str}}matchedstudents, mod_skillupsattendance{{/str}}</span>
+        <strong class="fs-3">{{count}}</strong></div></div>
+    <div class="col-12 col-md-6"><div class="card card-body"><span>{{#str}}studentsatrisk, mod_skillupsattendance{{/str}}</span>
+        <strong class="fs-3">{{atrisks}}</strong></div></div>
+</div>{{/staff}}
+<form class="card card-body mb-4" method="get" action="{{base}}">
+    <input type="hidden" name="id" value="{{id}}">
+    <div class="row g-3">
+        <div class="col-12 col-sm-6 col-xl-3"><label class="form-label" for="sa-from">{{#str}}periodfrom, mod_skillupsattendance{{/str}}</label>
+            <input class="form-control" id="sa-from" name="from" type="date" value="{{from}}"></div>
+        <div class="col-12 col-sm-6 col-xl-3"><label class="form-label" for="sa-to">{{#str}}periodto, mod_skillupsattendance{{/str}}</label>
+            <input class="form-control" id="sa-to" name="to" type="date" value="{{to}}"></div>
+        <div class="col-12 col-sm-6 col-xl-3"><label class="form-label" for="sa-group">{{#str}}group, mod_skillupsattendance{{/str}}</label>
+            <select id="sa-group" class="form-select" name="groupid"><option value="0">{{#str}}all{{/str}}</option>
+                {{#groupoptions}}<option value="{{value}}" {{#selected}}selected{{/selected}}>{{label}}</option>{{/groupoptions}}
+            </select></div>
+        <div class="col-12 col-sm-6 col-xl-3"><label class="form-label" for="sa-mode">{{#str}}modality, mod_skillupsattendance{{/str}}</label>
+            <select id="sa-mode" class="form-select" name="modality"><option value="">{{#str}}all{{/str}}</option>
+                {{#modalityoptions}}<option value="{{value}}" {{#selected}}selected{{/selected}}>{{label}}</option>{{/modalityoptions}}
+            </select></div>
+        {{#staff}}
+        <div class="col-12 col-sm-6 col-xl-3"><label class="form-label" for="sa-student">{{#str}}userid, mod_skillupsattendance{{/str}}</label>
+            <input class="form-control" id="sa-student" name="studentid" type="number" min="1" {{#studentid}}value="{{studentid}}"{{/studentid}}></div>
+        <div class="col-12 col-sm-6 col-xl-3"><label class="form-label" for="sa-teacher">{{#str}}teacherid, mod_skillupsattendance{{/str}}</label>
+            <input class="form-control" id="sa-teacher" name="teacherid" type="number" min="1" {{#teacherid}}value="{{teacherid}}"{{/teacherid}}></div>
+        <div class="col-auto d-flex flex-column justify-content-end">
+            <label><input type="checkbox" name="coursewide" value="1" {{#coursewide}}checked{{/coursewide}}> {{#str}}coursewide, mod_skillupsattendance{{/str}}</label>
+            <label><input type="checkbox" name="riskonly" value="1" {{#riskonly}}checked{{/riskonly}}> {{#str}}riskonly, mod_skillupsattendance{{/str}}</label>
+        </div>
+        {{/staff}}
+    </div>
+    <div class="mt-3"><button class="btn btn-secondary">{{#str}}filter, mod_skillupsattendance{{/str}}</button></div>
+</form>
+<div class="table-responsive"><table class="table table-hover">
+    <caption class="visually-hidden">{{#str}}report, mod_skillupsattendance{{/str}}</caption>
+    <thead><tr><th scope="col">{{#str}}student, mod_skillupsattendance{{/str}}</th>
+        <th scope="col">{{#str}}state_present, mod_skillupsattendance{{/str}}</th>
+        <th scope="col">{{#str}}state_late, mod_skillupsattendance{{/str}}</th>
+        <th scope="col">{{#str}}state_absent, mod_skillupsattendance{{/str}}</th>
+        <th scope="col">{{#str}}state_excused, mod_skillupsattendance{{/str}}</th>
+        <th scope="col">{{#str}}percent, mod_skillupsattendance{{/str}}</th>
+        <th scope="col">{{#str}}risk, mod_skillupsattendance{{/str}}</th>
+    </tr></thead>
+    <tbody>
+    {{#rows}}<tr><th scope="row">{{name}} (#{{userid}})</th><td>{{present}}</td><td>{{late}}</td><td>{{absent}}</td>
+        <td>{{excused}}</td><td>{{rate}}</td><td>{{risk}}</td></tr>{{/rows}}
+    {{^rows}}<tr><td colspan="7">{{#str}}empty, mod_skillupsattendance{{/str}}</td></tr>{{/rows}}
+    </tbody>
+</table></div>
+{{{paging}}}
+<div class="d-flex flex-wrap gap-2 mb-4">
+    {{#formats}}<form method="post" action="{{url}}">
+        <input type="hidden" name="sesskey" value="{{sesskey}}">
+        <input type="hidden" name="action" value="export"><input type="hidden" name="format" value="{{value}}">
+        <button class="btn btn-outline-secondary">{{label}}</button>
+    </form>{{/formats}}
+</div>
+{{#grades}}<section class="card card-body">
+    <h2 class="h5">{{#str}}grades, mod_skillupsattendance{{/str}}</h2>
+    <form method="post" action="{{url}}">
+        <input type="hidden" name="sesskey" value="{{sesskey}}">
+        <input type="hidden" name="action" value="publish">
+        <label class="d-block mb-2"><input type="checkbox" name="confirmed" value="1" required> {{#str}}confirmgrade, mod_skillupsattendance{{/str}}</label>
+        <button class="btn btn-primary">{{#str}}publish, mod_skillupsattendance{{/str}}</button>
+    </form>
+</section>{{/grades}}

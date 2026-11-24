@@ -18,6 +18,7 @@
 - [SkillUps Security Center](moodle-report_skillupssecurity/README.md) — Review Moodle security evidence, role grants and administrative activity.
 - [SkillUps Privacy Manager](moodle-local_skillupsprivacy/README.md) — Track privacy requests, retention assessments and evidence with Moodle Privacy API.
 - [SkillUps Integration Hub](moodle-local_skillupsintegration/README.md) — Map, simulate and approve institution-wide user and course integrations.
+- [SkillUps Attendance Pro](moodle-mod_skillupsattendance/README.md) — Manage Moodle sessions, attendance records, justifications and reports.
 
 ## SkillUps AI Copilot 0.9.0-beta.1
 
@@ -174,3 +175,11 @@
 - [Connectors, mappings and OAuth](moodle-local_skillupsintegration/docs/connectors.md)
 - [REST, webhooks and gateway contract](moodle-local_skillupsintegration/docs/api.md)
 - [Validation](moodle-local_skillupsintegration/docs/validation.md)
+
+## SkillUps Attendance Pro 0.9.0-beta.1
+
+- [Moodle installation ZIP](releases/skillupsattendance/skillupsattendance-0.9.0-beta.1.zip)
+- [SHA-256 checksum](releases/skillupsattendance/SHA256SUMS)
+- [Administration and permissions](moodle-mod_skillupsattendance/docs/administration.md)
+- [Session, registration and reporting guide](moodle-mod_skillupsattendance/docs/usage.md)
+- [Validation](moodle-mod_skillupsattendance/docs/validation.md)
