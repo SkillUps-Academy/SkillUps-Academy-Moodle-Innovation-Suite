@@ -1,0 +1,10 @@
+# Seguridad y privacidad
+
+Reporta hallazgos en privado mediante el canal de seguridad del repositorio o el contacto institucional de SkillUps Academy. Usa representaciones sintéticas en informes públicos.
+
+- El panel, configuración, simulaciones y aplicación requieren capacidades distintas en sistema. Las escrituras de Moodle verifican también las capacidades nativas del aprobador en el contexto de destino.
+- El receptor REST restringe la cuenta al perfil designado. El webhook exige HTTPS, una firma HMAC sobre el cuerpo exacto y una marca de tiempo vigente. La idempotencia evita que los reintentos con el mismo evento dupliquen cambios. Habilita solo los métodos necesarios.
+- El transporte de salida limita tamaño y tiempo, restringe HTTPS a hosts aprobados, valida TLS y bloquea redirecciones. Usa las listas HTTP de Moodle y fija las direcciones públicas resueltas. Las URLs y originales del proveedor quedan fuera de las respuestas de error del plugin. Los logs de infraestructura siguen bajo la configuración de la institución.
+- Moodle conserva una referencia de entorno para el aprovisionamiento de secretos. Los valores y tokens OAuth temporales quedan en el proceso. Limita acceso al entorno, archivos de configuración y respaldos. Ningún secreto pertenece al formulario ni al código de despliegue versionado.
+- El plugin usa claves seudonimizadas para identidades de origen. Las simulaciones temporales guardan solo campos canónicos necesarios. La Privacy API descubre, exporta y elimina datos asociados a usuarios identificables en Moodle dentro del contexto de sistema. Si una cuenta de servicio o responsable se elimina mediante el flujo nativo, se retira su asociación y se invalidan las operaciones pendientes que correspondan.
+- Las entradas de origen sin correspondencia en Moodle quedan sujetas a la conservación configurada. La institución controla su base jurídica, alcance y tratamiento en el origen. La exportación operativa licenciada excluye los payloads, mapeos y referencias de credenciales.

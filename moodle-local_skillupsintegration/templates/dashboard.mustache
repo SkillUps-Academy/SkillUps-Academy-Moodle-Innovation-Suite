@@ -1,0 +1,64 @@
+{{!
+    @template local_skillupsintegration/dashboard
+    Integration and run overview.
+    Example context (json):
+    {"base":"/local/skillupsintegration/index.php","isruns":true,"sources":[],"history":[]}
+}}
+<div class="local-skillupsintegration">
+    <div class="d-flex align-items-center justify-content-between gap-3 flex-wrap mb-3">
+        <h2 class="h4 m-0">{{#str}}connectors, local_skillupsintegration{{/str}}</h2>
+        {{#add}}<a class="btn btn-primary" href="{{add}}">{{#str}}addconnector, local_skillupsintegration{{/str}}</a>{{/add}}
+    </div>
+    <div class="row g-3 mb-4">
+    {{#sources}}
+        <section class="col-12 col-md-6 col-xl-4"><div class="card card-body h-100">
+            <h3 class="h5">{{name}}</h3>
+            <p class="text-muted mb-2">{{kind}} (#{{id}}) · {{auth}}</p>
+            <dl class="mb-3">
+                <dt>{{#str}}availability, local_skillupsintegration{{/str}}</dt>
+                <dd>{{#enabled}}{{#str}}enabled, local_skillupsintegration{{/str}}{{/enabled}}{{^enabled}}{{#str}}disabled, local_skillupsintegration{{/str}}{{/enabled}}</dd>
+                <dt>{{#str}}health, local_skillupsintegration{{/str}}</dt><dd>{{state}}{{#lastcheck}} · {{lastcheck}}{{#haslatency}} · {{latencylabel}}{{/haslatency}}{{/lastcheck}}</dd>
+            </dl>
+            <div class="d-flex gap-2 flex-wrap mt-auto align-items-center">
+                {{#preview}}<form method="post" action="{{base}}">
+                    <input type="hidden" name="sesskey" value="{{sesskey}}">
+                    <input type="hidden" name="action" value="preview">
+                    <input type="hidden" name="sourceid" value="{{id}}">
+                    <button class="btn btn-primary btn-sm" type="submit">{{#str}}simulate, local_skillupsintegration{{/str}}</button>
+                </form>{{/preview}}
+                {{#editurl}}<a class="btn btn-outline-secondary btn-sm" href="{{editurl}}">{{#str}}editconnector, local_skillupsintegration{{/str}}</a>{{/editurl}}
+                <a class="btn btn-outline-secondary btn-sm" href="{{history}}">{{#str}}history, local_skillupsintegration{{/str}}</a>
+            </div>
+        </div></section>
+    {{/sources}}
+    {{^sources}}<div class="col-12"><p>{{#str}}emptysources, local_skillupsintegration{{/str}}</p></div>{{/sources}}
+    </div>
+    <nav class="nav nav-tabs mb-3" aria-label="{{#str}}history, local_skillupsintegration{{/str}}">
+        <a href="{{runsurl}}" class="nav-link{{#isruns}} active{{/isruns}}" {{#isruns}}aria-current="page"{{/isruns}}>{{#str}}history, local_skillupsintegration{{/str}}</a>
+        <a href="{{auditurl}}" class="nav-link{{^isruns}} active{{/isruns}}" {{^isruns}}aria-current="page"{{/isruns}}>{{#str}}audit, local_skillupsintegration{{/str}}</a>
+    </nav>
+    {{#filter}}<p><strong>{{filter}}</strong> · <a href="{{base}}">{{#str}}allconnectors, local_skillupsintegration{{/str}}</a></p>{{/filter}}
+    <div class="table-responsive"><table class="table table-hover">
+        <caption class="visually-hidden">{{#str}}history, local_skillupsintegration{{/str}}</caption>
+        <thead><tr>
+            <th scope="col">{{#str}}runid, local_skillupsintegration{{/str}}</th>
+            <th scope="col">{{#str}}connector, local_skillupsintegration{{/str}}</th>
+            <th scope="col">{{#str}}date, local_skillupsintegration{{/str}}</th>
+            <th scope="col">{{#str}}operator, local_skillupsintegration{{/str}}</th>
+            <th scope="col">{{#str}}result, local_skillupsintegration{{/str}}</th>
+        </tr></thead>
+        <tbody>
+            {{#history}}<tr>
+                <th scope="row">{{#url}}<a href="{{url}}">#{{run}}</a>{{/url}}{{^url}}{{#run}}#{{run}}{{/run}}{{^run}}&ndash;{{/run}}{{/url}}</th>
+                <td>{{name}}</td><td>{{time}}</td><td>{{#actor}}#{{actor}}{{/actor}}{{^actor}}&ndash;{{/actor}}</td><td>{{label}}</td>
+            </tr>{{/history}}
+            {{^history}}<tr><td colspan="5">{{#str}}empty, local_skillupsintegration{{/str}}</td></tr>{{/history}}
+        </tbody>
+    </table></div>
+    {{{paging}}}
+    {{#licensed}}<form action="{{exporturl}}" method="post">
+        <input type="hidden" name="sesskey" value="{{sesskey}}">
+        <button class="btn btn-outline-secondary">{{#str}}evidence, local_skillupsintegration{{/str}}</button>
+    </form>{{/licensed}}
+    {{#edition}}<p class="text-muted mt-3">{{#str}}edition, local_skillupsintegration{{/str}} {{edition}}{{#expiration}} · {{expiration}}{{/expiration}}</p>{{/edition}}
+</div>

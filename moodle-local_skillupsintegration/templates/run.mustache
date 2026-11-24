@@ -1,0 +1,59 @@
+{{!
+    @template local_skillupsintegration/run
+    Review and approve simulation results.
+    Example context (json):
+    {"name":"Institutional registry","state":"Ready","current":true,"count":"3","rows":[]}
+}}
+<div class="local-skillupsintegration">
+    <p><a href="{{base}}">{{#str}}dashboard, local_skillupsintegration{{/str}}</a> · <a href="{{url}}">{{#str}}refresh, local_skillupsintegration{{/str}}</a></p>
+    <section class="card card-body mb-3">
+        <h2 class="h5">{{name}} · {{state}}</h2>
+        <dl class="row mb-0">
+            <dt class="col-sm-4">{{#str}}origin, local_skillupsintegration{{/str}}</dt><dd class="col-sm-8">{{origin}}</dd>
+            <dt class="col-sm-4">{{#str}}date, local_skillupsintegration{{/str}}</dt><dd class="col-sm-8">{{when}}</dd>
+            <dt class="col-sm-4">{{#str}}records, local_skillupsintegration{{/str}}</dt><dd class="col-sm-8">{{records}}</dd>
+            {{#approvedby}}<dt class="col-sm-4">{{#str}}approvedby, local_skillupsintegration{{/str}}</dt><dd class="col-sm-8">#{{approvedby}}</dd>{{/approvedby}}
+            {{#next}}<dt class="col-sm-4">{{#str}}nextretry, local_skillupsintegration{{/str}}</dt><dd class="col-sm-8">{{next}} ({{retries}})</dd>{{/next}}
+            {{#lasterror}}<dt class="col-sm-4">{{#str}}error, local_skillupsintegration{{/str}}</dt><dd class="col-sm-8">{{lasterror}}</dd>{{/lasterror}}
+        </dl>
+    </section>
+    {{^current}}<p class="alert alert-warning">{{#str}}err_stale, local_skillupsintegration{{/str}}</p>{{/current}}
+    <div class="d-flex gap-2 flex-wrap mb-3">
+        {{#tabs}}<a href="{{url}}" class="btn btn-outline-secondary btn-sm">{{label}} ({{count}})</a>{{/tabs}}
+    </div>
+    <div class="table-responsive"><table class="table table-hover">
+        <caption class="visually-hidden">{{#str}}items, local_skillupsintegration{{/str}}</caption>
+        <thead><tr>
+            <th scope="col">{{#str}}entity, local_skillupsintegration{{/str}}</th>
+            <th scope="col">{{#str}}decision, local_skillupsintegration{{/str}}</th>
+            <th scope="col">{{#str}}result, local_skillupsintegration{{/str}}</th>
+            {{#seesrows}}<th scope="col">{{#str}}proposed, local_skillupsintegration{{/str}}</th>{{/seesrows}}
+            <th scope="col">{{#str}}error, local_skillupsintegration{{/str}}</th>
+        </tr></thead>
+        <tbody>
+            {{#rows}}<tr><th scope="row">{{entity}} #{{id}}</th><td>{{decision}}</td><td>{{state}}</td>
+                {{#seesrows}}<td>{{#fields}}<div><strong>{{key}}</strong> {{value}}</div>{{/fields}}</td>{{/seesrows}}
+                <td>{{error}}</td>
+            </tr>{{/rows}}
+            {{^rows}}<tr><td colspan="{{#seesrows}}5{{/seesrows}}{{^seesrows}}4{{/seesrows}}">{{#str}}empty, local_skillupsintegration{{/str}}</td></tr>{{/rows}}
+        </tbody>
+    </table></div>
+    {{{paging}}}
+    {{#approve}}
+    <section class="card card-body mb-3">
+        <h2 class="h5">{{#str}}authorization, local_skillupsintegration{{/str}}</h2>
+        <form method="post" action="{{url}}">
+            <input type="hidden" name="sesskey" value="{{sesskey}}">
+            <input type="hidden" name="action" value="approve">
+            <input type="hidden" name="sealed" value="{{sealed}}">
+            <label class="d-block mb-3"><input type="checkbox" name="reviewed" value="1" required> {{#str}}reviewed, local_skillupsintegration{{/str}}</label>
+            <button class="btn btn-primary">{{#str}}approve, local_skillupsintegration{{/str}}</button>
+        </form>
+    </section>
+    {{/approve}}
+    {{#retry}}<form method="post" action="{{url}}">
+        <input type="hidden" name="sesskey" value="{{sesskey}}">
+        <input type="hidden" name="action" value="retry">
+        <button class="btn btn-secondary">{{#str}}retry, local_skillupsintegration{{/str}}</button>
+    </form>{{/retry}}
+</div>
