@@ -1,0 +1,34 @@
+{{!
+    @template local_skillupsscheduler/session
+    Session details and history for authorized users.
+    Example context (json):
+    {"title":"Research workshop","status":"Published","details":[],"history":[]}
+}}
+<section class="local-scheduler">
+    <a href="{{back}}">{{#str}} backplanner, local_skillupsscheduler {{/str}}</a>
+    <div class="d-flex justify-content-between flex-wrap align-items-center gap-2 my-3">
+        <div><p class="mb-1">{{status}}</p><h1>{{title}}</h1></div>
+        <div class="d-flex flex-wrap gap-2">
+            <a class="btn btn-outline-primary" href="{{course}}">{{#str}} moodlecourse, local_skillupsscheduler {{/str}}</a>
+            {{#join}}<a class="btn btn-primary" href="{{join}}" rel="noreferrer">{{#str}} join, local_skillupsscheduler {{/str}}</a>{{/join}}
+            {{#edit}}<a class="btn btn-primary" href="{{edit}}">{{#str}} editsession, local_skillupsscheduler {{/str}}</a>{{/edit}}
+            {{#cancel}}<a class="btn btn-outline-secondary" href="{{cancel}}">{{#str}} confirmcancel, local_skillupsscheduler {{/str}}</a>{{/cancel}}
+        </div>
+    </div>
+    <dl class="scheduler-detail">
+        {{#details}}<div><dt>{{label}}</dt><dd>{{value}}</dd></div>{{/details}}
+    </dl>
+    {{#conflicts}}<p class="alert alert-warning">{{label}}</p>{{/conflicts}}
+    {{#historyallowed}}
+        <h2>{{#str}} history, local_skillupsscheduler {{/str}}</h2>
+        <ol class="list-group list-group-numbered">
+            {{#history}}
+                <li class="list-group-item">
+                    <strong>{{operation}}</strong> · {{actor}} · {{when}}
+                    {{#reason}}<p class="mb-1">{{reason}}</p>{{/reason}}
+                    {{#before}}<p class="mb-0">{{before}} → {{after}}</p>{{/before}}
+                </li>
+            {{/history}}
+        </ol>
+    {{/historyallowed}}
+</section>

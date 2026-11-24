@@ -1,0 +1,26 @@
+{{!
+    @template local_skillupsscheduler/choose
+    Campus and course chooser before scheduling a class.
+    Example context (json):
+    {"sites":[{"label":"North","url":"/local/skillupsscheduler/edit.php?siteid=1"}]}
+}}
+<section class="local-scheduler">
+    <h2 class="h5">{{#str}} choosecampus, local_skillupsscheduler {{/str}}</h2>
+    <div class="d-flex flex-wrap gap-2 mb-4">
+        {{#sites}}<a class="btn btn-outline-primary" href="{{url}}">{{label}}</a>{{/sites}}
+    </div>
+    {{#showcourses}}
+        <h2 class="h5">{{#str}} choosecourse, local_skillupsscheduler {{/str}}</h2>
+        <form class="d-flex flex-wrap gap-2 mb-3" method="get" action="{{url}}">
+            <input type="hidden" name="siteid" value="{{siteid}}">
+            <input type="hidden" name="day" value="{{day}}">
+            <label for="scheduler-coursesearch">{{#str}} searchcourse, local_skillupsscheduler {{/str}}</label>
+            <input class="form-control w-auto" name="search" id="scheduler-coursesearch" value="{{search}}">
+            <button type="submit" class="btn btn-outline-primary">{{#str}} applyfilters, local_skillupsscheduler {{/str}}</button>
+        </form>
+        {{#empty}}<p>{{#str}} noresults, local_skillupsscheduler {{/str}}</p>{{/empty}}
+        <ul class="list-group">
+            {{#courses}}<li class="list-group-item"><a href="{{url}}">{{label}}</a></li>{{/courses}}
+        </ul>
+    {{/showcourses}}
+</section>

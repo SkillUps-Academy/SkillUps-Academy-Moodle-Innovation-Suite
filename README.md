@@ -19,6 +19,7 @@
 - [SkillUps Privacy Manager](moodle-local_skillupsprivacy/README.md) — Track privacy requests, retention assessments and evidence with Moodle Privacy API.
 - [SkillUps Integration Hub](moodle-local_skillupsintegration/README.md) — Map, simulate and approve institution-wide user and course integrations.
 - [SkillUps Attendance Pro](moodle-mod_skillupsattendance/README.md) — Manage Moodle sessions, attendance records, justifications and reports.
+- [SkillUps Scheduler](moodle-local_skillupsscheduler/README.md) — Plan institutional schedules, check conflicts and publish scoped calendars.
 
 ## SkillUps AI Copilot 0.9.0-beta.1
 
@@ -183,3 +184,9 @@
 - [Administration and permissions](moodle-mod_skillupsattendance/docs/administration.md)
 - [Session, registration and reporting guide](moodle-mod_skillupsattendance/docs/usage.md)
 - [Validation](moodle-mod_skillupsattendance/docs/validation.md)
+
+## SkillUps Scheduler 0.9.0-beta.1
+
+- [Source, installation and manuals](moodle-local_skillupsscheduler/README.md)
+- [Installable ZIP](releases/skillupsscheduler/skillupsscheduler-0.9.0-beta.1.zip) and [SHA-256 checksum](releases/skillupsscheduler/SHA256SUMS)
+- [Compatibility matrix and test evidence](moodle-local_skillupsscheduler/docs/validation.md)
