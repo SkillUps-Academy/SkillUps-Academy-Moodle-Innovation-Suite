@@ -16,6 +16,7 @@
 - [SkillUps Learning Path Designer](moodle-local_skillupspathways/README.md) — Design versioned cross-course pathways and follow individual and group progress.
 - [SkillUps Certify & Verify](moodle-local_skillupscertify/README.md) — Design and issue archived PDF certificates, verify QR codes and manage revocation.
 - [SkillUps Security Center](moodle-report_skillupssecurity/README.md) — Review Moodle security evidence, role grants and administrative activity.
+- [SkillUps Privacy Manager](moodle-local_skillupsprivacy/README.md) — Track privacy requests, retention assessments and evidence with Moodle Privacy API.
 
 ## SkillUps AI Copilot 0.9.0-beta.1
 
@@ -155,3 +156,11 @@
 - [Installation, permissions and alerts](moodle-report_skillupssecurity/docs/administration.md)
 - [Control catalog and limitations](moodle-report_skillupssecurity/docs/controls.md)
 - [Validation](moodle-report_skillupssecurity/docs/validation.md)
+
+## SkillUps Privacy Manager 0.9.0-beta.1
+
+- [Moodle installation ZIP](releases/skillupsprivacy/skillupsprivacy-0.9.0-beta.1.zip)
+- [SHA-256 checksum](releases/skillupsprivacy/SHA256SUMS)
+- [Installation, permissions and configuration](moodle-local_skillupsprivacy/docs/administration.md)
+- [Casework, retention and evidence](moodle-local_skillupsprivacy/docs/operations.md)
+- [Validation](moodle-local_skillupsprivacy/docs/validation.md)

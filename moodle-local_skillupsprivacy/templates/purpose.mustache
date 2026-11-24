@@ -1,0 +1,15 @@
+{{!
+    @template local_skillupsprivacy/purpose
+    Effective native retention purpose.
+    Example context (json):
+    {"purpose": {"name": "Teaching records", "period": "Five years", "protected": true}}
+}}
+{{#purpose}}
+<dl class="mb-0">
+    <dt>{{#str}}purpose, local_skillupsprivacy{{/str}}</dt><dd>{{name}}</dd>
+    <dt>{{#str}}retentionperiod, local_skillupsprivacy{{/str}}</dt><dd>{{period}}</dd>
+    <dt>{{#str}}protection, local_skillupsprivacy{{/str}}</dt>
+    <dd>{{#protected}}{{#str}}yes{{/str}}{{/protected}}{{^protected}}{{#str}}no{{/str}}{{/protected}}</dd>
+</dl>
+{{/purpose}}
+{{^purpose}}<p>{{#str}}nopurpose, local_skillupsprivacy{{/str}}</p>{{/purpose}}

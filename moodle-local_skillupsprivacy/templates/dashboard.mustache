@@ -1,0 +1,161 @@
+{{!
+    @template local_skillupsprivacy/dashboard
+    Administrative dashboard with register, native inbox, metadata, policy and reports.
+    Example context (json):
+    {"cases": true, "tabs": [], "rows": [], "indexurl": "/local/skillupsprivacy/index.php"}
+}}
+<div class="local-skillupsprivacy">
+    <nav class="nav nav-tabs mb-4" aria-label="{{#str}}pluginname, local_skillupsprivacy{{/str}}">
+        {{#tabs}}<a class="nav-link{{#active}} active{{/active}}" {{#active}}aria-current="page"{{/active}} href="{{url}}">{{label}}</a>{{/tabs}}
+    </nav>
+    {{#cases}}
+    <div class="row g-3 mb-4">
+        {{#summary}}
+        <div class="col-12 col-md-4">
+            <div class="card h-100"><div class="card-body">
+                <div class="text-muted">{{label}}</div><strong class="fs-2">{{count}}</strong>
+            </div></div>
+        </div>
+        {{/summary}}
+    </div>
+    <div class="d-flex flex-wrap align-items-center justify-content-between gap-2 mb-3">
+        <h2 class="h4 mb-0">{{#str}}view_cases, local_skillupsprivacy{{/str}}</h2>
+        {{#registerurl}}<a class="btn btn-primary" href="{{registerurl}}">{{#str}}register, local_skillupsprivacy{{/str}}</a>{{/registerurl}}
+    </div>
+    <form method="get" action="{{indexurl}}" class="card card-body mb-3">
+        <div class="row g-3 align-items-end">
+            <div class="col-12 col-md">
+                <label for="privacy-kind" class="form-label">{{#str}}kind, local_skillupsprivacy{{/str}}</label>
+                <select name="kind" id="privacy-kind" class="form-select">
+                    <option value="">{{#str}}all{{/str}}</option>
+                    {{#kinds}}<option value="{{value}}" {{#selected}}selected{{/selected}}>{{label}}</option>{{/kinds}}
+                </select>
+            </div>
+            <div class="col-12 col-md">
+                <label for="privacy-state" class="form-label">{{#str}}state, local_skillupsprivacy{{/str}}</label>
+                <select name="state" id="privacy-state" class="form-select">
+                    <option value="">{{#str}}all{{/str}}</option>
+                    {{#states}}<option value="{{value}}" {{#selected}}selected{{/selected}}>{{label}}</option>{{/states}}
+                </select>
+            </div>
+            <div class="col-12 col-md">
+                <label for="privacy-id" class="form-label">{{#str}}caseid, local_skillupsprivacy{{/str}}</label>
+                <input class="form-control" type="number" min="1" name="caseid" id="privacy-id" {{#caseid}}value="{{caseid}}"{{/caseid}}>
+            </div>
+            <div class="col-auto">
+                <label class="d-block"><input type="checkbox" name="mine" value="1" {{#mine}}checked{{/mine}}> {{#str}}mine, local_skillupsprivacy{{/str}}</label>
+                <label class="d-block mb-0"><input type="checkbox" name="dueonly" value="1" {{#dueonly}}checked{{/dueonly}}> {{#str}}dueonly, local_skillupsprivacy{{/str}}</label>
+            </div>
+            <div class="col-auto"><button class="btn btn-secondary" type="submit">{{#str}}filter, local_skillupsprivacy{{/str}}</button></div>
+        </div>
+    </form>
+    <div class="table-responsive">
+        <table class="table table-hover">
+            <caption class="visually-hidden">{{#str}}view_cases, local_skillupsprivacy{{/str}}</caption>
+            <thead><tr>
+                <th scope="col">{{#str}}caseid, local_skillupsprivacy{{/str}}</th>
+                <th scope="col">{{#str}}kind, local_skillupsprivacy{{/str}}</th>
+                <th scope="col">{{#str}}state, local_skillupsprivacy{{/str}}</th>
+                <th scope="col">{{#str}}owner, local_skillupsprivacy{{/str}}</th>
+                <th scope="col">{{#str}}deadline, local_skillupsprivacy{{/str}}</th>
+                <th scope="col">{{#str}}retention, local_skillupsprivacy{{/str}}</th>
+            </tr></thead>
+            <tbody>
+                {{#rows}}<tr><th scope="row"><a href="{{url}}">#{{id}}</a></th><td>{{kind}}</td><td>{{state}}</td><td>{{#ownerid}}#{{ownerid}}{{/ownerid}}{{^ownerid}}&ndash;{{/ownerid}}</td><td>{{due}}</td><td>{{retention}}</td></tr>{{/rows}}
+                {{^rows}}<tr><td colspan="6">{{#str}}empty, local_skillupsprivacy{{/str}}</td></tr>{{/rows}}
+            </tbody>
+        </table>
+    </div>
+    {{/cases}}
+    {{#native}}
+    <h2 class="h4">{{#str}}view_native, local_skillupsprivacy{{/str}}</h2>
+    <p>{{#str}}nativehelp, local_skillupsprivacy{{/str}}</p>
+    <p><a href="{{nativeurl}}">{{#str}}opennative, local_skillupsprivacy{{/str}}</a></p>
+    <div class="table-responsive"><table class="table table-hover">
+        <caption class="visually-hidden">{{#str}}view_native, local_skillupsprivacy{{/str}}</caption>
+        <thead><tr>
+            <th scope="col">{{#str}}nativeid, local_skillupsprivacy{{/str}}</th>
+            <th scope="col">{{#str}}subject, local_skillupsprivacy{{/str}}</th>
+            <th scope="col">{{#str}}kind, local_skillupsprivacy{{/str}}</th>
+            <th scope="col">{{#str}}nativestate, local_skillupsprivacy{{/str}}</th>
+            <th scope="col">{{#str}}registered, local_skillupsprivacy{{/str}}</th>
+            <th scope="col">{{#str}}actions{{/str}}</th>
+        </tr></thead>
+        <tbody>
+            {{#rows}}<tr><th scope="row">#{{id}}</th><td>#{{userid}}</td><td>{{kind}}</td><td>{{status}}</td><td>{{created}}</td>
+                <td>{{#url}}<a href="{{url}}">{{#tracked}}{{#str}}opencase, local_skillupsprivacy{{/str}}{{/tracked}}{{^tracked}}{{#str}}track, local_skillupsprivacy{{/str}}{{/tracked}}</a>{{/url}}</td>
+            </tr>{{/rows}}
+            {{^rows}}<tr><td colspan="6">{{#str}}empty, local_skillupsprivacy{{/str}}</td></tr>{{/rows}}
+        </tbody>
+    </table></div>
+    {{/native}}
+    {{#inventory}}
+    <h2 class="h4">{{#str}}view_inventory, local_skillupsprivacy{{/str}}</h2>
+    <p>{{#str}}inventoryhelp, local_skillupsprivacy{{/str}}</p>
+    <form method="get" action="{{indexurl}}" class="mb-3">
+        <input type="hidden" name="view" value="inventory">
+        <label for="privacy-query" class="form-label">{{#str}}componentsearch, local_skillupsprivacy{{/str}}</label>
+        <div class="d-flex flex-wrap gap-2">
+            <input type="search" id="privacy-query" class="form-control w-auto" maxlength="100" name="q" value="{{q}}">
+            <button class="btn btn-secondary" type="submit">{{#str}}filter, local_skillupsprivacy{{/str}}</button>
+        </div>
+    </form>
+    {{#rows}}
+        <details class="card mb-2"><summary class="card-header">
+            <strong>{{component}}</strong> <span class="text-muted">({{raw_component}})</span>
+            <span class="badge bg-secondary text-white mx-2">{{assessment}}</span>
+        </summary><div class="card-body">
+            {{#nullprovider}}<p>{{nullprovider}}</p>{{/nullprovider}}
+            {{#metadata}}<section class="mb-3">
+                <h3 class="h6"><code>{{name}}</code> ({{type}})</h3>
+                <p>{{summary}}</p>
+                <dl>{{#fields}}<dt>{{field_name}}</dt><dd>{{field_summary}}</dd>{{/fields}}</dl>
+            </section>{{/metadata}}
+            {{^metadata}}{{^nullprovider}}<p>{{#str}}metadata_incomplete, local_skillupsprivacy{{/str}}</p>{{/nullprovider}}{{/metadata}}
+        </div></details>
+    {{/rows}}
+    {{^rows}}<p>{{#str}}empty, local_skillupsprivacy{{/str}}</p>{{/rows}}
+    {{/inventory}}
+    {{#policy}}
+    <h2 class="h4">{{#str}}view_policy, local_skillupsprivacy{{/str}}</h2>
+    <p>{{#str}}policyhelp, local_skillupsprivacy{{/str}}</p>
+    <p><a href="{{policyurl}}">{{#str}}openpolicy, local_skillupsprivacy{{/str}}</a></p>
+    <form method="get" action="{{indexurl}}" class="mb-3">
+        <input type="hidden" name="view" value="policy">
+        <label for="privacy-context" class="form-label">{{#str}}reviewcontext, local_skillupsprivacy{{/str}}</label>
+        <div class="d-flex flex-wrap gap-2">
+            <input type="number" id="privacy-context" name="contextid" min="0" class="form-control w-auto" value="{{contextid}}">
+            <button class="btn btn-secondary">{{#str}}filter, local_skillupsprivacy{{/str}}</button>
+        </div>
+    </form>
+    {{#policycontext}}<h3 class="h5">{{policycontext}}</h3>{{/policycontext}}
+    {{> local_skillupsprivacy/purpose }}
+    {{/policy}}
+    {{#reports}}
+    <h2 class="h4">{{#str}}view_reports, local_skillupsprivacy{{/str}}</h2>
+    <p>{{#str}}reporthelp, local_skillupsprivacy{{/str}}</p>
+    <div class="table-responsive"><table class="table table-bordered">
+        <caption class="visually-hidden">{{#str}}view_reports, local_skillupsprivacy{{/str}}</caption>
+        <thead><tr><th scope="col">{{#str}}kind, local_skillupsprivacy{{/str}}</th>{{#legend}}<th scope="col">{{label}}</th>{{/legend}}</tr></thead>
+        <tbody>{{#totals}}<tr><th scope="row">{{type}}</th>{{#counts}}<td>{{.}}</td>{{/counts}}</tr>{{/totals}}</tbody>
+    </table></div>
+    <p>{{#str}}edition, local_skillupsprivacy{{/str}} {{edition}}{{#licenseend}} &middot; {{#str}}licenseend, local_skillupsprivacy{{/str}} {{licenseend}}{{/licenseend}}</p>
+    {{#exporturl}}<form method="post" action="{{exporturl}}">
+        <input type="hidden" name="sesskey" value="{{sesskey}}">
+        {{#extended}}<label class="d-block mb-2"><input type="checkbox" name="extended" value="1"> {{#str}}extended, local_skillupsprivacy{{/str}}</label>{{/extended}}
+        <button class="btn btn-primary">{{#str}}evidence, local_skillupsprivacy{{/str}}</button>
+    </form>{{/exporturl}}
+    {{/reports}}
+    {{#audit}}
+    <h2 class="h4">{{#str}}view_audit, local_skillupsprivacy{{/str}}</h2>
+    <div class="table-responsive"><table class="table table-hover">
+        <caption class="visually-hidden">{{#str}}view_audit, local_skillupsprivacy{{/str}}</caption>
+        <thead><tr><th scope="col">{{#str}}registered, local_skillupsprivacy{{/str}}</th><th scope="col">{{#str}}actor, local_skillupsprivacy{{/str}}</th><th scope="col">{{#str}}operation, local_skillupsprivacy{{/str}}</th></tr></thead>
+        <tbody>
+            {{#rows}}<tr><td>{{timecreated}}</td><td>{{actor}}</td><td>{{operation}}{{#caseid}} (#{{caseid}}){{/caseid}}</td></tr>{{/rows}}
+            {{^rows}}<tr><td colspan="3">{{#str}}empty, local_skillupsprivacy{{/str}}</td></tr>{{/rows}}
+        </tbody>
+    </table></div>
+    {{/audit}}
+    {{{paging}}}
+</div>

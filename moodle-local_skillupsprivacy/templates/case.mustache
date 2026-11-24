@@ -1,0 +1,101 @@
+{{!
+    @template local_skillupsprivacy/case
+    Local privacy case details and decision controls.
+    Example context (json):
+    {"id": 42, "kind": "Access", "state": "Open", "back": "/local/skillupsprivacy/index.php"}
+}}
+<div class="local-skillupsprivacy">
+    <p><a href="{{back}}">{{#str}}view_cases, local_skillupsprivacy{{/str}}</a></p>
+    <div class="row g-3 mb-4">
+        <section class="col-12 col-lg-6"><div class="card card-body h-100">
+            <h2 class="h5">{{#str}}casedata, local_skillupsprivacy{{/str}}</h2>
+            <dl class="row mb-0">
+                <dt class="col-sm-5">{{#str}}subject, local_skillupsprivacy{{/str}}</dt><dd class="col-sm-7">#{{userid}}</dd>
+                <dt class="col-sm-5">{{#str}}owner, local_skillupsprivacy{{/str}}</dt><dd class="col-sm-7">{{#ownerid}}#{{ownerid}}{{/ownerid}}{{^ownerid}}&ndash;{{/ownerid}}</dd>
+                <dt class="col-sm-5">{{#str}}kind, local_skillupsprivacy{{/str}}</dt><dd class="col-sm-7">{{kind}}</dd>
+                <dt class="col-sm-5">{{#str}}state, local_skillupsprivacy{{/str}}</dt><dd class="col-sm-7">{{state}}</dd>
+                <dt class="col-sm-5">{{#str}}deadline, local_skillupsprivacy{{/str}}</dt><dd class="col-sm-7">{{deadline}}</dd>
+                <dt class="col-sm-5">{{#str}}retention, local_skillupsprivacy{{/str}}</dt><dd class="col-sm-7">{{retention}}</dd>
+            </dl>
+        </div></section>
+        <section class="col-12 col-lg-6"><div class="card card-body h-100">
+            <h2 class="h5">{{#str}}view_policy, local_skillupsprivacy{{/str}}</h2>
+            <p>{{contextname}}</p>
+            {{> local_skillupsprivacy/purpose }}
+        </div></section>
+    </div>
+    {{#nativeid}}
+    <section class="card card-body mb-4">
+        <h2 class="h5">{{#str}}nativeid, local_skillupsprivacy{{/str}} #{{nativeid}}</h2>
+        <p><strong>{{nativestatus}}</strong> {{checkedat}}</p>
+        <div class="d-flex flex-wrap gap-2 align-items-center">
+            <a href="{{nativeurl}}">{{#str}}opennative, local_skillupsprivacy{{/str}}</a>
+            {{#refresh}}<form method="post" action="{{actionurl}}">
+                <input type="hidden" name="sesskey" value="{{sesskey}}">
+                <input type="hidden" name="action" value="refresh">
+                <button class="btn btn-secondary">{{#str}}refresh, local_skillupsprivacy{{/str}}</button>
+            </form>{{/refresh}}
+        </div>
+    </section>
+    {{/nativeid}}
+    {{#hastransitions}}
+    <section class="card card-body mb-4">
+        <h2 class="h5">{{#str}}decision, local_skillupsprivacy{{/str}}</h2>
+        <p>{{#str}}decisionhelp, local_skillupsprivacy{{/str}}</p>
+        <form method="post" action="{{actionurl}}">
+            <input type="hidden" name="sesskey" value="{{sesskey}}">
+            <input type="hidden" name="action" value="transition">
+            <input type="hidden" name="revision" value="{{revision}}">
+            <div class="mb-3"><label class="form-label" for="privacy-state">{{#str}}newstate, local_skillupsprivacy{{/str}}</label>
+                <select class="form-select w-auto" name="value" id="privacy-state" required>
+                    <option value="">{{#str}}choose{{/str}}</option>
+                    {{#transitions}}<option value="{{value}}">{{label}}</option>{{/transitions}}
+                </select>
+            </div>
+            <div class="mb-3"><label class="form-label" for="privacy-reason">{{#str}}reason, local_skillupsprivacy{{/str}}</label>
+                <textarea class="form-control" name="reason" id="privacy-reason" rows="2" maxlength="300" required></textarea>
+            </div>
+            <button class="btn btn-primary">{{#str}}confirmdecision, local_skillupsprivacy{{/str}}</button>
+        </form>
+    </section>
+    {{/hastransitions}}
+    {{#canassess}}
+    <section class="card card-body mb-4">
+        <h2 class="h5">{{#str}}assess, local_skillupsprivacy{{/str}}</h2>
+        <form method="post" action="{{actionurl}}">
+            <input type="hidden" name="sesskey" value="{{sesskey}}">
+            <input type="hidden" name="action" value="retention">
+            <input type="hidden" name="revision" value="{{revision}}">
+            <div class="mb-3"><label class="form-label" for="privacy-assessment">{{#str}}retention, local_skillupsprivacy{{/str}}</label>
+                <select class="form-select w-auto" name="value" id="privacy-assessment" required>
+                    {{#assessments}}<option value="{{value}}" {{#selected}}selected{{/selected}}>{{label}}</option>{{/assessments}}
+                </select>
+            </div>
+            <div class="mb-3"><label class="form-label" for="privacy-holdreason">{{#str}}reason, local_skillupsprivacy{{/str}}</label>
+                <textarea class="form-control" name="reason" id="privacy-holdreason" rows="2" maxlength="300" required></textarea>
+            </div>
+            <button class="btn btn-secondary">{{#str}}saveassessment, local_skillupsprivacy{{/str}}</button>
+        </form>
+    </section>
+    {{/canassess}}
+    {{#hasrouting}}
+    <section class="card card-body mb-4">
+        <h2 class="h5">{{#str}}routing, local_skillupsprivacy{{/str}}</h2>
+        {{{routing}}}
+    </section>
+    {{/hasrouting}}
+    <h2 class="h4">{{#str}}history, local_skillupsprivacy{{/str}}</h2>
+    <div class="table-responsive"><table class="table table-hover">
+        <caption class="visually-hidden">{{#str}}history, local_skillupsprivacy{{/str}}</caption>
+        <thead><tr>
+            <th scope="col">{{#str}}registered, local_skillupsprivacy{{/str}}</th><th scope="col">{{#str}}actor, local_skillupsprivacy{{/str}}</th>
+            <th scope="col">{{#str}}operation, local_skillupsprivacy{{/str}}</th><th scope="col">{{#str}}previous, local_skillupsprivacy{{/str}}</th>
+            <th scope="col">{{#str}}result, local_skillupsprivacy{{/str}}</th><th scope="col">{{#str}}reason, local_skillupsprivacy{{/str}}</th>
+        </tr></thead>
+        <tbody>
+            {{#history}}<tr><td>{{when}}</td><td>{{actor}}</td><td>{{operation}}</td><td>{{previous}}</td><td>{{result}}</td><td>{{note}}</td></tr>{{/history}}
+            {{^history}}<tr><td colspan="6">{{#str}}empty, local_skillupsprivacy{{/str}}</td></tr>{{/history}}
+        </tbody>
+    </table></div>
+    {{{paging}}}
+</div>
