@@ -1,0 +1,37 @@
+{{!
+    @template local_skillupscompetency/home
+    Institutional competency dashboard with course and program routes.
+    Example context (json):
+    {"catalog":"/local/skillupscompetency/catalog.php","programs":[],"courses":[]}
+}}
+<section class="local-skillupscm">
+    <header class="skillupscm-hero">
+        <p class="skillupscm-brand">SkillUps Academy</p>
+        <h1>SkillUps Competency Manager</h1>
+        <p>{{#str}} intro, local_skillupscompetency {{/str}}</p>
+        <div class="d-flex flex-wrap gap-2">
+            <a class="btn btn-light" href="{{catalog}}">{{#str}} catalog, local_skillupscompetency {{/str}}</a>
+            {{#newprogram}}<a class="btn btn-outline-light" href="{{newprogram}}">{{#str}} newprogram, local_skillupscompetency {{/str}}</a>{{/newprogram}}
+        </div>
+    </header>
+    <div class="skillupscm-grid mt-4">
+        <section>
+            <h2>{{#str}} programs, local_skillupscompetency {{/str}}</h2>
+            {{#programs}}
+                <article class="skillupscm-panel mb-3">
+                    <p class="mb-1">{{code}}</p>
+                    <h3 class="h5"><a href="{{link}}">{{title}}</a></h3>
+                    {{#description}}<p class="mb-0">{{description}}</p>{{/description}}
+                </article>
+            {{/programs}}
+            {{^programs}}<p>{{#str}} empty, local_skillupscompetency {{/str}}</p>{{/programs}}
+        </section>
+        <section>
+            <h2>{{#str}} mycourses, local_skillupscompetency {{/str}}</h2>
+            <ul class="list-group">
+                {{#courses}}<li class="list-group-item"><a href="{{url}}">{{label}}</a></li>{{/courses}}
+                {{^courses}}<li class="list-group-item">{{#str}} empty, local_skillupscompetency {{/str}}</li>{{/courses}}
+            </ul>
+        </section>
+    </div>
+</section>

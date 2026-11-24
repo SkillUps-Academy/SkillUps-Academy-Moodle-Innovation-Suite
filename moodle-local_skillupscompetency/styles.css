@@ -1,0 +1,31 @@
+.local-skillupscm .skillupscm-hero {
+    background: linear-gradient(120deg, #142641, #285264);
+    color: #fff;
+    padding: clamp(1.25rem, 4vw, 3rem);
+    border-radius: .9rem;
+}
+.local-skillupscm .skillupscm-brand {
+    color: #a6eee7;
+    font-weight: 700;
+    letter-spacing: .05em;
+}
+.local-skillupscm .skillupscm-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr));
+    gap: 1rem;
+}
+.local-skillupscm .skillupscm-panel {
+    border: 1px solid var(--bs-border-color, #d7dee7);
+    border-radius: .75rem;
+    padding: 1rem;
+    overflow-wrap: anywhere;
+}
+.local-skillupscm .skillupscm-status {
+    display: inline-block;
+    font-weight: 700;
+    margin-bottom: .35rem;
+}
+.local-skillupscm .skillupscm-text {
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+}

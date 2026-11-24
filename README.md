@@ -20,6 +20,7 @@
 - [SkillUps Integration Hub](moodle-local_skillupsintegration/README.md) — Map, simulate and approve institution-wide user and course integrations.
 - [SkillUps Attendance Pro](moodle-mod_skillupsattendance/README.md) — Manage Moodle sessions, attendance records, justifications and reports.
 - [SkillUps Scheduler](moodle-local_skillupsscheduler/README.md) — Plan institutional schedules, check conflicts and publish scoped calendars.
+- [SkillUps Competency Manager](moodle-local_skillupscompetency/README.md) — Define program targets, review competency assessments and report learning gaps.
 
 ## SkillUps AI Copilot 0.9.0-beta.1
 
@@ -190,3 +191,9 @@
 - [Source, installation and manuals](moodle-local_skillupsscheduler/README.md)
 - [Installable ZIP](releases/skillupsscheduler/skillupsscheduler-0.9.0-beta.1.zip) and [SHA-256 checksum](releases/skillupsscheduler/SHA256SUMS)
 - [Compatibility matrix and test evidence](moodle-local_skillupsscheduler/docs/validation.md)
+
+## SkillUps Competency Manager 0.9.0-beta.1
+
+- [Source, installation and manuals](moodle-local_skillupscompetency/README.md)
+- [Installable ZIP](releases/skillupscompetency/skillupscompetency-0.9.0-beta.1.zip) and [checksum](releases/skillupscompetency/SHA256SUMS)
+- [Compatibility and test evidence](moodle-local_skillupscompetency/docs/validation.md)

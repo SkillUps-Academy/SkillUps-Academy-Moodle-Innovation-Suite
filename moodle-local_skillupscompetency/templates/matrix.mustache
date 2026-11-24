@@ -1,0 +1,85 @@
+{{!
+    @template local_skillupscompetency/matrix
+    Program matrix, terms, courses and expected levels.
+    Example context (json):
+    {"name":"Design program","code":"DES","terms":[],"courses":[],"targets":[]}
+}}
+<section class="local-skillupscm">
+    <a href="{{back}}">{{#str}} back, local_skillupscompetency {{/str}}</a>
+    <header class="skillupscm-hero mt-3">
+        <p class="skillupscm-brand">{{code}}</p>
+        <h1>{{name}}</h1>
+        {{#summary}}<p>{{summary}}</p>{{/summary}}
+        <div class="d-flex flex-wrap gap-2">
+            {{#edit}}<a class="btn btn-outline-light" href="{{edit}}">{{#str}} edit_program, local_skillupscompetency {{/str}}</a>{{/edit}}
+            {{#report}}<a class="btn btn-light" href="{{report}}">{{#str}} gapreport, local_skillupscompetency {{/str}}</a>{{/report}}
+        </div>
+    </header>
+    <div class="skillupscm-grid mt-3">
+        <section class="skillupscm-panel">
+            <h2 class="h5">{{#str}} terms, local_skillupscompetency {{/str}}</h2>
+            <ul class="list-group list-group-flush">
+                {{#terms}}<li class="list-group-item"><a href="{{href}}">{{label}}</a><div>{{range}}</div></li>{{/terms}}
+                {{^terms}}<li class="list-group-item">{{#str}} empty, local_skillupscompetency {{/str}}</li>{{/terms}}
+            </ul>
+            {{#newterm}}<a href="{{newterm}}">{{#str}} newterm, local_skillupscompetency {{/str}}</a>{{/newterm}}
+        </section>
+        <section class="skillupscm-panel">
+            <h2 class="h5">{{#str}} linkedcourses, local_skillupscompetency {{/str}}</h2>
+            <ul class="list-group list-group-flush">
+                {{#courses}}<li class="list-group-item"><a href="{{href}}">{{label}}</a></li>{{/courses}}
+                {{^courses}}<li class="list-group-item">{{#str}} empty, local_skillupscompetency {{/str}}</li>{{/courses}}
+            </ul>
+            {{#addcourse}}<a href="{{addcourse}}">{{#str}} edit_course, local_skillupscompetency {{/str}}</a>{{/addcourse}}
+        </section>
+    </div>
+    {{#term}}
+        <h2 class="mt-4">{{term}}</h2>
+        {{#editterm}}<p><a href="{{editterm}}">{{#str}} edit_term, local_skillupscompetency {{/str}}</a></p>{{/editterm}}
+        {{#manage}}
+            <div class="skillupscm-panel mb-3">
+                <form class="d-flex gap-2 flex-wrap align-items-center mb-2" action="{{matrixurl}}" method="get">
+                    <input type="hidden" name="programid" value="{{pid}}">
+                    <input type="hidden" name="termid" value="{{tid}}">
+                    <label for="skillupscm-frame">{{#str}} framework, local_skillupscompetency {{/str}}</label>
+                    <select class="form-select w-auto" id="skillupscm-frame" name="frameworkid" required>
+                        <option value="">{{#str}} choose, local_skillupscompetency {{/str}}</option>
+                        {{#frames}}<option value="{{id}}" {{#selected}}selected{{/selected}}>{{label}}</option>{{/frames}}
+                    </select>
+                    <button class="btn btn-outline-primary" type="submit">{{#str}} showcompetencies, local_skillupscompetency {{/str}}</button>
+                </form>
+                {{#hasitems}}
+                    <form class="d-flex gap-2 flex-wrap align-items-center" action="{{matrixurl}}" method="get">
+                        <input type="hidden" name="programid" value="{{pid}}">
+                        <input type="hidden" name="termid" value="{{tid}}">
+                        <input type="hidden" name="op" value="goal">
+                        <label for="skillupscm-goal">{{#str}} competency, local_skillupscompetency {{/str}}</label>
+                        <select class="form-select w-auto" id="skillupscm-goal" name="competencyid" required>
+                            {{#available}}<option value="{{id}}">{{label}}</option>{{/available}}
+                        </select>
+                        <button class="btn btn-outline-primary" type="submit">{{#str}} edit_goal, local_skillupscompetency {{/str}}</button>
+                    </form>
+                {{/hasitems}}
+            </div>
+        {{/manage}}
+        <div class="table-responsive">
+            <table class="table">
+                <thead><tr>
+                    <th scope="col">{{#str}} competency, local_skillupscompetency {{/str}}</th>
+                    <th scope="col">{{#str}} expected, local_skillupscompetency {{/str}}</th>
+                    <th scope="col">{{#str}} linkedcourses, local_skillupscompetency {{/str}}</th>
+                </tr></thead>
+                <tbody>
+                    {{#targets}}
+                        <tr><th scope="row">{{name}} <small>{{code}}</small>
+                            {{#crosscut}}<span class="d-block">{{#str}} crosscut, local_skillupscompetency {{/str}}</span>{{/crosscut}}
+                        </th>
+                        <td>{{level}} {{#edit}}<a href="{{edit}}">{{#str}} edit_goal, local_skillupscompetency {{/str}}</a>{{/edit}}</td>
+                        <td>{{count}}</td></tr>
+                    {{/targets}}
+                    {{^targets}}<tr><td colspan="3">{{#str}} empty, local_skillupscompetency {{/str}}</td></tr>{{/targets}}
+                </tbody>
+            </table>
+        </div>
+    {{/term}}
+</section>

@@ -1,0 +1,36 @@
+{{!
+    @template local_skillupscompetency/catalog
+    Native catalog and SkillUps achievement indicators.
+    Example context (json):
+    {"title":"Competency frameworks","list":[],"levels":[]}
+}}
+<section class="local-skillupscm">
+    <a href="{{back}}">{{#str}} back, local_skillupscompetency {{/str}}</a>
+    <h1 class="mt-3">{{title}}</h1>
+    <div class="d-flex flex-wrap gap-2 my-3">
+        <a class="btn btn-outline-secondary" href="{{all}}">{{#str}} frameworks, local_skillupscompetency {{/str}}</a>
+        {{#buttons}}<a class="btn btn-outline-primary" href="{{href}}">{{label}}</a>{{/buttons}}
+    </div>
+    <div class="skillupscm-grid">
+        <ul class="list-group">
+            {{#list}}<li class="list-group-item"><a href="{{link}}">{{label}}</a> <span class="text-muted">{{code}}</span>
+                {{#parent}}<small class="d-block">{{#str}} parent, local_skillupscompetency {{/str}} {{parent}}</small>{{/parent}}
+            </li>{{/list}}
+            {{^list}}<li class="list-group-item">{{#str}} empty, local_skillupscompetency {{/str}}</li>{{/list}}
+        </ul>
+        {{#item}}
+            <article>
+                <h2>{{item}}</h2>
+                <div>{{{description}}}</div>
+                <h3>{{#str}} levels, local_skillupscompetency {{/str}}</h3>
+                {{#levels}}
+                    <div class="skillupscm-panel mb-2">
+                        <h4 class="h6">{{label}}</h4>
+                        {{#indicator}}<p class="skillupscm-text">{{indicator}}</p>{{/indicator}}
+                        {{#edit}}<a href="{{edit}}">{{#str}} indicator, local_skillupscompetency {{/str}}</a>{{/edit}}
+                    </div>
+                {{/levels}}
+            </article>
+        {{/item}}
+    </div>
+</section>

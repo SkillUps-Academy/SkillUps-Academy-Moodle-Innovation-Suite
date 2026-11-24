@@ -1,0 +1,33 @@
+{{!
+    @template local_skillupscompetency/evaluation
+    Protected assessment and evidence.
+    Example context (json):
+    {"title":"Evidence analysis","status":"Approved","grade":"Proficient","criteria":[],"files":[]}
+}}
+<section class="local-skillupscm">
+    <a href="{{back}}">{{#str}} back, local_skillupscompetency {{/str}}</a>
+    <header class="skillupscm-hero mt-3">
+        <p class="skillupscm-brand">{{kind}} · {{status}}</p>
+        <h1>{{title}}</h1>
+        <p>{{student}} · {{date}}</p>
+    </header>
+    <div class="skillupscm-grid mt-3 mb-4">
+        <section class="skillupscm-panel">
+            <h2 class="h5">{{#str}} observations, local_skillupscompetency {{/str}}</h2>
+            <p><strong>{{oldgrade}} → {{grade}}</strong></p>
+            {{#author}}<p>{{#str}} author, local_skillupscompetency {{/str}} · {{author}}</p>{{/author}}
+            <p class="skillupscm-text">{{observations}}</p>
+            {{#criteria}}<p><strong>{{criterion}}</strong><br>{{level}} ({{score}})</p>{{/criteria}}
+        </section>
+        <section class="skillupscm-panel">
+            <h2 class="h5">{{#str}} attachments, local_skillupscompetency {{/str}}</h2>
+            <ul>{{#files}}<li><a href="{{url}}">{{name}}</a></li>{{/files}}
+                {{^files}}<li>{{#str}} empty, local_skillupscompetency {{/str}}</li>{{/files}}</ul>
+            {{#reviewed}}
+                <h2 class="h5">{{#str}} feedback, local_skillupscompetency {{/str}}</h2>
+                <p>{{reviewer}} · {{reviewed}}</p>
+                <p class="skillupscm-text">{{feedback}}</p>
+            {{/reviewed}}
+        </section>
+    </div>
+</section>

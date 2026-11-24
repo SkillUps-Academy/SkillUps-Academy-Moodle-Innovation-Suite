@@ -1,0 +1,52 @@
+{{!
+    @template local_skillupscompetency/course
+    Teacher and learner course competency panels.
+    Example context (json):
+    {"course":"Design Practice","panel":"Student panel","entries":[],"history":[]}
+}}
+<section class="local-skillupscm">
+    <a href="{{back}}">{{#str}} back, local_skillupscompetency {{/str}}</a>
+    <header class="skillupscm-hero mt-3">
+        <p class="skillupscm-brand">{{panel}}</p>
+        <h1>{{course}}</h1>
+        {{#selected}}<p>{{selected}}</p>{{/selected}}
+        {{#download}}<a class="btn btn-light" href="{{download}}">{{#str}} exportresults, local_skillupscompetency {{/str}}</a>{{/download}}
+        {{#links}}<a class="btn btn-outline-light" href="{{links}}">{{#str}} link, local_skillupscompetency {{/str}}</a>{{/links}}
+    </header>
+    {{#canchoose}}
+        <form class="d-flex flex-wrap align-items-center gap-2 skillupscm-panel my-3" action="{{find}}" method="get">
+            <input type="hidden" name="id" value="{{courseid}}">
+            <label for="skillupscm-learner">{{#str}} student, local_skillupscompetency {{/str}}</label>
+            <select class="form-select w-auto" id="skillupscm-learner" name="userid">
+                <option value="0">{{#str}} choose, local_skillupscompetency {{/str}}</option>
+                {{#learners}}<option value="{{id}}" {{#selected}}selected{{/selected}}>{{name}}</option>{{/learners}}
+            </select>
+            <button type="submit" class="btn btn-primary">{{#str}} applyfilters, local_skillupscompetency {{/str}}</button>
+        </form>
+    {{/canchoose}}
+    <h2 class="mt-3">{{#str}} competencies, local_skillupscompetency {{/str}}</h2>
+    <div class="skillupscm-grid">
+        {{#entries}}
+            <article class="skillupscm-panel">
+                <p class="mb-1">{{code}}</p>
+                <h3 class="h5">{{name}}</h3>
+                <p>{{#str}} current, local_skillupscompetency {{/str}} · <strong>{{current}}</strong></p>
+                <ul>
+                    {{#targets}}<li>{{program}} · {{term}} · {{#str}} expected, local_skillupscompetency {{/str}} {{expected}}
+                        {{#hasgap}} · {{#str}} gap, local_skillupscompetency {{/str}} {{gap}}{{/hasgap}}</li>{{/targets}}
+                    {{^targets}}<li>{{#str}} notarget, local_skillupscompetency {{/str}}</li>{{/targets}}
+                </ul>
+                {{#action}}<a href="{{action}}">{{#str}} createevaluation, local_skillupscompetency {{/str}}</a>{{/action}}
+            </article>
+        {{/entries}}
+        {{^entries}}<p>{{#str}} empty, local_skillupscompetency {{/str}}</p>{{/entries}}
+    </div>
+    <h2 class="mt-4">{{#str}} history, local_skillupscompetency {{/str}}</h2>
+    <ul class="list-group">
+        {{#history}}<li class="list-group-item">
+            <a href="{{link}}"><strong>{{name}}</strong></a> · {{level}} · {{status}}<br>
+            {{student}} · {{kind}} · {{date}}
+        </li>{{/history}}
+        {{^history}}<li class="list-group-item">{{#str}} empty, local_skillupscompetency {{/str}}</li>{{/history}}
+    </ul>
+</section>
