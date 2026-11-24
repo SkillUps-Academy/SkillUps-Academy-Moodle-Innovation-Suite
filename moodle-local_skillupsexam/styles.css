@@ -1,0 +1,61 @@
+.skillups-exam .exam-actions,
+.skillups-exam .exam-filters {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: end;
+    gap: .75rem;
+    margin-block: 1rem;
+}
+.skillups-exam .exam-summary {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .5rem;
+    list-style: none;
+    padding: 0;
+}
+.skillups-exam .exam-summary li {
+    padding: .45rem .75rem;
+    border: 1px solid var(--bs-border-color, #c5cad1);
+    border-radius: .35rem;
+}
+.skillups-exam .exam-calendar {
+    display: grid;
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+    list-style: none;
+    padding: 0;
+    gap: .3rem;
+}
+.skillups-exam .exam-calendar > li {
+    min-height: 4.5rem;
+    border: 1px solid var(--bs-border-color, #c5cad1);
+    border-radius: .35rem;
+    overflow-wrap: anywhere;
+    padding: .4rem;
+}
+.skillups-exam .exam-calendar .exam-calendar-offset {
+    visibility: hidden;
+}
+.skillups-exam .exam-calendar time {
+    display: block;
+    font-weight: 600;
+}
+@media (max-width: 700px) {
+    .skillups-exam .exam-summary {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .5rem;
+    list-style: none;
+    padding: 0;
+}
+.skillups-exam .exam-summary li {
+    padding: .45rem .75rem;
+    border: 1px solid var(--bs-border-color, #c5cad1);
+    border-radius: .35rem;
+}
+.skillups-exam .exam-calendar {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+    .skillups-exam .exam-calendar .exam-calendar-offset {
+        display: none;
+    }
+}
