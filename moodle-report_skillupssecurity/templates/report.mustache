@@ -1,0 +1,104 @@
+{{!
+    @template report_skillupssecurity/report
+
+    Render an authorized security audit and its associated evidence.
+
+    Example context (json):
+    {"title": "Security overview"}
+}}
+<div class="skillups-security">
+    <h2 class="h3">{{#str}}pluginname, report_skillupssecurity{{/str}}</h2>
+    <nav aria-label="{{#str}}navigation, report_skillupssecurity{{/str}}" class="nav nav-pills flex-wrap gap-2 mb-3">
+        {{#tabs}}<a href="{{url}}" class="nav-link {{#active}}active{{/active}}" {{#active}}aria-current="page"{{/active}}>{{label}}</a>{{/tabs}}
+    </nav>
+    <p class="alert alert-info mb-4">{{note}}</p>
+    {{^detail}}<h3 class="h4">{{title}}</h3>{{/detail}}
+    {{#dashboard}}
+        <div class="d-flex align-items-center flex-wrap justify-content-between mb-3 gap-2">
+            <p class="mb-0">{{#str}}lastscan, report_skillupssecurity{{/str}} <strong>{{lastscan}}</strong></p>
+            {{#canrun}}<form method="post" action="{{url}}">
+                <input type="hidden" name="sesskey" value="{{sesskey}}">
+                <input type="hidden" name="action" value="queue">
+                <button class="btn btn-primary" type="submit">{{#str}}runscan, report_skillupssecurity{{/str}}</button>
+            </form>{{/canrun}}
+        </div>
+        <dl class="row g-3">{{#metrics}}<div class="col-12 col-sm-4">
+            <div class="security-metric p-3 border rounded">
+                <dt><a href="{{url}}">{{label}}</a></dt><dd class="h4 mb-0">{{value}}</dd>
+            </div>
+        </div>{{/metrics}}</dl>
+        <h4 class="h5 mt-4">{{#str}}coverage, report_skillupssecurity{{/str}}</h4>
+        <ul class="list-group">
+            {{#coverage}}<li class="list-group-item d-flex flex-wrap justify-content-between gap-2">{{label}} <strong>{{state}}</strong></li>{{/coverage}}
+            {{^coverage}}<li class="list-group-item">{{#str}}noscansyet, report_skillupssecurity{{/str}}</li>{{/coverage}}
+        </ul>
+    {{/dashboard}}
+    {{#intro}}<p>{{intro}}</p>{{/intro}}
+    {{#warning}}<p class="alert alert-warning">{{warning}}</p>{{/warning}}
+    {{#hassnapshots}}
+        <details class="my-3"><summary>{{#str}}snapshots, report_skillupssecurity{{/str}}</summary>
+            <ul>{{#snapshots}}<li><a href="{{url}}">{{label}}</a></li>{{/snapshots}}</ul>
+        </details>
+    {{/hassnapshots}}
+    {{#table}}
+        {{#hasfilters}}<form method="get" action="{{url}}" class="d-flex flex-wrap gap-3 align-items-end mb-3">
+            <input type="hidden" name="tab" value="{{tab}}">
+            {{#filters}}<div><label class="form-label" for="security-filter-{{name}}">{{label}}</label>
+                <select class="form-select" name="{{name}}" id="security-filter-{{name}}">
+                    {{#choices}}<option value="{{value}}" {{#selected}}selected{{/selected}}>{{label}}</option>{{/choices}}
+                </select>
+            </div>{{/filters}}
+            <button class="btn btn-outline-primary" type="submit">{{#str}}filter, report_skillupssecurity{{/str}}</button>
+        </form>{{/hasfilters}}
+        {{#canexport}}<form method="post" action="{{url}}" class="mb-3">
+            <input type="hidden" name="sesskey" value="{{sesskey}}">
+            <input type="hidden" name="action" value="export">
+            <button class="btn btn-outline-secondary" type="submit">{{#str}}export, report_skillupssecurity{{/str}}</button>
+            <span class="small ms-2">{{exporthelp}}</span>
+        </form>{{/canexport}}
+        <div class="table-responsive"><table class="table align-middle">
+            <caption class="visually-hidden">{{title}}</caption>
+            <thead><tr>{{#headings}}<th scope="col">{{label}}</th>{{/headings}}</tr></thead>
+            <tbody>{{#rows}}<tr>{{#cells}}<td>{{#url}}<a href="{{url}}">{{text}}</a>{{/url}}{{^url}}{{text}}{{/url}}</td>{{/cells}}</tr>{{/rows}}</tbody>
+        </table></div>
+        {{^rows}}<p>{{#str}}empty, report_skillupssecurity{{/str}}</p>{{/rows}}
+    {{/table}}
+    {{#detail}}
+        <section aria-labelledby="security-finding-name">
+            <h3 class="h4" id="security-finding-name">{{title}}</h3>
+            <p>{{description}}</p>
+            <dl class="row mx-0">
+                <div class="col-6 col-md-3"><dt>{{#str}}kind, report_skillupssecurity{{/str}}</dt><dd>{{kind}}</dd></div>
+                <div class="col-6 col-md-3"><dt>{{#str}}severity, report_skillupssecurity{{/str}}</dt><dd>{{severity}}</dd></div>
+                <div class="col-6 col-md-3"><dt>{{#str}}presence, report_skillupssecurity{{/str}}</dt><dd>{{state}}</dd></div>
+                <div class="col-6 col-md-3"><dt>{{#str}}reviewstate, report_skillupssecurity{{/str}}</dt><dd>{{review}}</dd></div>
+                {{#person}}<div class="col-12 col-md-6"><dt>{{#str}}account, report_skillupssecurity{{/str}}</dt><dd>{{person}}</dd></div>{{/person}}
+                <div class="col-12 col-md-6"><dt>{{#str}}context, report_skillupssecurity{{/str}}</dt><dd>{{scope}}</dd></div>
+                <div class="col-12 col-md-6"><dt>{{#str}}firstseen, report_skillupssecurity{{/str}}</dt><dd>{{first}}</dd></div>
+                <div class="col-12 col-md-6"><dt>{{#str}}lastseen, report_skillupssecurity{{/str}}</dt><dd>{{last}}</dd></div>
+                {{#evidence}}<div class="col-12 col-md-6"><dt>{{label}}</dt><dd class="text-break">{{value}}</dd></div>{{/evidence}}
+            </dl>
+            <h4 class="h5">{{#str}}recommendation, report_skillupssecurity{{/str}}</h4>
+            <p>{{recommendation}}</p>
+            {{#canreview}}<form method="post" action="{{url}}" class="p-3 border rounded mb-4">
+                <input type="hidden" name="sesskey" value="{{sesskey}}">
+                <input type="hidden" name="action" value="review">
+                <div class="mb-3"><label class="form-label" for="security-state">{{#str}}reviewstate, report_skillupssecurity{{/str}}</label>
+                    <select class="form-select" id="security-state" name="state">
+                        {{#states}}<option value="{{value}}" {{#selected}}selected{{/selected}}>{{label}}</option>{{/states}}
+                    </select>
+                </div>
+                <label class="form-label" for="security-note">{{#str}}reviewnote, report_skillupssecurity{{/str}}</label>
+                <textarea id="security-note" name="note" class="form-control mb-3" required maxlength="250"></textarea>
+                <button class="btn btn-primary" type="submit">{{#str}}savereview, report_skillupssecurity{{/str}}</button>
+            </form>{{/canreview}}
+            <h4 class="h5">{{#str}}history, report_skillupssecurity{{/str}}</h4>
+            <ul class="list-group">
+                {{#history}}<li class="list-group-item"><strong>{{action}}</strong> · {{date}}{{#actor}} · {{actor}}{{/actor}}
+                    {{#note}}<div>{{note}}</div>{{/note}}</li>{{/history}}
+                {{^history}}<li class="list-group-item">{{#str}}empty, report_skillupssecurity{{/str}}</li>{{/history}}
+            </ul>
+        </section>
+    {{/detail}}
+    {{{pager}}}
+</div>

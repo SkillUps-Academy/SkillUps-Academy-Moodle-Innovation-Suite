@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<XMLDB PATH="report/skillupssecurity/db" VERSION="20261123" COMMENT="SkillUps Security Center"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../lib/xmldb/xmldb.xsd">
+  <TABLES>
+    <TABLE NAME="report_skillupssecurity_scan" COMMENT="Scan snapshot and collection coverage">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+        <FIELD NAME="coverage" TYPE="text" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="timecreated" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="total" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" DEFAULT="0"/>
+        <FIELD NAME="inventory" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" DEFAULT="0"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+      </KEYS>
+      <INDEXES>
+        <INDEX NAME="recent_ix" UNIQUE="false" FIELDS="timecreated,id"/>
+      </INDEXES>
+    </TABLE>
+    <TABLE NAME="report_skillupssecurity_finding" COMMENT="Stable detected observation and workflow">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+        <FIELD NAME="fingerprint" TYPE="char" LENGTH="64" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="ruleid" TYPE="char" LENGTH="32" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="kind" TYPE="char" LENGTH="16" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="severity" TYPE="char" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="userid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" DEFAULT="0"/>
+        <FIELD NAME="contextid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" DEFAULT="0"/>
+        <FIELD NAME="evidence" TYPE="text" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="reviewstate" TYPE="char" LENGTH="12" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="present" TYPE="int" LENGTH="1" NOTNULL="true" SEQUENCE="false" DEFAULT="1"/>
+        <FIELD NAME="firstseen" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="lastseen" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="lastscan" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+      </KEYS>
+      <INDEXES>
+        <INDEX NAME="fingerprint_ix" UNIQUE="true" FIELDS="fingerprint"/>
+        <INDEX NAME="lifecycle_ix" UNIQUE="false" FIELDS="ruleid,present,lastscan"/>
+        <INDEX NAME="subject_ix" UNIQUE="false" FIELDS="userid,id"/>
+        <INDEX NAME="recent_ix" UNIQUE="false" FIELDS="present,lastseen,id"/>
+      </INDEXES>
+    </TABLE>
+    <TABLE NAME="report_skillupssecurity_history" COMMENT="Workflow transition history">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+        <FIELD NAME="findingid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="actorid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" DEFAULT="0"/>
+        <FIELD NAME="action" TYPE="char" LENGTH="16" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="note" TYPE="char" LENGTH="250" NOTNULL="false" SEQUENCE="false"/>
+        <FIELD NAME="timecreated" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+      </KEYS>
+      <INDEXES>
+        <INDEX NAME="finding_ix" UNIQUE="false" FIELDS="findingid,id"/>
+        <INDEX NAME="actor_ix" UNIQUE="false" FIELDS="actorid,id"/>
+        <INDEX NAME="recent_ix" UNIQUE="false" FIELDS="timecreated"/>
+      </INDEXES>
+    </TABLE>
+    <TABLE NAME="report_skillupssecurity_privilege" COMMENT="Point-in-time privileged account evidence">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+        <FIELD NAME="scanid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="userid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="contextid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="roleid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" DEFAULT="0"/>
+        <FIELD NAME="capabilities" TYPE="text" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="suspended" TYPE="int" LENGTH="1" NOTNULL="true" SEQUENCE="false" DEFAULT="0"/>
+        <FIELD NAME="lastaccess" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" DEFAULT="0"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+      </KEYS>
+      <INDEXES>
+        <INDEX NAME="scanrows_ix" UNIQUE="false" FIELDS="scanid,id"/>
+        <INDEX NAME="subject_ix" UNIQUE="false" FIELDS="userid,id"/>
+        <INDEX NAME="context_ix" UNIQUE="false" FIELDS="scanid,contextid"/>
+      </INDEXES>
+    </TABLE>
+    <TABLE NAME="report_skillupssecurity_activity" COMMENT="Administrative evidence and audit trail for this report">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+        <FIELD NAME="actorid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" DEFAULT="0"/>
+        <FIELD NAME="subjectid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" DEFAULT="0"/>
+        <FIELD NAME="contextid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" DEFAULT="0"/>
+        <FIELD NAME="objectid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" DEFAULT="0"/>
+        <FIELD NAME="action" TYPE="char" LENGTH="24" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="detail" TYPE="char" LENGTH="100" NOTNULL="false" SEQUENCE="false"/>
+        <FIELD NAME="timecreated" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+      </KEYS>
+      <INDEXES>
+        <INDEX NAME="actor_ix" UNIQUE="false" FIELDS="actorid,id"/>
+        <INDEX NAME="subject_ix" UNIQUE="false" FIELDS="subjectid,id"/>
+        <INDEX NAME="recent_ix" UNIQUE="false" FIELDS="timecreated,id"/>
+        <INDEX NAME="action_ix" UNIQUE="false" FIELDS="action,id"/>
+      </INDEXES>
+    </TABLE>
+    <TABLE NAME="report_skillupssecurity_outbox" COMMENT="Deduplicated delivery references for a completed scan">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+        <FIELD NAME="scanid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="userid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="state" TYPE="char" LENGTH="12" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="personalonly" TYPE="int" LENGTH="1" NOTNULL="true" SEQUENCE="false" DEFAULT="0"/>
+        <FIELD NAME="timecreated" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="timesent" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" DEFAULT="0"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+      </KEYS>
+      <INDEXES>
+        <INDEX NAME="once_ix" UNIQUE="true" FIELDS="scanid,userid"/>
+        <INDEX NAME="waiting_ix" UNIQUE="false" FIELDS="state,timecreated,id"/>
+        <INDEX NAME="recipient_ix" UNIQUE="false" FIELDS="userid,id"/>
+      </INDEXES>
+    </TABLE>
+  </TABLES>
+</XMLDB>

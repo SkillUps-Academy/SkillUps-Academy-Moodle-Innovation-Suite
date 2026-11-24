@@ -1,0 +1,8 @@
+.skillups-security .security-metric {
+    height: 100%;
+    border-inline-start: 3px solid #286aa6 !important;
+}
+
+.skillups-security .table td {
+    overflow-wrap: anywhere;
+}
