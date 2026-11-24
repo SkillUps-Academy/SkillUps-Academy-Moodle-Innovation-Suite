@@ -1,0 +1,34 @@
+{{!
+    @template report_skillupsaccessibility/finding
+    Finding context, correction recommendation and review history.
+    Example context (json):
+    {"title":"Image without alternative text","source":"Course page","items":[]}
+}}
+<section class="skillups-accessibility">
+    <a href="{{back}}">{{#str}} back, report_skillupsaccessibility {{/str}}</a>
+    <header class="skillups-ac-hero mt-3">
+        <p class="skillups-ac-brand">{{classification}} · {{severity}}</p>
+        <h1>{{title}}</h1>
+        <p>{{source}} · {{location}} {{fact}}</p>
+        <a class="btn btn-outline-light" href="{{target}}">{{#str}} opensource, report_skillupsaccessibility {{/str}}</a>
+    </header>
+    <div class="skillups-ac-panel my-3">
+        <h2 class="h5">{{#str}} recommendation, report_skillupsaccessibility {{/str}}</h2>
+        <p>{{recommendation}}</p>
+        <dl class="skillups-ac-grid mb-0">
+            <div><dt>{{#str}} criterion, report_skillupsaccessibility {{/str}}</dt><dd>WCAG {{criterion}}</dd></div>
+            <div><dt>{{#str}} state, report_skillupsaccessibility {{/str}}</dt><dd>{{state}}</dd></div>
+            <div><dt>{{#str}} assignee, report_skillupsaccessibility {{/str}}</dt><dd>{{owner}}</dd></div>
+        </dl>
+    </div>
+    <h2>{{#str}} reviewhistory, report_skillupsaccessibility {{/str}}</h2>
+    <ul class="list-group mb-4">
+        {{#items}}<li class="list-group-item">
+            <strong>{{state}} · {{author}}</strong> · {{when}}
+            <p class="mb-1">{{#str}} assignee, report_skillupsaccessibility {{/str}} {{assignee}}</p>
+            <p class="skillups-ac-text">{{notes}}</p>
+            {{#files}}<p class="mb-1"><a href="{{url}}">{{name}}</a></p>{{/files}}
+        </li>{{/items}}
+        {{^items}}<li class="list-group-item">{{#str}} empty, report_skillupsaccessibility {{/str}}</li>{{/items}}
+    </ul>
+</section>

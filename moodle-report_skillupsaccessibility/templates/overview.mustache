@@ -1,0 +1,61 @@
+{{!
+    @template report_skillupsaccessibility/overview
+    Scoped accessibility metrics and period comparison.
+    Example context (json):
+    {"title":"Institutional audits","stats":[],"rows":[]}
+}}
+<section class="skillups-accessibility">
+    <header class="skillups-ac-hero">
+        <p class="skillups-ac-brand">SkillUps Academy</p>
+        <h1>SkillUps Accessibility Checker</h1>
+        <p>{{title}}</p>
+        <form method="post" action="{{form}}">
+            <input type="hidden" name="category" value="{{category}}">
+            <input type="hidden" name="sesskey" value="{{sesskey}}">
+            <button type="submit" class="btn btn-light">{{#str}} queuebulk, report_skillupsaccessibility {{/str}}</button>
+        </form>
+    </header>
+    <p class="alert alert-info mt-3">{{#str}} interpretation, report_skillupsaccessibility {{/str}}</p>
+    <form class="skillups-ac-panel mb-3" method="get" action="{{form}}">
+        <input type="hidden" name="category" value="{{category}}">
+        <div class="skillups-ac-grid">
+            {{#periods}}<div>
+                <label for="skillups-ac-{{name}}">{{label}}</label>
+                <input id="skillups-ac-{{name}}" class="form-control" type="date" name="{{name}}" value="{{value}}">
+            </div>{{/periods}}
+        </div>
+        <div class="d-flex gap-2 flex-wrap mt-3">
+            <button type="submit" class="btn btn-primary">{{#str}} apply, report_skillupsaccessibility {{/str}}</button>
+            {{#download}}<a class="btn btn-outline-primary" href="{{download}}">{{#str}} download, report_skillupsaccessibility {{/str}}</a>{{/download}}
+        </div>
+    </form>
+    <dl class="skillups-ac-grid">{{#stats}}
+        <div class="skillups-ac-panel"><dt>{{name}}</dt><dd class="h3 mb-0">{{value}}</dd></div>
+    {{/stats}}</dl>
+    <h2>{{#str}} course, report_skillupsaccessibility {{/str}}</h2>
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead><tr>
+                <th scope="col">{{#str}} course, report_skillupsaccessibility {{/str}}</th>
+                <th scope="col">{{#str}} checked, report_skillupsaccessibility {{/str}}</th>
+                <th scope="col">{{#str}} confirmed, report_skillupsaccessibility {{/str}}</th>
+                <th scope="col">{{#str}} review, report_skillupsaccessibility {{/str}}</th>
+                <th scope="col">{{#str}} index, report_skillupsaccessibility {{/str}}</th>
+                {{#compare}}<th scope="col">{{#str}} previous, report_skillupsaccessibility {{/str}}</th>{{/compare}}
+                <th scope="col">{{#str}} date, report_skillupsaccessibility {{/str}}</th>
+            </tr></thead>
+            <tbody>
+            {{#rows}}<tr><th scope="row"><a href="{{link}}">{{name}}</a>
+                {{#partial}}<small class="d-block">{{#str}} shortpartial, report_skillupsaccessibility {{/str}}</small>{{/partial}}</th>
+                <td>{{checked}} / {{coverage}}</td><td>{{confirmed}}</td><td>{{review}}</td><td>{{index}}</td>
+                {{#compare}}<td>{{previous}}</td>{{/compare}}<td>{{date}}</td></tr>
+            {{/rows}}
+            </tbody>
+        </table>
+    </div>
+    <h2>{{#str}} recurring, report_skillupsaccessibility {{/str}}</h2>
+    <ul class="list-group">
+        {{#recurring}}<li class="list-group-item d-flex justify-content-between"><span>{{name}}</span><strong>{{count}}</strong></li>{{/recurring}}
+        {{^recurring}}<li class="list-group-item">{{#str}} empty, report_skillupsaccessibility {{/str}}</li>{{/recurring}}
+    </ul>
+</section>

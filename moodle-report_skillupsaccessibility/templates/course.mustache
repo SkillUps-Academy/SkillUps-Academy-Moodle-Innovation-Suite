@@ -1,0 +1,82 @@
+{{!
+    @template report_skillupsaccessibility/course
+    Course options, static findings, coverage and audit history.
+    Example context (json):
+    {"title":"Education design","stats":[],"findings":[],"jobs":[]}
+}}
+<section class="skillups-accessibility">
+    <header class="skillups-ac-hero">
+        <p class="skillups-ac-brand">SkillUps Academy</p>
+        <h1>{{title}}</h1>
+        <p>{{#str}} pluginname, report_skillupsaccessibility {{/str}}</p>
+        <div class="d-flex gap-2 flex-wrap">
+        {{#scan}}
+            <form method="post" action="{{form}}">
+                <input type="hidden" name="id" value="{{courseid}}">
+                <input type="hidden" name="sesskey" value="{{sesskey}}">
+                <button type="submit" class="btn btn-light">{{#str}} queuescan, report_skillupsaccessibility {{/str}}</button>
+            </form>
+        {{/scan}}
+        {{#download}}<a class="btn btn-outline-light" href="{{download}}">{{#str}} download, report_skillupsaccessibility {{/str}}</a>{{/download}}
+        </div>
+    </header>
+    <p class="alert alert-info mt-3">{{#str}} interpretation, report_skillupsaccessibility {{/str}}</p>
+    <p>{{#str}} jobstatus, report_skillupsaccessibility {{/str}} <strong>{{jobstatus}}</strong> {{error}}</p>
+    {{#partial}}<p class="alert alert-warning">{{#str}} partial, report_skillupsaccessibility {{/str}}</p>{{/partial}}
+    {{#selection}}<p>{{#str}} date, report_skillupsaccessibility {{/str}} {{selection}}. {{processed}}</p>{{/selection}}
+    <dl class="skillups-ac-grid">{{#stats}}
+        <div class="skillups-ac-panel"><dt>{{name}}</dt><dd class="h3 mb-0">{{value}}</dd></div>
+    {{/stats}}</dl>
+    <div class="d-flex flex-wrap justify-content-between align-items-center gap-2">
+        <h2>{{#str}} findings, report_skillupsaccessibility {{/str}}</h2>
+        <form method="get" action="{{form}}" class="d-flex flex-wrap gap-2 align-items-center">
+            <input type="hidden" name="id" value="{{courseid}}">
+            <input type="hidden" name="jobid" value="{{jobid}}">
+            <label for="skillups-ac-reviewfilter">{{#str}} state, report_skillupsaccessibility {{/str}}</label>
+            <select name="state" id="skillups-ac-reviewfilter" class="form-select w-auto">
+                {{#states}}<option value="{{value}}" {{#selected}}selected{{/selected}}>{{label}}</option>{{/states}}
+            </select>
+            <button type="submit" class="btn btn-outline-primary">{{#str}} apply, report_skillupsaccessibility {{/str}}</button>
+        </form>
+    </div>
+    <div class="table-responsive my-3">
+        <table class="table table-striped">
+            <thead><tr>
+                <th scope="col">{{#str}} rule, report_skillupsaccessibility {{/str}}</th>
+                <th scope="col">{{#str}} source, report_skillupsaccessibility {{/str}}</th>
+                <th scope="col">{{#str}} classification, report_skillupsaccessibility {{/str}}</th>
+                <th scope="col">{{#str}} severity, report_skillupsaccessibility {{/str}}</th>
+                <th scope="col">{{#str}} state, report_skillupsaccessibility {{/str}}</th>
+            </tr></thead>
+            <tbody>
+            {{#findings}}
+                <tr><th scope="row">{{#href}}<a href="{{href}}">{{name}}</a>{{/href}}{{^href}}{{name}}{{/href}}
+                    <small class="d-block">WCAG {{criterion}}</small></th>
+                    <td>{{source}} <small class="d-block">{{location}} {{fact}}</small></td>
+                    <td>{{classification}}</td><td>{{severity}}</td><td>{{state}}</td></tr>
+            {{/findings}}
+            {{^findings}}<tr><td colspan="5">{{#str}} empty, report_skillupsaccessibility {{/str}}</td></tr>{{/findings}}
+            </tbody>
+        </table>
+    </div>
+    <details class="skillups-ac-panel mb-3">
+        <summary>{{#str}} outside, report_skillupsaccessibility {{/str}}</summary>
+        <p class="mt-2">{{#str}} outsidedetails, report_skillupsaccessibility {{/str}}</p>
+        <ul class="mb-0">{{#reasons}}<li>{{label}} · {{count}}</li>{{/reasons}}</ul>
+    </details>
+    <h2>{{#str}} timeline, report_skillupsaccessibility {{/str}}</h2>
+    <div class="table-responsive">
+        <table class="table">
+            <thead><tr>
+                <th scope="col">{{#str}} date, report_skillupsaccessibility {{/str}}</th>
+                <th scope="col">{{#str}} checked, report_skillupsaccessibility {{/str}}</th>
+                <th scope="col">{{#str}} confirmed, report_skillupsaccessibility {{/str}}</th>
+                <th scope="col">{{#str}} index, report_skillupsaccessibility {{/str}}</th>
+            </tr></thead>
+            <tbody>
+            {{#jobs}}<tr><th scope="row"><a href="{{href}}">{{date}}</a></th><td>{{checked}}</td><td>{{confirmed}}</td><td>{{index}}</td></tr>{{/jobs}}
+            {{^jobs}}<tr><td colspan="4">{{#str}} empty, report_skillupsaccessibility {{/str}}</td></tr>{{/jobs}}
+            </tbody>
+        </table>
+    </div>
+</section>

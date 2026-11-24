@@ -21,6 +21,7 @@
 - [SkillUps Attendance Pro](moodle-mod_skillupsattendance/README.md) — Manage Moodle sessions, attendance records, justifications and reports.
 - [SkillUps Scheduler](moodle-local_skillupsscheduler/README.md) — Plan institutional schedules, check conflicts and publish scoped calendars.
 - [SkillUps Competency Manager](moodle-local_skillupscompetency/README.md) — Define program targets, review competency assessments and report learning gaps.
+- [SkillUps Accessibility Checker](moodle-report_skillupsaccessibility/README.md) — Audit authored learning content, track findings and compare accessibility results.
 
 ## SkillUps AI Copilot 0.9.0-beta.1
 
@@ -197,3 +198,9 @@
 - [Source, installation and manuals](moodle-local_skillupscompetency/README.md)
 - [Installable ZIP](releases/skillupscompetency/skillupscompetency-0.9.0-beta.1.zip) and [checksum](releases/skillupscompetency/SHA256SUMS)
 - [Compatibility and test evidence](moodle-local_skillupscompetency/docs/validation.md)
+
+## SkillUps Accessibility Checker 0.9.0-beta.1
+
+- [Source, installation and manual](moodle-report_skillupsaccessibility/README.md)
+- [Installable ZIP](releases/skillupsaccessibility/skillupsaccessibility-0.9.0-beta.1.zip) and [checksum](releases/skillupsaccessibility/SHA256SUMS)
+- [Rules and verification](moodle-report_skillupsaccessibility/docs/validation.md)
