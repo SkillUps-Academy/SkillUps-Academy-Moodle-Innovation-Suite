@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<XMLDB PATH="local/skillupsrepository/db" VERSION="20261125" COMMENT="SkillUps Content Repository"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../lib/xmldb/xmldb.xsd">
+  <TABLES>
+    <TABLE NAME="local_skillupsrepository_asset" COMMENT="Institutional repository asset records">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+        <FIELD NAME="categoryid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" DEFAULT="0"/>
+        <FIELD NAME="ownerid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" DEFAULT="0"/>
+        <FIELD NAME="audience" TYPE="char" LENGTH="16" NOTNULL="true" SEQUENCE="false" DEFAULT="private"/>
+        <FIELD NAME="currentid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" DEFAULT="0"/>
+        <FIELD NAME="publishedid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" DEFAULT="0"/>
+        <FIELD NAME="archived" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" DEFAULT="0"/>
+        <FIELD NAME="generation" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" DEFAULT="0"/>
+        <FIELD NAME="uses" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" DEFAULT="0"/>
+        <FIELD NAME="updated" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" DEFAULT="0"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+      </KEYS>
+      <INDEXES>
+        <INDEX NAME="category_mode" UNIQUE="false" FIELDS="categoryid,audience,archived"/>
+        <INDEX NAME="owner" UNIQUE="false" FIELDS="ownerid"/>
+        <INDEX NAME="updated" UNIQUE="false" FIELDS="updated"/>
+      </INDEXES>
+    </TABLE>
+    <TABLE NAME="local_skillupsrepository_revision" COMMENT="Institutional repository revision records">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+        <FIELD NAME="assetid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" DEFAULT="0"/>
+        <FIELD NAME="number" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" DEFAULT="0"/>
+        <FIELD NAME="authorid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" DEFAULT="0"/>
+        <FIELD NAME="reviewerid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" DEFAULT="0"/>
+        <FIELD NAME="state" TYPE="char" LENGTH="12" NOTNULL="true" SEQUENCE="false" DEFAULT="draft"/>
+        <FIELD NAME="title" TYPE="char" LENGTH="180" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="description" TYPE="text" NOTNULL="false" SEQUENCE="false"/>
+        <FIELD NAME="collection" TYPE="char" LENGTH="120" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="area" TYPE="char" LENGTH="120" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="program" TYPE="char" LENGTH="120" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="level" TYPE="char" LENGTH="80" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="credit" TYPE="char" LENGTH="180" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="tags" TYPE="char" LENGTH="255" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="keywords" TYPE="char" LENGTH="255" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="license" TYPE="char" LENGTH="80" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="sourceurl" TYPE="text" NOTNULL="false" SEQUENCE="false"/>
+        <FIELD NAME="kind" TYPE="char" LENGTH="16" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="filename" TYPE="char" LENGTH="255" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="mimetype" TYPE="char" LENGTH="100" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="bytes" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" DEFAULT="0"/>
+        <FIELD NAME="allowcopy" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" DEFAULT="0"/>
+        <FIELD NAME="allowdownload" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" DEFAULT="0"/>
+        <FIELD NAME="created" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" DEFAULT="0"/>
+        <FIELD NAME="reviewed" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" DEFAULT="0"/>
+        <FIELD NAME="published" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" DEFAULT="0"/>
+        <FIELD NAME="reviewnote" TYPE="text" NOTNULL="false" SEQUENCE="false"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+        <KEY NAME="assetid_fk" TYPE="foreign" FIELDS="assetid" REFTABLE="local_skillupsrepository_asset" REFFIELDS="id"/>
+      </KEYS>
+      <INDEXES>
+        <INDEX NAME="asset_sequence" UNIQUE="true" FIELDS="assetid,number"/>
+        <INDEX NAME="author" UNIQUE="false" FIELDS="authorid"/>
+        <INDEX NAME="reviewer" UNIQUE="false" FIELDS="reviewerid"/>
+        <INDEX NAME="facets" UNIQUE="false" FIELDS="kind,collection"/>
+      </INDEXES>
+    </TABLE>
+    <TABLE NAME="local_skillupsrepository_usage" COMMENT="Institutional repository usage records">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+        <FIELD NAME="assetid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" DEFAULT="0"/>
+        <FIELD NAME="revisionid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" DEFAULT="0"/>
+        <FIELD NAME="courseid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" DEFAULT="0"/>
+        <FIELD NAME="sectionid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" DEFAULT="0"/>
+        <FIELD NAME="cmid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" DEFAULT="0"/>
+        <FIELD NAME="userid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" DEFAULT="0"/>
+        <FIELD NAME="created" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" DEFAULT="0"/>
+        <FIELD NAME="removed" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" DEFAULT="0"/>
+        <FIELD NAME="requestkey" TYPE="char" LENGTH="32" NOTNULL="true" SEQUENCE="false"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+        <KEY NAME="assetid_fk" TYPE="foreign" FIELDS="assetid" REFTABLE="local_skillupsrepository_asset" REFFIELDS="id"/>
+        <KEY NAME="revisionid_fk" TYPE="foreign" FIELDS="revisionid" REFTABLE="local_skillupsrepository_revision" REFFIELDS="id"/>
+      </KEYS>
+      <INDEXES>
+        <INDEX NAME="idempotence" UNIQUE="true" FIELDS="requestkey"/>
+        <INDEX NAME="mod_ix" UNIQUE="false" FIELDS="cmid"/>
+        <INDEX NAME="asset_ix" UNIQUE="false" FIELDS="assetid,revisionid"/>
+        <INDEX NAME="actor" UNIQUE="false" FIELDS="userid"/>
+      </INDEXES>
+    </TABLE>
+    <TABLE NAME="local_skillupsrepository_audit" COMMENT="Institutional repository audit records">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+        <FIELD NAME="assetid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" DEFAULT="0"/>
+        <FIELD NAME="revisionid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" DEFAULT="0"/>
+        <FIELD NAME="userid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" DEFAULT="0"/>
+        <FIELD NAME="action" TYPE="char" LENGTH="24" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="created" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" DEFAULT="0"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+        <KEY NAME="assetid_fk" TYPE="foreign" FIELDS="assetid" REFTABLE="local_skillupsrepository_asset" REFFIELDS="id"/>
+      </KEYS>
+      <INDEXES>
+        <INDEX NAME="asset_time" UNIQUE="false" FIELDS="assetid,created"/>
+        <INDEX NAME="actor" UNIQUE="false" FIELDS="userid"/>
+      </INDEXES>
+    </TABLE>
+  </TABLES>
+</XMLDB>
