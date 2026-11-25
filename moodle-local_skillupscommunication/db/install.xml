@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<XMLDB PATH="local/skillupscommunication/db" VERSION="20261125" COMMENT="SkillUps Communication Center"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../lib/xmldb/xmldb.xsd">
+  <TABLES>
+    <TABLE NAME="local_skillupscommunication_camp" COMMENT="Communication center camp">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+        <FIELD NAME="scopeid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" DEFAULT="0"/>
+        <FIELD NAME="creator" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" DEFAULT="0"/>
+        <FIELD NAME="reviewer" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" DEFAULT="0"/>
+        <FIELD NAME="state" TYPE="char" LENGTH="16" NOTNULL="true" SEQUENCE="false" DEFAULT="draft"/>
+        <FIELD NAME="revision" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" DEFAULT="1"/>
+        <FIELD NAME="wave" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" DEFAULT="0"/>
+        <FIELD NAME="subject" TYPE="char" LENGTH="180" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="body" TYPE="text" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="kind" TYPE="char" LENGTH="20" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="channel" TYPE="char" LENGTH="95" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="selector" TYPE="text" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="sendat" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" DEFAULT="0"/>
+        <FIELD NAME="created" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" DEFAULT="0"/>
+        <FIELD NAME="updated" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" DEFAULT="0"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+      </KEYS>
+      <INDEXES>
+        <INDEX NAME="scope_recent" UNIQUE="false" FIELDS="scopeid,updated"/>
+        <INDEX NAME="due" UNIQUE="false" FIELDS="state,sendat"/>
+        <INDEX NAME="creator" UNIQUE="false" FIELDS="creator"/>
+        <INDEX NAME="reviewer" UNIQUE="false" FIELDS="reviewer"/>
+      </INDEXES>
+    </TABLE>
+    <TABLE NAME="local_skillupscommunication_recipient" COMMENT="Communication center recipient">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+        <FIELD NAME="campaignid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" DEFAULT="0"/>
+        <FIELD NAME="userid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" DEFAULT="0"/>
+        <FIELD NAME="state" TYPE="char" LENGTH="16" NOTNULL="true" SEQUENCE="false" DEFAULT="pending"/>
+        <FIELD NAME="attempts" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" DEFAULT="0"/>
+        <FIELD NAME="nexttry" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" DEFAULT="0"/>
+        <FIELD NAME="messageid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" DEFAULT="0"/>
+        <FIELD NAME="failure" TYPE="char" LENGTH="24" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="updated" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" DEFAULT="0"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+        <KEY NAME="campaignid_fk" TYPE="foreign" FIELDS="campaignid" REFTABLE="local_skillupscommunication_camp" REFFIELDS="id"/>
+      </KEYS>
+      <INDEXES>
+        <INDEX NAME="recipient" UNIQUE="true" FIELDS="campaignid,userid"/>
+        <INDEX NAME="batch" UNIQUE="false" FIELDS="campaignid,state,nexttry"/>
+        <INDEX NAME="user_ix" UNIQUE="false" FIELDS="userid"/>
+      </INDEXES>
+    </TABLE>
+    <TABLE NAME="local_skillupscommunication_log" COMMENT="Communication center log">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+        <FIELD NAME="campaignid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" DEFAULT="0"/>
+        <FIELD NAME="userid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" DEFAULT="0"/>
+        <FIELD NAME="action" TYPE="char" LENGTH="24" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="created" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" DEFAULT="0"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+        <KEY NAME="campaignid_fk" TYPE="foreign" FIELDS="campaignid" REFTABLE="local_skillupscommunication_camp" REFFIELDS="id"/>
+      </KEYS>
+      <INDEXES>
+        <INDEX NAME="timeline" UNIQUE="false" FIELDS="campaignid,created"/>
+        <INDEX NAME="actor" UNIQUE="false" FIELDS="userid"/>
+      </INDEXES>
+    </TABLE>
+    <TABLE NAME="local_skillupscommunication_template" COMMENT="Communication center template">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+        <FIELD NAME="scopeid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" DEFAULT="0"/>
+        <FIELD NAME="authorid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" DEFAULT="0"/>
+        <FIELD NAME="name" TYPE="char" LENGTH="100" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="subject" TYPE="char" LENGTH="180" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="body" TYPE="text" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="kind" TYPE="char" LENGTH="20" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="updated" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" DEFAULT="0"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+      </KEYS>
+      <INDEXES>
+        <INDEX NAME="scope_name" UNIQUE="true" FIELDS="scopeid,name"/>
+        <INDEX NAME="author" UNIQUE="false" FIELDS="authorid"/>
+      </INDEXES>
+    </TABLE>
+    <TABLE NAME="local_skillupscommunication_segment" COMMENT="Communication center segment">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+        <FIELD NAME="scopeid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" DEFAULT="0"/>
+        <FIELD NAME="creator" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" DEFAULT="0"/>
+        <FIELD NAME="kind" TYPE="char" LENGTH="12" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="name" TYPE="char" LENGTH="100" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="targetcontext" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" DEFAULT="0"/>
+        <FIELD NAME="updated" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" DEFAULT="0"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+      </KEYS>
+      <INDEXES>
+        <INDEX NAME="scope_kind" UNIQUE="true" FIELDS="scopeid,kind,name"/>
+        <INDEX NAME="actor" UNIQUE="false" FIELDS="creator"/>
+      </INDEXES>
+    </TABLE>
+    <TABLE NAME="local_skillupscommunication_member" COMMENT="Communication center member">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+        <FIELD NAME="segmentid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" DEFAULT="0"/>
+        <FIELD NAME="userid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" DEFAULT="0"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+        <KEY NAME="segmentid_fk" TYPE="foreign" FIELDS="segmentid" REFTABLE="local_skillupscommunication_segment" REFFIELDS="id"/>
+      </KEYS>
+      <INDEXES>
+        <INDEX NAME="membership" UNIQUE="true" FIELDS="segmentid,userid"/>
+        <INDEX NAME="user_ix" UNIQUE="false" FIELDS="userid"/>
+      </INDEXES>
+    </TABLE>
+  </TABLES>
+</XMLDB>

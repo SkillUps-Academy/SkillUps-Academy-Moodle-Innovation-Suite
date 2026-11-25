@@ -24,6 +24,7 @@
 - [SkillUps Accessibility Checker](moodle-report_skillupsaccessibility/README.md) — Audit authored learning content, track findings and compare accessibility results.
 - [SkillUps Exam Manager](moodle-local_skillupsexam/README.md) — Plan exam convocations, supervise participation and read authorized Moodle assessment results.
 - [SkillUps Content Repository](moodle-local_skillupsrepository/README.md) — Classify, review, version and reuse institutional Moodle teaching resources.
+- [SkillUps Communication Center](moodle-local_skillupscommunication/README.md) — Segment, approve, schedule and track institutional Moodle communications.
 
 ## SkillUps AI Copilot 0.9.0-beta.1
 
@@ -218,3 +219,9 @@
 - [Source, installation and manuals](moodle-local_skillupsrepository/README.md)
 - [Installable ZIP](releases/skillupsrepository/skillupsrepository-0.9.0-beta.1.zip) and [SHA-256 checksum](releases/skillupsrepository/SHA256SUMS)
 - [Compatibility and test evidence](moodle-local_skillupsrepository/docs/validation.md)
+
+## SkillUps Communication Center 0.9.0-beta.1
+
+- [Source, installation and manuals](moodle-local_skillupscommunication/README.md)
+- [Installable ZIP](releases/skillupscommunication/skillupscommunication-0.9.0-beta.1.zip) and [SHA-256 checksum](releases/skillupscommunication/SHA256SUMS)
+- [Compatibility and test evidence](moodle-local_skillupscommunication/docs/validation.md)
