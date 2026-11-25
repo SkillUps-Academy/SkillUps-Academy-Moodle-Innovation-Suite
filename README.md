@@ -25,6 +25,7 @@
 - [SkillUps Exam Manager](moodle-local_skillupsexam/README.md) — Plan exam convocations, supervise participation and read authorized Moodle assessment results.
 - [SkillUps Content Repository](moodle-local_skillupsrepository/README.md) — Classify, review, version and reuse institutional Moodle teaching resources.
 - [SkillUps Communication Center](moodle-local_skillupscommunication/README.md) — Segment, approve, schedule and track institutional Moodle communications.
+- [SkillUps Course Migration](moodle-tool_skillupsmigration/README.md) — Inventory, validate and restore selected courses between authorized Moodle sites.
 
 ## SkillUps AI Copilot 0.9.0-beta.1
 
@@ -225,3 +226,9 @@
 - [Source, installation and manuals](moodle-local_skillupscommunication/README.md)
 - [Installable ZIP](releases/skillupscommunication/skillupscommunication-0.9.0-beta.1.zip) and [SHA-256 checksum](releases/skillupscommunication/SHA256SUMS)
 - [Compatibility and test evidence](moodle-local_skillupscommunication/docs/validation.md)
+
+## SkillUps Course Migration 0.9.0-beta.1
+
+- [Source, installation and manual](moodle-tool_skillupsmigration/README.md)
+- [Installable ZIP](releases/skillupsmigration/skillupsmigration-0.9.0-beta.1.zip) and [SHA-256 checksum](releases/skillupsmigration/SHA256SUMS)
+- [Compatibility and test evidence](moodle-tool_skillupsmigration/docs/validation.md)

@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<XMLDB PATH="admin/tool/skillupsmigration/db" VERSION="20261125" COMMENT="SkillUps Course Migration"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../lib/xmldb/xmldb.xsd">
+ <TABLES>
+   <TABLE NAME="tool_skillupsmigration_job" COMMENT="Course migration job records">
+     <FIELDS>
+       <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+       <FIELD NAME="actor" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" DEFAULT="0"/>
+       <FIELD NAME="endpoint" TYPE="char" LENGTH="48" NOTNULL="true" SEQUENCE="false"/>
+       <FIELD NAME="originhash" TYPE="char" LENGTH="64" NOTNULL="true" SEQUENCE="false"/>
+       <FIELD NAME="wave" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" DEFAULT="0"/>
+       <FIELD NAME="categoryid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" DEFAULT="0"/>
+       <FIELD NAME="state" TYPE="char" LENGTH="16" NOTNULL="true" SEQUENCE="false" DEFAULT="draft"/>
+       <FIELD NAME="created" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" DEFAULT="0"/>
+       <FIELD NAME="updated" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" DEFAULT="0"/>
+     </FIELDS>
+     <KEYS>
+       <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+     </KEYS>
+     <INDEXES>
+       <INDEX NAME="dispatch" UNIQUE="false" FIELDS="state,updated"/>
+       <INDEX NAME="actor" UNIQUE="false" FIELDS="actor"/>
+     </INDEXES>
+   </TABLE>
+   <TABLE NAME="tool_skillupsmigration_item" COMMENT="Course migration item records">
+     <FIELDS>
+       <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+       <FIELD NAME="jobid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" DEFAULT="0"/>
+       <FIELD NAME="sourceid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" DEFAULT="0"/>
+       <FIELD NAME="courseid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" DEFAULT="0"/>
+       <FIELD NAME="shortname" TYPE="char" LENGTH="100" NOTNULL="true" SEQUENCE="false"/>
+       <FIELD NAME="requestkey" TYPE="char" LENGTH="48" NOTNULL="true" SEQUENCE="false"/>
+       <FIELD NAME="state" TYPE="char" LENGTH="16" NOTNULL="true" SEQUENCE="false" DEFAULT="planned"/>
+       <FIELD NAME="options" TYPE="text" NOTNULL="false" SEQUENCE="false"/>
+       <FIELD NAME="inventory" TYPE="text" NOTNULL="false" SEQUENCE="false"/>
+       <FIELD NAME="report" TYPE="text" NOTNULL="false" SEQUENCE="false"/>
+       <FIELD NAME="exportid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" DEFAULT="0"/>
+       <FIELD NAME="bytes" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" DEFAULT="0"/>
+       <FIELD NAME="digest" TYPE="char" LENGTH="64" NOTNULL="true" SEQUENCE="false"/>
+       <FIELD NAME="attempts" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" DEFAULT="0"/>
+       <FIELD NAME="nexttry" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" DEFAULT="0"/>
+       <FIELD NAME="updated" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" DEFAULT="0"/>
+     </FIELDS>
+     <KEYS>
+       <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+       <KEY NAME="jobid_fk" TYPE="foreign" FIELDS="jobid" REFTABLE="tool_skillupsmigration_job" REFFIELDS="id"/>
+     </KEYS>
+     <INDEXES>
+       <INDEX NAME="injob" UNIQUE="true" FIELDS="jobid,sourceid"/>
+       <INDEX NAME="state_ready" UNIQUE="false" FIELDS="state,nexttry"/>
+       <INDEX NAME="request" UNIQUE="true" FIELDS="requestkey"/>
+     </INDEXES>
+   </TABLE>
+   <TABLE NAME="tool_skillupsmigration_artifact" COMMENT="Course migration artifact records">
+     <FIELDS>
+       <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+       <FIELD NAME="actor" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" DEFAULT="0"/>
+       <FIELD NAME="courseid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" DEFAULT="0"/>
+       <FIELD NAME="requestkey" TYPE="char" LENGTH="48" NOTNULL="true" SEQUENCE="false"/>
+       <FIELD NAME="state" TYPE="char" LENGTH="12" NOTNULL="true" SEQUENCE="false" DEFAULT="pending"/>
+       <FIELD NAME="options" TYPE="text" NOTNULL="false" SEQUENCE="false"/>
+       <FIELD NAME="inventory" TYPE="text" NOTNULL="false" SEQUENCE="false"/>
+       <FIELD NAME="bytes" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" DEFAULT="0"/>
+       <FIELD NAME="digest" TYPE="char" LENGTH="64" NOTNULL="true" SEQUENCE="false"/>
+       <FIELD NAME="created" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" DEFAULT="0"/>
+       <FIELD NAME="updated" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" DEFAULT="0"/>
+       <FIELD NAME="errorcode" TYPE="char" LENGTH="32" NOTNULL="true" SEQUENCE="false"/>
+     </FIELDS>
+     <KEYS>
+       <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+     </KEYS>
+     <INDEXES>
+       <INDEX NAME="origin_key" UNIQUE="true" FIELDS="actor,requestkey"/>
+       <INDEX NAME="dispatch" UNIQUE="false" FIELDS="state,updated"/>
+       <INDEX NAME="actor" UNIQUE="false" FIELDS="actor"/>
+     </INDEXES>
+   </TABLE>
+   <TABLE NAME="tool_skillupsmigration_audit" COMMENT="Course migration audit records">
+     <FIELDS>
+       <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+       <FIELD NAME="jobid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" DEFAULT="0"/>
+       <FIELD NAME="itemid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" DEFAULT="0"/>
+       <FIELD NAME="actor" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" DEFAULT="0"/>
+       <FIELD NAME="action" TYPE="char" LENGTH="30" NOTNULL="true" SEQUENCE="false"/>
+       <FIELD NAME="created" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" DEFAULT="0"/>
+     </FIELDS>
+     <KEYS>
+       <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+       <KEY NAME="jobid_fk" TYPE="foreign" FIELDS="jobid" REFTABLE="tool_skillupsmigration_job" REFFIELDS="id"/>
+     </KEYS>
+     <INDEXES>
+       <INDEX NAME="jobtime" UNIQUE="false" FIELDS="jobid,created"/>
+       <INDEX NAME="actor" UNIQUE="false" FIELDS="actor"/>
+     </INDEXES>
+   </TABLE>
+ </TABLES>
+</XMLDB>

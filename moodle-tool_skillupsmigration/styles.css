@@ -1,0 +1,17 @@
+.skillups-migration .sm-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .65rem;
+    margin-block: .85rem;
+}
+.skillups-migration .sm-report {
+    border: 1px solid var(--bs-border-color, #cbd5e1);
+    border-radius: .45rem;
+    padding: .8rem 1rem;
+    margin-block: 1rem;
+    overflow-wrap: anywhere;
+}
+.skillups-migration .sm-report summary {
+    padding-block: .3rem;
+    font-weight: 600;
+}
